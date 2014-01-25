@@ -5,14 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 
 public class GameScreen extends ScreenMaster
 {
-	private Animation jackWalking;
-	private Animation jackRunning;
 	private Animation tree;
 	private Stage stage;
 	private float animTime;
+	private BuchBuch jack;
 
 	public GameScreen()
 	{
@@ -20,52 +20,7 @@ public class GameScreen extends ScreenMaster
 		animTime = 0;
 		stage = new Stage(960, 640, false);
 		
-		{
-			Sprite[] jackFrames = new Sprite[4];
-			jackFrames[0] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					0, 0, 64, 64);
-			jackFrames[1] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					64, 0, 64, 64);
-			jackFrames[2] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					128, 0, 64, 64);
-			jackFrames[3] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					192, 0, 64, 64);
-			jackWalking = new Animation(0.2F, jackFrames);
-			jackWalking.setPlayMode(Animation.LOOP);
-		}
-		
-		{
-			Sprite[] jackFrames = new Sprite[3];
-			jackFrames[0] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackCours_01.png")),
-					0, 0, 64, 64);
-			jackFrames[1] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackCours_02.png")),
-					0, 0, 64, 64);
-			jackFrames[2] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackCours_03.png")),
-					0, 0, 64, 64);
-			jackRunning = new Animation(0.2F, jackFrames);
-			jackRunning.setPlayMode(Animation.LOOP);
-		}
+		jack = new BuchBuch(100, 100);
 		
 		{
 			Sprite[] treeFrames = new Sprite[3];
@@ -97,8 +52,7 @@ public class GameScreen extends ScreenMaster
 		stage.getSpriteBatch().begin();
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		for (int i = 0; i< 10; i++)
-		stage.getSpriteBatch().draw(jackRunning.getKeyFrame(animTime), (100*i + (600 + 150*animTime)) % (960-64), 100);
-		stage.getSpriteBatch().draw(jackWalking.getKeyFrame(animTime), 100*animTime % (960-64), 200);
+		stage.getSpriteBatch().draw(jack.getFrame(animTime), jack.getX(), jack.getY());
 		stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), (100 + 100*animTime) % (960-64), 200);
 		stage.getSpriteBatch().end();
 	}
