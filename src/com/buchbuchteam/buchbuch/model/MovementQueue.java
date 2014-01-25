@@ -7,9 +7,7 @@ public class MovementQueue {
 	protected LinkedList<Movement> queue;
 	
 	public MovementQueue(){
-		
 		queue = new LinkedList<Movement>();
-		
 	}
 	
 	public void add(Movement movement){
@@ -20,5 +18,8 @@ public class MovementQueue {
 		return queue.removeFirst();
 	}
 	
+	public void Execute(){
+		//TODO Execute the queue
+	}
 	
 }

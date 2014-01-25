@@ -4,8 +4,8 @@ public abstract class Player {
 
 	protected Controllable controllable;
 	
-	public abstract boolean jump();
-	public abstract boolean crouch();
+	public abstract void jump();
+	public abstract void crouch();
 	
 	public void setControllable( Controllable controllable ){
 		
