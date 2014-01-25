@@ -6,5 +6,6 @@ public interface Controllable {
 	public void crouch();
 	public void walk();
 	public void leave();
+	public void run();
 	
 }
