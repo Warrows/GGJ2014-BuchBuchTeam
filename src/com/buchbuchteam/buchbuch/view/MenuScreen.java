@@ -36,8 +36,8 @@ public class MenuScreen extends ScreenMaster {
 		stage.addActor(jouerButton);
 		jouerButton.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y){
-				System.out.println("CLICK");
 				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+				jouerButton.removeListener(this);
 			}
 		});
 
