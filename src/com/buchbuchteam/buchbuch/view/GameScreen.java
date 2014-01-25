@@ -63,18 +63,10 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 			stage.getSpriteBatch().draw(entity.getFrame(animTime),
 					entity.getX(), entity.getY());
 		}
-
 		stage.getSpriteBatch().end();
-		if (buchers.isEmpty())
+		if (buchers.isEmpty() || buchers.getFirst().isAttacking() )
 		{
 			tree.setDeath(true);
-			treeDestroy = true;
-			ia.toggleMode();
-			human.toggleMode();
-		} else if (buchers.getFirst().isAttacking() && !treeDestroy)
-		{
-			tree.setDeath(true);
-			treeDestroy = true;
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
