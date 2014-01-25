@@ -41,10 +41,10 @@ public class BuchBuch extends MoveableEntity
 	@Override
 	public TextureRegion getFrame(float stateTime)
 	{
-		TextureRegion frame;
+		TextureRegion frame = null;
 		if (running && !Team.getInstance().ahead(x))
 			frame = run(stateTime);
-		else
+		else if (!leaving)
 			frame = walk(stateTime);
 		
 		if( attacking ) {
@@ -55,8 +55,10 @@ public class BuchBuch extends MoveableEntity
 			}
 		}
 		
-		if (leaving)
+		if (leaving){
 			frame = leaving(stateTime);
+			x -= 1.5;
+		}	
 		
 		if (jumping)
 		{
