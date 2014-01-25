@@ -1,52 +1,58 @@
 package com.buchbuchteam.buchbuch.view;
 
-public class MenuScreen extends ScreenMaster{
-
-	protected MenuScreen() {
+public class MenuScreen extends ScreenMaster
+{	
+	protected MenuScreen()
+	{
 		super("img/background/bgmenu.png");
-		
 	}
 
 	@Override
-	public void render(float delta) {
-		super.bgRender();
-		
+	public void render(float delta)
+	{
+		bgRender();
 	}
 
 	@Override
-	public void resize(int width, int height) {
+	public void resize(int width, int height)
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void show() {
+	public void show()
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void hide() {
+	public void hide()
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void pause() {
+	public void pause()
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void resume() {
+	public void resume()
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose()
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

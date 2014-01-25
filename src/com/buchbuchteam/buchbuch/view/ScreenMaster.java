@@ -16,7 +16,7 @@ public abstract class ScreenMaster  implements Screen {
 		private OrthographicCamera camera;
 		
 		//VARIABLES DU BACKGROUND
-		private SpriteBatch bgBatch; //BATCH DU SPRITE DE FOND
+		protected SpriteBatch bgBatch; //BATCH DU SPRITE DE FOND
 		protected Sprite bgSprite; //SPRITE DE FOND
 		private String file; //CHEMIN DE L'IMAGE DE FOND
 		private int bgWidth = Game.WIDTH, bgHeight = Game.HEIGHT, bgX = 0, bgY = 0; //VARIABLE IMAGE DE FOND
@@ -54,7 +54,6 @@ public abstract class ScreenMaster  implements Screen {
 				bgBatch.begin();
 				bgSprite.draw(bgBatch);
 				bgBatch.end();
-				System.out.println("RENDER BACKGROUND");
 			
 			
 		}
