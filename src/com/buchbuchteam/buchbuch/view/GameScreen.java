@@ -31,8 +31,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		buchers = Team.getInstance();
 		tree = new MovingTree(700, 240);
 		human = new Human();
-		BuchBuch.Cry();
-		
 	
 	}
 

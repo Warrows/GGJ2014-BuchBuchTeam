@@ -15,7 +15,7 @@ public class MovingTree extends MoveableEntity
 	{
 		this.x = x;
 		this.y = y;
-		Cry();
+		cry();
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class MovingTree extends MoveableEntity
 		
 	}
 	
-	public static void Cry(){
+	public static void cry(){
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Tree.wav"));
 		sound.play(1.0f);
 		sound.loop();

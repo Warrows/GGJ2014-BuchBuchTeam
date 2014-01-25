@@ -222,14 +222,27 @@ public class BuchBuch extends MoveableEntity
 	{
 		jackJumping = new Animation(0.2F, jackJumpingSprite);
 		jackJumping.setPlayMode(Animation.LOOP);
-		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
-		sound.play(0.5f);
 	}
 
-	public static void Cry()
+	public void cry()
 	{
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buch.wav"));
 		sound.play(0.5f);
+	}
 
+	public boolean isRunning()
+	{
+		return running;
+	}
+
+	public boolean isJumping()
+	{
+		return jumping;
+	}
+
+	public void jumpCry()
+	{
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
+		sound.play(0.5f);		
 	}
 }
