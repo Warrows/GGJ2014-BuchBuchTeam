@@ -90,6 +90,10 @@ public class Team implements Controllable
 	}
 
 	
+	public BuchBuch getFirst(){
+		return team.getFirst();
+	}
+	
 	public void render(Batch spriteBatch, float animTime)
 	{
 		movements.execute();

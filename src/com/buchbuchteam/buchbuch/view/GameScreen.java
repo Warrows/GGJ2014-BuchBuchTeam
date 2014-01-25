@@ -21,6 +21,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	private BackGround bg;
 	private Human human;
 	private IA ia;
+	private boolean treeDestroy;
 
 	GameScreen()
 	{
@@ -47,10 +48,18 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		bg.render(stage.getSpriteBatch());
 		buchers.render(stage.getSpriteBatch(), animTime);
-		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),
-				tree.getY());
+	
+		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),tree.getY());
+		
 		stage.getSpriteBatch().end();
 
+		if (buchers.getFirst().isAttacking() && ! treeDestroy){
+			
+			tree.setDeath(true);
+			
+			treeDestroy = true;
+		}
+		
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 			human.right(); // .buchers.run();
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
