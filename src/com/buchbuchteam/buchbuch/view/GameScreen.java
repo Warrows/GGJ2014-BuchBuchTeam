@@ -39,6 +39,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	@Override
 	public void render(float delta)
 	{
+		ia.play();
 
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
