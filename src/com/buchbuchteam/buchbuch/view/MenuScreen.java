@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 
 public class MenuScreen extends ScreenMaster {
 	
@@ -26,38 +27,14 @@ public class MenuScreen extends ScreenMaster {
 	private Sprite jouerSprite, controlSprite, hightscoreSprite, creditsSprite, quitterSprite;
 	private Button jouerButton, controlButton, hightscoreButton, creditsButton, quitterButton;
 	
-	private Animation jack;
+	private BuchBuch jack;
 	private Animation tree;
 	private float animTime;
 
 	protected MenuScreen() {
 		super("img/menu/bgmenu.png");
 		Gdx.input.setInputProcessor(stage);	
-		{
-			Sprite[] jackFrames = new Sprite[4];
-			jackFrames[0] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					0, 0, 64, 64);
-			jackFrames[1] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					64, 0, 64, 64);
-			jackFrames[2] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					128, 0, 64, 64);
-			jackFrames[3] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					192, 0, 64, 64);
-			jack = new Animation(0.2F, jackFrames);
-			jack.setPlayMode(Animation.LOOP);
-		}
+		jack = new BuchBuch(4, 0);
 		
 		{
 			Sprite[] treeFrames = new Sprite[3];
@@ -185,8 +162,8 @@ stage.getSpriteBatch().draw(creditsSprite, buttonX, creditsY);
 stage.getSpriteBatch().draw(quitterSprite, buttonX, quitterY);
 
 
-stage.getSpriteBatch().draw(jack.getKeyFrame(animTime), 100*animTime % (960-64), 4);
-stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), 80*animTime % (960-128), 20);
+stage.getSpriteBatch().draw(jack.getRunningFrame(animTime),  (100*animTime %1160) - 196, 20);
+stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), 50 + (100*animTime %1160) - 96 ,  4);
 
 stage.getSpriteBatch().end();
 		}
