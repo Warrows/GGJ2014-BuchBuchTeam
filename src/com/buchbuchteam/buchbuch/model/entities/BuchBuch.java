@@ -291,6 +291,10 @@ public class BuchBuch extends MoveableEntity
 	{
 		return jumping;
 	}
+	
+	public boolean isAttacking(){
+		return attacking;
+	}
 
 	public void jumpCry()
 	{

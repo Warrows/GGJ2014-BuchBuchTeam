@@ -14,12 +14,14 @@ public class MovingTree extends MoveableEntity implements Controllable
 	private static MovingTree instance;
 	
 	private float x, y;
+	private boolean death;
 	private int firing;
 	
 	private MovingTree()
 	{
 		this.x = 700;
 		this.y = 240;
+		this.death = false;
 		cry();
 	}
 	
@@ -31,6 +33,9 @@ public class MovingTree extends MoveableEntity implements Controllable
 	@Override
 	public TextureRegion getFrame(float stateTime)
 	{
+		if (death)
+			return treeDie.getKeyFrame(stateTime);
+		
 		if (firing>=0)
 		{
 			firing --;
@@ -51,6 +56,31 @@ public class MovingTree extends MoveableEntity implements Controllable
 	public float getY()
 	{
 		return y;
+	}
+	
+	private static Animation treeDie;
+	{
+		Sprite[] treeFrames = new Sprite[6];
+		treeFrames[0] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/death/char_tree_death01.png")), 0,
+				0, 128, 128);
+		treeFrames[1] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/death/char_tree_death02.png")), 0,
+				0, 128, 128);
+		treeFrames[2] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/death/char_tree_death03.png")), 0,
+				0, 128, 128);
+		treeFrames[3] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/death/char_tree_death04.png")), 0,
+				0, 128, 128);
+		treeFrames[4] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/death/char_tree_death05.png")), 0,
+				0, 128, 128);
+		treeFrames[5] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/death/char_tree_death06.png")), 0,
+				0, 128, 128);
+		treeDie = new Animation(0.2F, treeFrames);
+		treeDie.setPlayMode(Animation.LOOP);
 	}
 	
 	public static void cry(){
@@ -98,6 +128,9 @@ public class MovingTree extends MoveableEntity implements Controllable
 		
 	}
 
+	public void setDeath(boolean b) {
+		this.death = b;
+	}
 
 
 	private static Animation acornFireAnim;
@@ -129,5 +162,5 @@ public class MovingTree extends MoveableEntity implements Controllable
 				0, 128, 128);
 		treeAnim = new Animation(0.2F, treeFrames);
 		treeAnim.setPlayMode(Animation.LOOP);
-	}	
+	}
 }

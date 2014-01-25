@@ -90,11 +90,6 @@ public class Team implements Controllable
 		toLeave = false;
 	}
 
-	public boolean isEmpty()
-	{
-		return team.isEmpty();
-	}
-
 	public void reset()
 	{
 		team.addAll(leavers);
@@ -185,9 +180,14 @@ public class Team implements Controllable
 
 	}
 
+	public BuchBuch getFirst()
+	{
+		return team.getFirst();
+	}
+
 	public boolean allLeaved()
 	{
-		if (!isEmpty())
+		if (!team.isEmpty())
 			return false;
 		for (BuchBuch b : leavers)
 			if (b.getX() > -62)
