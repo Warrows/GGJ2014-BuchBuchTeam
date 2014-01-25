@@ -7,22 +7,26 @@ import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 
 public class Team implements Controllable
 {
+	private static Team instance;
+	
 	private float y;
 	protected LinkedList<BuchBuch> team;
 	protected MovementQueue movements;
 	protected int nbBuch;
 
-	public Team(float y)
+	private Team()
 	{
 		this.team = new LinkedList<BuchBuch>();
 		this.movements = new MovementQueue();
-		this.y = y;
+		this.y = 250;
 		reinit();
 	}
 
 	public void reinit()
 	{
 		nbBuch = 5;
+		while(team.size() < nbBuch)
+			team.add(new BuchBuch(-64, y));
 	}
 
 	@Override
@@ -81,9 +85,22 @@ public class Team implements Controllable
 
 	public void render(Batch spriteBatch, float animTime)
 	{
-		if (team.isEmpty() || team.size() < nbBuch && team.getLast().getX()>0)
-			team.add(new BuchBuch(-64, y));
 		for (BuchBuch b: team)
 			spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
+	}
+
+	public static Team getInstance()
+	{
+		if (instance == null)
+			instance = new Team();
+		return instance;
+	}
+
+	public boolean ahead(float x)
+	{
+		for (BuchBuch b : team)
+			if (b.getX() > x && b.getX() < x + 54)
+				return true;
+		return false;
 	}
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.buchbuchteam.buchbuch.model.Team;
 
 public class BuchBuch extends MoveableEntity
 {
@@ -25,10 +26,11 @@ public class BuchBuch extends MoveableEntity
 	@Override
 	public TextureRegion getFrame(float stateTime)
 	{
-		if (running){
+		if (running && !Team.getInstance().ahead(x))
+		{
 			x += 2;
 			return jackRunning.getKeyFrame(stateTime);
-		} 
+		}
 		x--;
 		if (x<=0) x=0;
 		return jackWalking.getKeyFrame(stateTime);

@@ -25,7 +25,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		
 		bg = new BackGround();
 		
-		buchers = new Team(250);
+		buchers = Team.getInstance();
 		tree = new MovingTree(700, 240);
 		human = new Human();
 	}
