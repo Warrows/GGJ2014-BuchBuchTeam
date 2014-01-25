@@ -1,5 +1,4 @@
 package com.buchbuchteam.buchbuch.view;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -71,39 +70,45 @@ stage.getSpriteBatch().end();
 		}
 
 	@Override
-	public void resize(int width, int height) {
+	public void resize(int width, int height)
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void show() {
+	public void show()
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void hide() {
+	public void hide()
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void pause() {
+	public void pause()
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void resume() {
+	public void resume()
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose()
+	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
