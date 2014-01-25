@@ -12,4 +12,14 @@ public class Human extends Player {
 		controllable.crouch();
 	}
 
+	@Override
+	public void walk() {
+		controllable.walk();
+	}
+
+	@Override
+	public void leave() {
+		controllable.leave();
+	}
+
 }
