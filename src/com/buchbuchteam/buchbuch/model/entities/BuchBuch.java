@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.buchbuchteam.buchbuch.model.Movement;
+import com.buchbuchteam.buchbuch.view.GameScreen;
 
 public class BuchBuch extends MoveableEntity
 {
@@ -25,13 +27,26 @@ public class BuchBuch extends MoveableEntity
 	@Override
 	public TextureRegion getFrame(float stateTime)
 	{
-		if (running){
-			x += 2;
-			return jackRunning.getKeyFrame(stateTime);
-		} 
+		if (running)
+			return run(stateTime);
+		return walk(stateTime);
+	}
+
+	private TextureRegion walk(float stateTime)
+	{
 		x--;
 		if (x<=0) x=0;
 		return jackWalking.getKeyFrame(stateTime);
+	}
+
+	private TextureRegion run(float stateTime)
+	{
+		x += 2;
+		if (x >= GameScreen.getInstance().getTree().getX())
+		{
+			setRunning(false);
+		}
+		return jackRunning.getKeyFrame(stateTime);
 	}
 	
 	public TextureRegion getRunningFrame(float animTime)

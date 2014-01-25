@@ -66,8 +66,6 @@ public class Team implements Controllable
 	public void run() {
 		for (int i = 0; i < team.size(); i++)
 		{
-			if (team.get(i).getX() >= GameScreen.getInstance().getTree().getX())
-				continue;
 			movements.add(new Movement(Movement.MovementType.RUN, team.get(i)));
 			movements.remove().doMove();
 		}
