@@ -1,6 +1,15 @@
 package com.buchbuchteam.buchbuch.view;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class MenuScreen extends ScreenMaster{
+	
+	//Variables de bouttons
+	public static final
+	SpriteBatch jouerBatch, controlBatch, hightscoreBatch, creditsBatch, quitterBatch;
+	Sprite jouerSprite, controlSprite, higthscoreSprite, creditsSprite, quitterSprite;
+	
 
 	protected MenuScreen() {
 		super("img/menu/bgmenu.png");
