@@ -1,17 +1,19 @@
 package com.buchbuchteam.buchbuch.view;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 
-public class MenuScreen extends ScreenMaster {
+public class MenuScreen extends ScreenMaster implements EventListener{
 	
 	//Variables de bouttons
 	
@@ -30,6 +32,8 @@ public class MenuScreen extends ScreenMaster {
 	private BuchBuch jack;
 	private Animation tree;
 	private float animTime;
+	
+
 
 	protected MenuScreen() {
 		super("img/menu/bgmenu.png");
@@ -65,87 +69,50 @@ public class MenuScreen extends ScreenMaster {
 		jouerSprite.setY(jouerY);
 		jouerButton = new Button(new SpriteDrawable(jouerSprite));
 		stage.addActor(jouerButton);
-		jouerButton.addListener(new ClickListener(){
-			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
-				jouerButton.removeListener(this);
-				controlButton.removeListener(this);
-				hightscoreButton.removeListener(this);
-				creditsButton.removeListener(this);
-				quitterButton.removeListener(this);
-			}
-		});
+
 
 		controlSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/controlbutton.png")),buttonWidth,buttonHeight);
 		controlSprite.setX(buttonX);
 		controlSprite.setY(controlY);
-		controlButton = new Button(new SpriteDrawable(jouerSprite));
+		controlButton = new Button(new SpriteDrawable(controlSprite));
 		stage.addActor(controlButton);
-		controlButton.addListener(new ClickListener(){
-			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
-				jouerButton.removeListener(this);
-				controlButton.removeListener(this);
-				hightscoreButton.removeListener(this);
-				creditsButton.removeListener(this);
-				quitterButton.removeListener(this);
-			}
-		});
+
+	
+
+
 		
 		hightscoreSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/hightscorebutton.png")),buttonWidth,buttonHeight);
 		hightscoreSprite.setX(buttonX);
 		hightscoreSprite.setY(hightscoreY);
-		
-		hightscoreButton = new Button(new SpriteDrawable(jouerSprite));
+		hightscoreButton = new Button(new SpriteDrawable(hightscoreSprite));
 		stage.addActor(hightscoreButton);
-		hightscoreButton.addListener(new ClickListener(){
-			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
-				jouerButton.removeListener(this);
-				controlButton.removeListener(this);
-				hightscoreButton.removeListener(this);
-				creditsButton.removeListener(this);
-				quitterButton.removeListener(this);
-			}
-		});
+
+		
 		
 		creditsSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/creditsbutton.png")),buttonWidth,buttonHeight);
 		creditsSprite.setX(buttonX);
 		creditsSprite.setY(creditsY);
-		creditsButton = new Button(new SpriteDrawable(jouerSprite));
+		creditsButton = new Button(new SpriteDrawable(creditsSprite));
 		stage.addActor(creditsButton);
-		creditsButton.addListener(new ClickListener(){
-			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
-				jouerButton.removeListener(this);
-				controlButton.removeListener(this);
-				hightscoreButton.removeListener(this);
-				creditsButton.removeListener(this);
-				quitterButton.removeListener(this);
-			}
-		});
+
 		
 		quitterSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/quitterbutton.png")),buttonWidth,buttonHeight);
 		quitterSprite.setX(buttonX);
 		quitterSprite.setY(quitterY);
-		quitterButton = new Button(new SpriteDrawable(jouerSprite));
+		quitterButton = new Button(new SpriteDrawable(quitterSprite));
 		stage.addActor(quitterButton);
-		quitterButton.addListener(new ClickListener(){
-			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
-				jouerButton.removeListener(this);
-				controlButton.removeListener(this);
-				hightscoreButton.removeListener(this);
-				creditsButton.removeListener(this);
-				quitterButton.removeListener(this);
-			}
-		});
 		
 		
 	}
-
-	@Override
+	
+	
 	public void render(float delta) {
+		
+
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+		}
+		
 		super.bgRender();
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
@@ -166,6 +133,11 @@ stage.getSpriteBatch().draw(jack.getRunningFrame(animTime),  (100*animTime %1160
 stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), 50 + (100*animTime %1160) - 96 ,  4);
 
 stage.getSpriteBatch().end();
+	
+	
+
+	
+	
 		}
 
 	@Override
@@ -210,4 +182,15 @@ stage.getSpriteBatch().end();
 
 	}
 
+
+	@Override
+	public boolean handle(Event event) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+
+	
 }
