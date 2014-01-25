@@ -75,6 +75,8 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 			human.left(); // buchers.walk();
 		if (Gdx.input.isKeyPressed(Input.Keys.UP))
 			human.up(); // buchers.jump();
+		if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
+			human.down(); // buchers.crouch();
 		if (Gdx.input.isKeyPressed(Input.Keys.A))
 			changeMode();
 	}

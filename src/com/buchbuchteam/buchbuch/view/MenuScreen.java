@@ -128,7 +128,6 @@ public class MenuScreen extends ScreenMaster implements EventListener{
 		stage.getSpriteBatch().draw(creditsSprite, buttonX, creditsY);
 		stage.getSpriteBatch().draw(quitterSprite, buttonX, quitterY);
 		
-		
 		stage.getSpriteBatch().draw(jack.getRunningFrame(animTime),  (100*animTime %1160) - 196, 20);
 		stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), 50 + (100*animTime %1160) - 96 ,  4);
 		
