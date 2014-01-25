@@ -81,8 +81,6 @@ public class Team implements Controllable
 
 	public void leave()
 	{
-		System.out.println(leavers.size());
-		System.out.println(team.size());
 		leavers.addLast(team.removeFirst());
 		movements.add(new Movement(Movement.MovementType.LEAVE, leavers
 				.getLast(), 1));
@@ -193,5 +191,10 @@ public class Team implements Controllable
 			if (b.getX() > -62)
 				return false;
 		return true;
+	}
+
+	public boolean isEmpty()
+	{
+		return team.isEmpty();
 	}
 }
