@@ -15,6 +15,7 @@ public class BushBushGame implements ApplicationListener {
 	private SpriteBatch batch;
 	private Texture texture;
 	private Sprite sprite;
+	//com
 	
 	@Override
 	public void create() {		
