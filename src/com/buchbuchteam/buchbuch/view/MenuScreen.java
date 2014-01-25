@@ -3,7 +3,7 @@ package com.buchbuchteam.buchbuch.view;
 public class MenuScreen extends ScreenMaster{
 
 	protected MenuScreen(String file) {
-		super(file);
+		super("img/background/bgmenu.png");
 		
 	}
 
