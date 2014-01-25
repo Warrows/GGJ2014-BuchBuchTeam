@@ -10,9 +10,9 @@ public class Team implements Controllable
 	protected MovementQueue movements;
 	protected int nbBuch;
 
-	public Team()
+	public Team(int n)
 	{
-
+		this.nbBuch = n;
 		this.team = new LinkedList<BuchBuch>();
 		this.movements = new MovementQueue();
 		reinit();
@@ -20,7 +20,7 @@ public class Team implements Controllable
 
 	public void reinit()
 	{
-		nbBuch = 5;
+		//nbBuch = 5;
 		for (int i = 0; i < nbBuch; i++)
 		{
 			team.add(new BuchBuch(0, 200));
@@ -32,8 +32,7 @@ public class Team implements Controllable
 	{
 		for (int i = 0; i < nbBuch; i++)
 		{
-			movements
-					.add(new Movement(Movement.MovementType.JUMP, team.get(i)));
+			movements.add(new Movement(Movement.MovementType.JUMP, team.get(i)));
 		}
 	}
 
@@ -52,8 +51,9 @@ public class Team implements Controllable
 	{
 		for (int i = 0; i < nbBuch; i++)
 		{
-			movements
-					.add(new Movement(Movement.MovementType.WALK, team.get(i)));
+			movements.add(new Movement(Movement.MovementType.WALK, team.get(i)));
+			System.out.println("coucou");
+			movements.remove().doMove();
 		}
 	}
 
