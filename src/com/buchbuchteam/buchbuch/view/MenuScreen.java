@@ -2,8 +2,11 @@ package com.buchbuchteam.buchbuch.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 public class MenuScreen extends ScreenMaster {
 	
@@ -19,21 +22,22 @@ public class MenuScreen extends ScreenMaster {
 							creditsY= hightscoreY - buttonHeight - espaceEntreButton, 
 							quitterY = creditsY - buttonHeight - espaceEntreButton ;
 	private Sprite jouerSprite, controlSprite, hightscoreSprite, creditsSprite, quitterSprite;
-	
+	private Button jouerButton;
 
 	protected MenuScreen() {
 		super("img/menu/bgmenu.png");
-		
-	
+		Gdx.input.setInputProcessor(stage);	
 		//sprite menu 
 		
 		jouerSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/jouerbutton.png")),buttonWidth,buttonHeight);
 		jouerSprite.setX(buttonX);
 		jouerSprite.setY(jouerY);
-		Image image = new Image(jouerSprite);
-		image.addListener(new ClickListener(){
-			public boolean jouer(){
-				((Game) Gdx.app.getApplicationListener()).setScreen(new GameMenu());
+		jouerButton = new Button(new SpriteDrawable(jouerSprite));
+		stage.addActor(jouerButton);
+		jouerButton.addListener(new ClickListener(){
+			public void clicked(InputEvent event, float x, float y){
+				System.out.println("CLICK");
+				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
 			}
 		});
 
