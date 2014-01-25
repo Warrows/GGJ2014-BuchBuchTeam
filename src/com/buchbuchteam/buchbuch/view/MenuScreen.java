@@ -1,7 +1,5 @@
 package com.buchbuchteam.buchbuch.view;
-import java.awt.MouseInfo;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,10 +7,11 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
-public class MenuScreen extends ScreenMaster implements MouseListener {
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
+
+public class MenuScreen extends ScreenMaster  {
 	
 	//Variables de bouttons
 	
@@ -28,38 +27,16 @@ public class MenuScreen extends ScreenMaster implements MouseListener {
 	private Sprite jouerSprite, controlSprite, hightscoreSprite, creditsSprite, quitterSprite;
 	private Button jouerButton, controlButton, hightscoreButton, creditsButton, quitterButton;
 	
-	private Animation jack;
+	private BuchBuch jack;
 	private Animation tree;
 	private float animTime;
+	
+
 
 	protected MenuScreen() {
 		super("img/menu/bgmenu.png");
 		Gdx.input.setInputProcessor(stage);	
-		{
-			Sprite[] jackFrames = new Sprite[4];
-			jackFrames[0] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					0, 0, 64, 64);
-			jackFrames[1] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					64, 0, 64, 64);
-			jackFrames[2] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					128, 0, 64, 64);
-			jackFrames[3] = new Sprite(
-					new Texture(
-							Gdx.files
-									.internal("img/characters/jack/char_jackMarche.png")),
-					192, 0, 64, 64);
-			jack = new Animation(0.2F, jackFrames);
-			jack.setPlayMode(Animation.LOOP);
-		}
+		jack = new BuchBuch(4, 0);
 		
 		{
 			Sprite[] treeFrames = new Sprite[3];
@@ -90,57 +67,42 @@ public class MenuScreen extends ScreenMaster implements MouseListener {
 		jouerSprite.setY(jouerY);
 		jouerButton = new Button(new SpriteDrawable(jouerSprite));
 		stage.addActor(jouerButton);
-		jouerButton.addListener(new ClickListener(){
-			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
-				jouerButton.removeListener(this);
-				controlButton.removeListener(this);
-				hightscoreButton.removeListener(this);
-				creditsButton.removeListener(this);
-				quitterButton.removeListener(this);
-			}
-		});
+
 
 		controlSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/controlbutton.png")),buttonWidth,buttonHeight);
 		controlSprite.setX(buttonX);
 		controlSprite.setY(controlY);
 		controlButton = new Button(new SpriteDrawable(controlSprite));
 		stage.addActor(controlButton);
+
+	
+
+
 		
 		hightscoreSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/hightscorebutton.png")),buttonWidth,buttonHeight);
 		hightscoreSprite.setX(buttonX);
 		hightscoreSprite.setY(hightscoreY);
 		hightscoreButton = new Button(new SpriteDrawable(hightscoreSprite));
 		stage.addActor(hightscoreButton);
-	
+
+		
 		
 		creditsSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/creditsbutton.png")),buttonWidth,buttonHeight);
 		creditsSprite.setX(buttonX);
 		creditsSprite.setY(creditsY);
 		creditsButton = new Button(new SpriteDrawable(creditsSprite));
 		stage.addActor(creditsButton);
-	
+
+		
 		quitterSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/quitterbutton.png")),buttonWidth,buttonHeight);
 		quitterSprite.setX(buttonX);
 		quitterSprite.setY(quitterY);
 		quitterButton = new Button(new SpriteDrawable(quitterSprite));
 		stage.addActor(quitterButton);
-		
-	
-		
-		
 	}
+	
 
-	@Override
 	public void render(float delta) {
-		
-		
-
-
-		if(MouseInfo.getPointerInfo().getLocation().x == 10 )
-		{
-			System.out.println("10");
-		}
 		super.bgRender();
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
@@ -157,8 +119,8 @@ stage.getSpriteBatch().draw(creditsSprite, buttonX, creditsY);
 stage.getSpriteBatch().draw(quitterSprite, buttonX, quitterY);
 
 
-stage.getSpriteBatch().draw(jack.getKeyFrame(animTime), 100*animTime % (960-64), 4);
-stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), 80*animTime % (960-128), 20);
+stage.getSpriteBatch().draw(jack.getRunningFrame(animTime),  (100*animTime %1160) - 196, 20);
+stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), 50 + (100*animTime %1160) - 96 ,  4);
 
 stage.getSpriteBatch().end();
 	
@@ -214,44 +176,7 @@ stage.getSpriteBatch().end();
 	}
 	
 	
-		
-		public void SOURIS(){
-			
-			
-		}
 
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			int x=e.getX();
-		    int y=e.getY();
-		    System.out.println(x+","+y);//these co-ords are relative to the component
-			
-		}
-
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
 		
 	
-
 }

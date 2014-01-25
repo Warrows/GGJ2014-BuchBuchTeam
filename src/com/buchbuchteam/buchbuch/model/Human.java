@@ -2,6 +2,11 @@ package com.buchbuchteam.buchbuch.model;
 
 public class Human extends Player {
 
+	public Human(){
+		
+		
+	}
+	
 	@Override
 	public void jump() {
 		controllable.jump();

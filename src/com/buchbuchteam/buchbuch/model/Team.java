@@ -1,30 +1,32 @@
 package com.buchbuchteam.buchbuch.model;
 
 import java.util.LinkedList;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 
 public class Team implements Controllable
 {
-
+	private static Team instance;
+	
+	private float y;
 	protected LinkedList<BuchBuch> team;
 	protected MovementQueue movements;
 	protected int nbBuch;
 
-	public Team()
+	private Team()
 	{
-
 		this.team = new LinkedList<BuchBuch>();
 		this.movements = new MovementQueue();
+		this.y = 250;
 		reinit();
 	}
 
 	public void reinit()
 	{
 		nbBuch = 5;
-		for (int i = 0; i < nbBuch; i++)
-		{
-			team.add(new BuchBuch(0, 200));
-		}
+		while(team.size() < nbBuch)
+			team.add(new BuchBuch(-64, y));
 	}
 
 	@Override
@@ -32,8 +34,8 @@ public class Team implements Controllable
 	{
 		for (int i = 0; i < nbBuch; i++)
 		{
-			movements
-					.add(new Movement(Movement.MovementType.JUMP, team.get(i)));
+			movements.add(new Movement(Movement.MovementType.JUMP, team.get(i)));
+			movements.remove().doMove();
 		}
 	}
 
@@ -44,16 +46,33 @@ public class Team implements Controllable
 		{
 			movements.add(new Movement(Movement.MovementType.CROUCH, team
 					.get(i)));
+			movements.remove().doMove();
 		}
+	}
+	
+	public int getX(int num)
+	{
+		if (team.get(num) == null)
+			return -1;
+		return (int) team.get(num).getX();
 	}
 
 	@Override
 	public void walk()
 	{
-		for (int i = 0; i < nbBuch; i++)
+		for (int i = 0; i < team.size(); i++)
 		{
-			movements
-					.add(new Movement(Movement.MovementType.WALK, team.get(i)));
+			movements.add(new Movement(Movement.MovementType.WALK, team.get(i)));
+			movements.remove().doMove();
+		}
+	}
+
+	@Override
+	public void run() {
+		for (int i = 0; i < team.size(); i++)
+		{
+			movements.add(new Movement(Movement.MovementType.RUN, team.get(i)));
+			movements.remove().doMove();
 		}
 	}
 
@@ -64,5 +83,26 @@ public class Team implements Controllable
 		movements.add(new Movement(Movement.MovementType.LEAVE, team
 				.removeFirst()));
 		nbBuch--;
+	}
+
+	public void render(Batch spriteBatch, float animTime)
+	{
+		for (BuchBuch b: team)
+			spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
+	}
+
+	public static Team getInstance()
+	{
+		if (instance == null)
+			instance = new Team();
+		return instance;
+	}
+
+	public boolean ahead(float x)
+	{
+		for (BuchBuch b : team)
+			if (b.getX() > x && b.getX() < x + 54)
+				return true;
+		return false;
 	}
 }
