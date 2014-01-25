@@ -66,11 +66,11 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 
 		stage.getSpriteBatch().end();
 
-		if (buchers.getFirst().isAttacking() && ! treeDestroy){
+		if (buchers.getFirst().isAttacking() ){
 			
 			tree.setDeath(true);
 			
-			treeDestroy = true;
+			//treeDestroy = true;
 		}
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
