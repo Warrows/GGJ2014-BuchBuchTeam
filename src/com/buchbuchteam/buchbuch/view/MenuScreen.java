@@ -2,9 +2,10 @@ package com.buchbuchteam.buchbuch.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class MenuScreen extends ScreenMaster{
+public class MenuScreen extends ScreenMaster {
 	
 	//Variables de bouttons
 	
@@ -17,64 +18,56 @@ public class MenuScreen extends ScreenMaster{
 							hightscoreY = controlY - buttonHeight - espaceEntreButton, 
 							creditsY= hightscoreY - buttonHeight - espaceEntreButton, 
 							quitterY = creditsY - buttonHeight - espaceEntreButton ;
-	private SpriteBatch jouerBatch, controlBatch, hightscoreBatch, creditsBatch, quitterBatch;
 	private Sprite jouerSprite, controlSprite, hightscoreSprite, creditsSprite, quitterSprite;
 	
 
 	protected MenuScreen() {
 		super("img/menu/bgmenu.png");
 		
-		//batch menu
-		jouerBatch = new SpriteBatch();
-		controlBatch = new SpriteBatch();
-		hightscoreBatch = new SpriteBatch();
-		creditsBatch = new SpriteBatch();
-		quitterBatch = new SpriteBatch();
-		
+	
 		//sprite menu 
 		
 		jouerSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/jouerbutton.png")),buttonWidth,buttonHeight);
-		controlSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/controlbutton.png")),buttonWidth,buttonHeight);
-		hightscoreSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/hightscorebutton.png")),buttonWidth,buttonHeight);
-		creditsSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/creditsbutton.png")),buttonWidth,buttonHeight);
-		quitterSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/quitterbutton.png")),buttonWidth,buttonHeight);
-		
 		jouerSprite.setX(buttonX);
 		jouerSprite.setY(jouerY);
+		Image image = new Image(jouerSprite);
+		image.addListener(new ClickListener(){
+			public boolean jouer(){
+				((Game) Gdx.app.getApplicationListener()).setScreen(new GameMenu());
+			}
+		});
+
+		controlSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/controlbutton.png")),buttonWidth,buttonHeight);
 		controlSprite.setX(buttonX);
 		controlSprite.setY(controlY);
+		
+		hightscoreSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/hightscorebutton.png")),buttonWidth,buttonHeight);
 		hightscoreSprite.setX(buttonX);
 		hightscoreSprite.setY(hightscoreY);
+		
+		creditsSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/creditsbutton.png")),buttonWidth,buttonHeight);
 		creditsSprite.setX(buttonX);
 		creditsSprite.setY(creditsY);
+		
+		quitterSprite = new Sprite(new Texture(Gdx.files.internal("img/menu/quitterbutton.png")),buttonWidth,buttonHeight);
 		quitterSprite.setX(buttonX);
 		quitterSprite.setY(quitterY);
+		
+		
 	}
 
 	@Override
 	public void render(float delta) {
-		super.bgRender();
-		
-		jouerBatch.begin();
-			jouerSprite.draw(jouerBatch);
-		jouerBatch.end();
-	
-	controlBatch.begin();
-			controlSprite.draw(controlBatch);
-	controlBatch.end();
-	
-	hightscoreBatch.begin();
-		hightscoreSprite.draw(hightscoreBatch);
-	hightscoreBatch.end();
-	
-	creditsBatch.begin();
-		creditsSprite.draw(creditsBatch);
-	creditsBatch.end();
-	
-	quitterBatch.begin();
-		quitterSprite.draw(quitterBatch);
-	quitterBatch.end();
-	}
+stage.act();
+stage.getSpriteBatch().begin();
+stage.getSpriteBatch().draw(jouerSprite, buttonX, jouerY);
+stage.getSpriteBatch().draw(controlSprite, buttonX, controlY);
+stage.getSpriteBatch().draw(hightscoreSprite, buttonX, hightscoreY);
+stage.getSpriteBatch().draw(creditsSprite, buttonX, creditsY);
+stage.getSpriteBatch().draw(quitterSprite, buttonX, quitterY);
+
+stage.getSpriteBatch().end();
+		}
 
 	@Override
 	public void resize(int width, int height)
