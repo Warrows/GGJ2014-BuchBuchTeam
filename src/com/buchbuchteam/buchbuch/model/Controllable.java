@@ -2,10 +2,8 @@ package com.buchbuchteam.buchbuch.model;
 
 public interface Controllable {
 
-	public void jump();
-	public void crouch();
-	public void walk();
-	public void leave();
-	public void run();
-	
+	public void up();
+	public void down();
+	public void left();
+	public void right();	
 }

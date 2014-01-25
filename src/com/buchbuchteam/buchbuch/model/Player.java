@@ -1,18 +1,27 @@
 package com.buchbuchteam.buchbuch.model;
 
-public abstract class Player {
+import com.buchbuchteam.buchbuch.model.entities.MovingTree;
+
+public abstract class Player
+{
 
 	protected Controllable controllable;
-	
-	public abstract void jump();
-	public abstract void crouch();
-	public abstract void walk();
-	public abstract void leave();
-	
-	public void setControllable( Controllable controllable ){
-		
+
+	public abstract void up();
+	public abstract void down();
+	public abstract void left();
+	public abstract void right();
+
+	public void setControllable(Controllable controllable)
+	{
 		this.controllable = controllable;
-		
 	}
-	
+
+	public void toggleMode()
+	{
+		if (controllable.equals(MovingTree.getInstance()))
+			controllable = Team.getInstance();
+		else
+			controllable = MovingTree.getInstance();
+	}
 }
