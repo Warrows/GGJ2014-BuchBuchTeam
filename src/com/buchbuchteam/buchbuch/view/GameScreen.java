@@ -96,9 +96,10 @@ public class GameScreen extends ScreenMaster
 		stage.act(delta);
 		stage.getSpriteBatch().begin();
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
-		stage.getSpriteBatch().draw(jackRunning.getKeyFrame(animTime), (300 + 120*animTime) % (960-64), 200);
+		for (int i = 0; i< 10; i++)
+		stage.getSpriteBatch().draw(jackRunning.getKeyFrame(animTime), (100*i + (600 + 150*animTime)) % (960-64), 100);
 		stage.getSpriteBatch().draw(jackWalking.getKeyFrame(animTime), 100*animTime % (960-64), 200);
-		stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), 80*animTime % (960-128), 200);
+		stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), (100 + 100*animTime) % (960-64), 200);
 		stage.getSpriteBatch().end();
 	}
 
