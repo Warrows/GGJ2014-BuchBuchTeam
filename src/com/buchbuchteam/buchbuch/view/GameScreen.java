@@ -2,6 +2,7 @@ package com.buchbuchteam.buchbuch.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 
@@ -9,7 +10,7 @@ public class GameScreen extends ScreenMaster
 {
 	private Stage stage;
 	private float animTime;
-	private BuchBuch jack;
+	private Team buchers;
 	private MovingTree tree;
 	private BackGround bg;
 
@@ -21,7 +22,7 @@ public class GameScreen extends ScreenMaster
 		
 		bg = new BackGround();
 		
-		jack = new BuchBuch(100, 250);
+		buchers = new Team(250);
 		tree = new MovingTree(200, 240);
 	}
 
@@ -33,7 +34,7 @@ public class GameScreen extends ScreenMaster
 		stage.getSpriteBatch().begin();
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		bg.render(stage.getSpriteBatch());
-		stage.getSpriteBatch().draw(jack.getFrame(animTime), jack.getX(), jack.getY());
+		buchers.render(stage.getSpriteBatch(),animTime);
 		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(), tree.getY());
 		stage.getSpriteBatch().end();
 	}
