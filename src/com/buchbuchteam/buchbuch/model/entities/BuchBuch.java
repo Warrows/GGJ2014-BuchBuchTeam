@@ -107,7 +107,7 @@ public class BuchBuch extends MoveableEntity
 		jackWalking = new Animation(0.2F, jackFrames);
 		jackWalking.setPlayMode(Animation.LOOP);
 	}
-	private static Animation jackAtack;
+	private static Animation jackAttacking;
 	{
 		Sprite[] jackFrames = new Sprite[3];
 		jackFrames[0] = new Sprite(new Texture(
@@ -119,7 +119,7 @@ public class BuchBuch extends MoveableEntity
 		jackFrames[2] = new Sprite(new Texture(
 				Gdx.files.internal("img/characters/jack/char_jackHit_03.png")),
 				0	, 0, 64, 92);
-		jackWalking = new Animation(0.2F, jackFrames);
+		jackAttacking = new Animation(0.2F, jackFrames);
 	}
 	private static Animation jackRunning;
 	{
