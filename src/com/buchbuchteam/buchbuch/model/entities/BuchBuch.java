@@ -32,7 +32,7 @@ public class BuchBuch extends MoveableEntity
 
 	public void setJumping(boolean bool)
 	{
-		//this.jumping = 0;
+		this.jumping = 0;
 	}
 
 	@Override
