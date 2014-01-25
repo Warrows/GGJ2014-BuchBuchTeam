@@ -1,6 +1,7 @@
 package com.buchbuchteam.buchbuch.model.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,6 +21,7 @@ public class BuchBuch extends MoveableEntity
 		this.y = y;
 		this.running = true;
 		this.jumping = -1;
+		Cry();
 	}
 
 	public void setRunning(boolean bool)
@@ -136,5 +138,12 @@ public class BuchBuch extends MoveableEntity
 				0, 5, 64, 92);
 		jackJumping = new Animation(0.2F, jackFrames);
 		jackJumping.setPlayMode(Animation.LOOP);
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
+		sound.play(0.5f);
+	}
+	public static void Cry(){
+		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buch.wav"));
+		sound.play(0.5f);
+		sound.loop();
 	}
 }
