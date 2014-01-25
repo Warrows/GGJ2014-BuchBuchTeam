@@ -7,29 +7,52 @@ public class Team implements Controllable {
 
 	protected LinkedList<BuchBuch> team;
 	protected MovementQueue movements;
+	protected int nbBuch;
 	
 	public Team(){
 		
 		this.team = new LinkedList<BuchBuch>();
 		this.movements = new MovementQueue();
+		this.nbBuch = 5;
 		
-		for (int i=0;i<4;i++){
+		for (int i=0;i<nbBuch;i++){
 			
 			team.add(new BuchBuch());
 		}
 	}
 
-	@Override
-	public boolean jump() {
-		for ( int i=0; i < 4; i++){
-			movements.add(new Movement(team.get(i)));
+	public void reinit(){
+		nbBuch = 5;
+		for (int i=0;i<nbBuch;i++){
+			team.add(new BuchBuch());
 		}
-		return false;
+	}
+	
+	@Override
+	public void jump() {
+		for ( int i=0; i < nbBuch; i++){
+			movements.add(new Movement(Movement.MovementType.JUMP, team.get(i)));
+		}
 	}
 
 	@Override
-	public boolean crouch() {
-		// TODO Auto-generated method stub
-		return false;
+	public void crouch() {
+		for ( int i=0; i < nbBuch; i++){
+			movements.add(new Movement(Movement.MovementType.CROUCH, team.get(i)));
+		}
+	}
+
+	@Override
+	public void walk() {
+		for ( int i=0; i < nbBuch; i++){
+			movements.add(new Movement(Movement.MovementType.WALK, team.get(i)));
+		}
+	}
+
+	@Override
+	public void leave() {
+		
+		movements.add(new Movement(Movement.MovementType.LEAVE, team.removeFirst()));
+		nbBuch--;
 	}
 }
