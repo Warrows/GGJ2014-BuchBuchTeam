@@ -12,4 +12,16 @@ public class IA extends Player {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public void walk() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void leave() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

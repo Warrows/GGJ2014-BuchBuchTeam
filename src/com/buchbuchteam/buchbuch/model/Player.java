@@ -6,6 +6,8 @@ public abstract class Player {
 	
 	public abstract void jump();
 	public abstract void crouch();
+	public abstract void walk();
+	public abstract void leave();
 	
 	public void setControllable( Controllable controllable ){
 		

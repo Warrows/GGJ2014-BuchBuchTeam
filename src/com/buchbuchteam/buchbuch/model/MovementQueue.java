@@ -20,6 +20,12 @@ public class MovementQueue {
 	
 	public void Execute(){
 		//TODO Execute the queue
+		
+		while ( ! queue.isEmpty()){
+			
+			queue.remove().doMove();
+			
+		}
 	}
 	
 }
