@@ -63,16 +63,12 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 			stage.getSpriteBatch().draw(entity.getFrame(animTime),
 					entity.getX(), entity.getY());
 		}
-
 		stage.getSpriteBatch().end();
-
-		if (buchers.getFirst().isAttacking() ){
-			
+		if (buchers.isEmpty() || buchers.getFirst().isAttacking() )
+		{
 			tree.setDeath(true);
-			
-			//treeDestroy = true;
 		}
-		
+
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
 			human.right(); // .buchers.run();
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
@@ -135,8 +131,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	public boolean keyDown(int keycode)
 	{
 		// TODO Auto-generated method stub
-		if (Gdx.input.isKeyPressed(Input.Keys.A))
-			System.out.println("YOLO");
 		return false;
 	}
 
