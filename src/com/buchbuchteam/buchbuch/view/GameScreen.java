@@ -15,7 +15,7 @@ public class GameScreen extends ScreenMaster
 
 	public GameScreen()
 	{
-		super("img/menu/bgmenu.png");
+		super("img/game/background/bggame.png");
 		animTime = 0;
 		stage = new Stage(960, 640, false);
 		
