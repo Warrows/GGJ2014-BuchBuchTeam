@@ -117,23 +117,23 @@ public class MenuScreen extends ScreenMaster implements EventListener{
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
 		
-stage.act();
-stage.getSpriteBatch().begin();
-
-stage.getSpriteBatch().draw(bgSprite, 0, 0);
-
-stage.getSpriteBatch().draw(jouerSprite, buttonX, jouerY);
-stage.getSpriteBatch().draw(controlSprite, buttonX, controlY);
-stage.getSpriteBatch().draw(hightscoreSprite, buttonX, hightscoreY);
-stage.getSpriteBatch().draw(creditsSprite, buttonX, creditsY);
-stage.getSpriteBatch().draw(quitterSprite, buttonX, quitterY);
-
-
-stage.getSpriteBatch().draw(jack.getRunningFrame(animTime),  (100*animTime %1160) - 196, 20);
-stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), 50 + (100*animTime %1160) - 96 ,  4);
-
-stage.getSpriteBatch().end();
-	
+		stage.act();
+		stage.getSpriteBatch().begin();
+		
+		stage.getSpriteBatch().draw(bgSprite, 0, 0);
+		
+		stage.getSpriteBatch().draw(jouerSprite, buttonX, jouerY);
+		stage.getSpriteBatch().draw(controlSprite, buttonX, controlY);
+		stage.getSpriteBatch().draw(hightscoreSprite, buttonX, hightscoreY);
+		stage.getSpriteBatch().draw(creditsSprite, buttonX, creditsY);
+		stage.getSpriteBatch().draw(quitterSprite, buttonX, quitterY);
+		
+		
+		stage.getSpriteBatch().draw(jack.getRunningFrame(animTime),  (100*animTime %1160) - 196, 20);
+		stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), 50 + (100*animTime %1160) - 96 ,  4);
+		
+		stage.getSpriteBatch().end();
+			
 	
 
 	
