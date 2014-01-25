@@ -11,6 +11,7 @@ public class Movement{
 		JUMP,
 		CROUCH,
 		WALK,
+		RUN,
 		LEAVE
 		
 	}
@@ -24,7 +25,8 @@ public class Movement{
 		
 		//TODO Buchbuch will move, it'll just change his state.
 		switch (type){
-		case WALK : buchbuch.setRunning();System.out.println("2132465432143541");break;
+		case WALK : buchbuch.setRunning(false);break;
+		case RUN : buchbuch.setRunning(true);break;
 		default : break;
 		}
 		
