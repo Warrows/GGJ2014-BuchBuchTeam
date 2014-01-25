@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 
 
@@ -16,7 +17,7 @@ public abstract class ScreenMaster  implements Screen {
 		private OrthographicCamera camera;
 		
 		//VARIABLES DU BACKGROUND
-		private SpriteBatch bgBatch; //BATCH DU SPRITE DE FOND
+		protected Stage stage; //BATCH DU SPRITE DE FOND
 		protected Sprite bgSprite; //SPRITE DE FOND
 		private String file; //CHEMIN DE L'IMAGE DE FOND
 		private int bgWidth = Game.WIDTH, bgHeight = Game.HEIGHT, bgX = 0, bgY = 0; //VARIABLE IMAGE DE FOND
@@ -27,7 +28,7 @@ public abstract class ScreenMaster  implements Screen {
 			this.file = file;
 		
 			
-			bgBatch = new SpriteBatch();
+			stage = new Stage();
 			bgSprite = new Sprite(new Texture(Gdx.files.internal(file)), bgX, bgY, bgWidth, bgHeight);
 			
 			
@@ -51,9 +52,10 @@ public abstract class ScreenMaster  implements Screen {
 			
 		
 				{
-				bgBatch.begin();
-				bgSprite.draw(bgBatch);
-				bgBatch.end();
+					stage.act();
+				stage.getSpriteBatch().begin();
+				stage.getSpriteBatch().draw(bgSprite, 0, 0);
+				stage.getSpriteBatch().end();
 			
 			
 			
