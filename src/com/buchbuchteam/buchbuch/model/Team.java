@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
+import com.buchbuchteam.buchbuch.view.GameScreen;
 
 public class Team implements Controllable
 {
@@ -63,8 +64,10 @@ public class Team implements Controllable
 
 	@Override
 	public void run() {
-		for (int i = 0; i < nbBuch; i++)
+		for (int i = 0; i < team.size(); i++)
 		{
+			if (team.get(i).getX() >= GameScreen.getInstance().getTree().getX())
+				continue;
 			movements.add(new Movement(Movement.MovementType.RUN, team.get(i)));
 			movements.remove().doMove();
 		}
