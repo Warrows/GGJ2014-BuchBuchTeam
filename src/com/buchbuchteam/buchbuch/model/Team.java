@@ -81,13 +81,18 @@ public class Team implements Controllable
 
 	public void leave()
 	{
+		System.out.println(leavers.size());
+		System.out.println(team.size());
 		leavers.addLast(team.removeFirst());
 		movements.add(new Movement(Movement.MovementType.LEAVE, leavers
 				.getLast(), 1));
 		nbBuch--;
 		toLeave = false;
-		if (team.isEmpty())
-			reset();
+	}
+
+	public boolean isEmpty()
+	{
+		return team.isEmpty();
 	}
 
 	public void reset()
@@ -99,10 +104,13 @@ public class Team implements Controllable
 			b.setLeaving(false);
 			b.setRunning(true);
 		}
+		toLeave = false;
 	}
 
 	public void render(Batch spriteBatch, float animTime)
 	{
+		if (allLeaved())
+			reset();
 		movements.execute();
 		for (BuchBuch b : team)
 		{
@@ -175,5 +183,15 @@ public class Team implements Controllable
 
 		this.toLeave = b;
 
+	}
+
+	public boolean allLeaved()
+	{
+		if (!isEmpty())
+			return false;
+		for (BuchBuch b : leavers)
+			if (b.getX() > -62)
+				return false;
+		return true;
 	}
 }
