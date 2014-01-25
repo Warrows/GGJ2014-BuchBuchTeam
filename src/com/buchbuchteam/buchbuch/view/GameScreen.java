@@ -6,10 +6,12 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.model.Human;
 import com.buchbuchteam.buchbuch.model.Team;
+import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 
 public class GameScreen extends ScreenMaster implements InputProcessor
 {
+	private static GameScreen instance;
 	private Stage stage;
 	private float animTime;
 	private Team buchers;
@@ -17,7 +19,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	private BackGround bg;
 	private Human human;
 
-	public GameScreen()
+	private GameScreen()
 	{
 		super("img/game/background/bggame.png");
 		animTime = 0;
@@ -139,6 +141,18 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public static GameScreen getInstance()
+	{
+		if (instance == null)
+			instance = new GameScreen();
+		return instance;
+	}
+
+	public MovingTree getTree()
+	{
+		return tree;
 	}
 
 }

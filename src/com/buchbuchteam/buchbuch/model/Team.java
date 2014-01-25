@@ -67,7 +67,7 @@ public class Team implements Controllable
 
 	@Override
 	public void run() {
-		for (int i = 0; i < nbBuch; i++)
+		for (int i = 0; i < team.size(); i++)
 		{
 			movements.add(new Movement(Movement.MovementType.RUN, team.get(i)));
 			movements.remove().doMove();

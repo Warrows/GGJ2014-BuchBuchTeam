@@ -67,7 +67,7 @@ public class MenuScreen extends ScreenMaster {
 		stage.addActor(jouerButton);
 		jouerButton.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
 				jouerButton.removeListener(this);
 				controlButton.removeListener(this);
 				hightscoreButton.removeListener(this);
@@ -83,7 +83,7 @@ public class MenuScreen extends ScreenMaster {
 		stage.addActor(controlButton);
 		controlButton.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
 				jouerButton.removeListener(this);
 				controlButton.removeListener(this);
 				hightscoreButton.removeListener(this);
@@ -100,7 +100,7 @@ public class MenuScreen extends ScreenMaster {
 		stage.addActor(hightscoreButton);
 		hightscoreButton.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
 				jouerButton.removeListener(this);
 				controlButton.removeListener(this);
 				hightscoreButton.removeListener(this);
@@ -116,7 +116,7 @@ public class MenuScreen extends ScreenMaster {
 		stage.addActor(creditsButton);
 		creditsButton.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
 				jouerButton.removeListener(this);
 				controlButton.removeListener(this);
 				hightscoreButton.removeListener(this);
@@ -132,7 +132,7 @@ public class MenuScreen extends ScreenMaster {
 		stage.addActor(quitterButton);
 		quitterButton.addListener(new ClickListener(){
 			public void clicked(InputEvent event, float x, float y){
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
 				jouerButton.removeListener(this);
 				controlButton.removeListener(this);
 				hightscoreButton.removeListener(this);
