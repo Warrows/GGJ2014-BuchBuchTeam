@@ -43,8 +43,10 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		stage.getSpriteBatch().end();
 		
 		
-		if (Gdx.input.isKeyPressed(Input.Keys.A))
-			human.walk();
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+			buchers.walk();
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+			buchers.walk();
 	}
 
 	@Override
