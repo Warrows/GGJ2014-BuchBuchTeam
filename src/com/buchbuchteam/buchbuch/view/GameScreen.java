@@ -32,6 +32,8 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		tree = new MovingTree(700, 240);
 		human = new Human();
 		BuchBuch.Cry();
+		
+	
 	}
 
 	@Override

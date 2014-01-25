@@ -88,7 +88,7 @@ public class BuchBuch extends MoveableEntity
 	{
 		return y;
 	}
-
+	
 	private static Animation jackWalking;
 	{
 		Sprite[] jackFrames = new Sprite[4];
@@ -106,6 +106,20 @@ public class BuchBuch extends MoveableEntity
 				192, 0, 64, 64);
 		jackWalking = new Animation(0.2F, jackFrames);
 		jackWalking.setPlayMode(Animation.LOOP);
+	}
+	private static Animation jackAtack;
+	{
+		Sprite[] jackFrames = new Sprite[3];
+		jackFrames[0] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/jack/char_jackHit_01.png")),
+				0, 0, 64, 92);
+		jackFrames[1] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/jack/char_jackHit_02.png")),
+				0, 0, 64, 92);
+		jackFrames[2] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/jack/char_jackHit_03.png")),
+				0	, 0, 64, 92);
+		jackWalking = new Animation(0.2F, jackFrames);
 	}
 	private static Animation jackRunning;
 	{
@@ -145,6 +159,6 @@ public class BuchBuch extends MoveableEntity
 	public static void Cry(){
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buch.wav"));
 		sound.play(0.5f);
-		sound.loop();
+		
 	}
 }
