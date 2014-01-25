@@ -47,7 +47,7 @@ public class Team implements Controllable
 	@Override
 	public void walk()
 	{
-		for (int i = 0; i < nbBuch; i++)
+		for (int i = 0; i < team.size(); i++)
 		{
 			movements.add(new Movement(Movement.MovementType.WALK, team.get(i)));
 			System.out.println("coucou");
