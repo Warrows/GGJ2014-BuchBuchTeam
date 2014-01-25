@@ -137,13 +137,13 @@ public class MovingTree extends MoveableEntity implements Controllable
 	{
 		Sprite[] treeFrames = new Sprite[3];
 		treeFrames[0] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_01.png")), 0,
+				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_03.png")), 0,
 				0, 128, 128);
 		treeFrames[1] = new Sprite(new Texture(
 				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_02.png")), 0,
 				0, 128, 128);
 		treeFrames[2] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_03.png")), 0,
+				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_01.png")), 0,
 				0, 128, 128);
 		acornFireAnim = new Animation(0.2F, treeFrames);
 		acornFireAnim.setPlayMode(Animation.LOOP);

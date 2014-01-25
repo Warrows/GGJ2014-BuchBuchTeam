@@ -60,7 +60,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		entitiesToRender.removeAll(entitiesToRemove);
 		for (Entity entity : entitiesToRender)
 		{
-			System.out.println(entity.getX());
 			stage.getSpriteBatch().draw(entity.getFrame(animTime),
 					entity.getX(), entity.getY());
 		}

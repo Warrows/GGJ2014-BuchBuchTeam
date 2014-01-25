@@ -58,6 +58,8 @@ public class BuchBuch extends MoveableEntity
 		if (leaving){
 			frame = leaving(stateTime);
 			x -= 1.5;
+			if (x<-64)
+				x = -64;
 		}	
 		
 		if (jumping)

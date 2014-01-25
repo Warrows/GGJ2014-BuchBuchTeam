@@ -33,7 +33,7 @@ public class Team implements Controllable
 		nbBuch = 5;
 		while (team.size() < nbBuch)
 			team.add(new BuchBuch(0, y));
-		
+
 	}
 
 	public void jump()
@@ -51,7 +51,6 @@ public class Team implements Controllable
 		{
 			movements.add(new Movement(Movement.MovementType.CROUCH, team
 					.get(i), i * 20));
-			movements.remove().doMove();
 		}
 	}
 
@@ -67,8 +66,7 @@ public class Team implements Controllable
 		for (int i = 0; i < team.size(); i++)
 		{
 			movements.add(new Movement(Movement.MovementType.WALK, team.get(i),
-					i * 20));
-			movements.remove().doMove();
+					0));
 		}
 	}
 
@@ -80,26 +78,38 @@ public class Team implements Controllable
 					0));
 		}
 	}
-	
+
 	public void leave()
 	{
+		System.out.println(leavers.size());
+		System.out.println(team.size());
 		leavers.addLast(team.removeFirst());
-		movements.add(new Movement(Movement.MovementType.LEAVE, leavers.getLast(), 1));
+		movements.add(new Movement(Movement.MovementType.LEAVE, leavers
+				.getLast(), 1));
 		nbBuch--;
 		toLeave = false;
 	}
 
-	
-	public BuchBuch getFirst(){
-		return team.getFirst();
+	public void reset()
+	{
+		team.addAll(leavers);
+		leavers = new LinkedList<BuchBuch>();
+		for (BuchBuch b : team)
+		{
+			b.setLeaving(false);
+			b.setRunning(true);
+		}
+		toLeave = false;
 	}
-	
+
 	public void render(Batch spriteBatch, float animTime)
 	{
+		if (allLeaved())
+			reset();
 		movements.execute();
 		for (BuchBuch b : team)
 		{
-			runCry --;
+			runCry--;
 			if (b.isRunning() && runCry <= 0)
 			{
 				b.cry();
@@ -109,7 +119,7 @@ public class Team implements Controllable
 		}
 		for (BuchBuch b : leavers)
 		{
-			runCry --;
+			runCry--;
 			if (b.isRunning() && runCry <= 0)
 			{
 				b.cry();
@@ -117,8 +127,11 @@ public class Team implements Controllable
 			}
 			spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
 		}
-		
-		if (toLeave) { leave();}
+
+		if (toLeave)
+		{
+			leave();
+		}
 	}
 
 	public static Team getInstance()
@@ -160,9 +173,25 @@ public class Team implements Controllable
 		run();
 	}
 
-	public void setToLeave(boolean b) {
+	public void setToLeave(boolean b)
+	{
 
 		this.toLeave = b;
-		
+
+	}
+
+	public BuchBuch getFirst()
+	{
+		return team.getFirst();
+	}
+
+	public boolean allLeaved()
+	{
+		if (!team.isEmpty())
+			return false;
+		for (BuchBuch b : leavers)
+			if (b.getX() > -62)
+				return false;
+		return true;
 	}
 }
