@@ -1,14 +1,16 @@
 package com.buchbuchteam.buchbuch.view;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.assets.loaders.SoundLoader.SoundParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.model.Human;
 import com.buchbuchteam.buchbuch.model.IA;
 import com.buchbuchteam.buchbuch.model.Team;
-import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
+import com.buchbuchteam.buchbuch.model.entities.Entity;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 
 public class GameScreen extends ScreenMaster implements InputProcessor
@@ -21,6 +23,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	private BackGround bg;
 	private Human human;
 	private IA ia;
+	private Set<Entity> entitiesToRender;
 
 	GameScreen()
 	{
@@ -34,6 +37,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		tree = MovingTree.getInstance();
 		human = new Human();
 		ia = new IA();
+		entitiesToRender = new HashSet<Entity>();
 	}
 
 	@Override
@@ -49,6 +53,8 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		buchers.render(stage.getSpriteBatch(), animTime);
 		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),
 				tree.getY());
+		for (Entity entity : entitiesToRender)
+			stage.getSpriteBatch().draw(entity.getFrame(animTime), entity.getX(), entity.getY());
 		stage.getSpriteBatch().end();
 
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
@@ -177,6 +183,11 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	public MovingTree getTree()
 	{
 		return tree;
+	}
+
+	public void add(Entity entity)
+	{
+		entitiesToRender.add(entity);
 	}
 
 }

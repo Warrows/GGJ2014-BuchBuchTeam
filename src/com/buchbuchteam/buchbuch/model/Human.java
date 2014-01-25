@@ -1,9 +1,5 @@
 package com.buchbuchteam.buchbuch.model;
 
-import com.buchbuchteam.buchbuch.model.entities.MovingTree;
-
-
-
 public class Human extends Player
 {
 	public Human()
