@@ -11,6 +11,7 @@ public class GameScreen extends ScreenMaster
 	private float animTime;
 	private BuchBuch jack;
 	private MovingTree tree;
+	private BackGround bg;
 
 	public GameScreen()
 	{
@@ -18,8 +19,10 @@ public class GameScreen extends ScreenMaster
 		animTime = 0;
 		stage = new Stage(960, 640, false);
 		
-		jack = new BuchBuch(100, 200);
-		tree = new MovingTree(200, 200);
+		bg = new BackGround();
+		
+		jack = new BuchBuch(100, 250);
+		tree = new MovingTree(200, 240);
 	}
 
 	@Override
@@ -29,6 +32,7 @@ public class GameScreen extends ScreenMaster
 		stage.act(delta);
 		stage.getSpriteBatch().begin();
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
+		bg.render(stage.getSpriteBatch());
 		stage.getSpriteBatch().draw(jack.getFrame(animTime), jack.getX(), jack.getY());
 		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(), tree.getY());
 		stage.getSpriteBatch().end();
