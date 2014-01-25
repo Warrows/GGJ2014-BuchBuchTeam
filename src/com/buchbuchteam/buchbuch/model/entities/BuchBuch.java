@@ -12,15 +12,14 @@ import com.buchbuchteam.buchbuch.view.GameScreen;
 public class BuchBuch extends MoveableEntity
 {
 	private float x, y;
-	private boolean running;
-	private int jumping;
+	private boolean running,jumping;
 
 	public BuchBuch(float x, float y)
 	{
 		this.x = x;
 		this.y = y;
 		this.running = true;
-		this.jumping = -1;
+		this.jumping = false;
 
 
 	}
@@ -32,7 +31,8 @@ public class BuchBuch extends MoveableEntity
 
 	public void setJumping(boolean bool)
 	{
-		this.jumping = 0;
+		this.jumping = bool;
+		resetJackJumping();
 	}
 
 	@Override
@@ -44,12 +44,9 @@ public class BuchBuch extends MoveableEntity
 		else
 			frame = walk(stateTime);
 		
-		if (jumping>=0)
+		if (jumping)
 		{
-			jumping ++;
 			frame = jackJumping.getKeyFrame(stateTime);
-			if (jumping == 60)
-				jumping = -1;
 		}
 		return frame;
 	}
@@ -157,19 +154,29 @@ public class BuchBuch extends MoveableEntity
 		jackRunning.setPlayMode(Animation.LOOP);
 	}
 	private static Animation jackJumping;
+	private static Sprite jackJumpingSprite;
 	{
-		Sprite[] jackFrames = new Sprite[3];
-		jackFrames[0] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/char_jackHit_01.png")),
+		Sprite[] jackJumping = new Sprite[5];
+		jackJumping[0] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/jack/char_jackJump_01.png")),
 				0, 5, 64, 92);
-		jackFrames[1] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/char_jackHit_03.png")),
+		jackJumping[1] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/jack/char_jackJump_02.png")),
 				0, 15, 64, 92);
-		jackFrames[2] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/char_jackHit_04.png")),
+		jackJumping[2] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/jack/char_jackJump_03.png")),
 				0, 5, 64, 92);
-		jackJumping = new Animation(0.2F, jackFrames);
-		jackJumping.setPlayMode(Animation.LOOP);
+		jackJumping[3] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/jack/char_jackJump_04.png")),
+				0, 15, 64, 92);
+		jackJumping[4] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/jack/char_jackJump_05.png")),
+				0, 5, 64, 92);
+	}
+	private void resetJackJumping()
+	{
+		jackJumping = new Animation(0.2F, jackJumpingSprite);
+		jackJumping.setPlayMode(Animation.NORMAL);
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
 		sound.play(0.5f);
 	}
