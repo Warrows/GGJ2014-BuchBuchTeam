@@ -4,7 +4,6 @@ public class Human extends Player {
 
 	public Human(){
 		
-		this.controllable = new Team(1);
 		
 	}
 	
