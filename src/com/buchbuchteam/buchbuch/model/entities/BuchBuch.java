@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.view.GameScreen;
+import com.buchbuchteam.buchbuch.view.QTE;
 
 public class BuchBuch extends MoveableEntity
 {
@@ -46,39 +47,44 @@ public class BuchBuch extends MoveableEntity
 			frame = run(stateTime);
 		else if (!leaving)
 			frame = walk(stateTime);
-		
-		if( attacking ) {
+
+		if (attacking)
+		{
 			frame = attack(stateTime);
-			if(frame == jackAttackSprite[7]){
-				setAttacking(false);
-				setLeaving(true);
+			if (frame == jackAttackSprite[6])
+			{
+				GameScreen.getInstance().pause();
+				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
+						.setScreen(QTE.getInstance());
 			}
 		}
-		
-		if (leaving){
+
+		if (leaving)
+		{
 			frame = leaving(stateTime);
 			x -= 1.5;
-			if (x<-64)
+			if (x < -64)
 				x = -64;
-		}	
-		
+		}
+
 		if (jumping)
 		{
-			jumpingState ++;
-			frame = jackJumping.getKeyFrames()[jumpingState/10];
+			jumpingState++;
+			frame = jackJumping.getKeyFrames()[jumpingState / 10];
 			if (jumpingState >= 49)
 				jumping = false;
 		}
 		return frame;
 	}
 
-	public void setLeaving(boolean b) {
-		
-		this.leaving= b; 
+	public void setLeaving(boolean b)
+	{
+
+		this.leaving = b;
 		if (leaving)
 			running = false;
 		Team.getInstance().setToLeave(true);
-		
+
 	}
 
 	private TextureRegion walk(float stateTime)
@@ -99,24 +105,27 @@ public class BuchBuch extends MoveableEntity
 		}
 		return jackRunning.getKeyFrame(stateTime);
 	}
-	
-	private TextureRegion attack(float stateTime) {
-		
+
+	private TextureRegion attack(float stateTime)
+	{
+
 		return jackAttacking.getKeyFrame(stateTime);
-		
-	}
-	
-	private TextureRegion leaving(float stateTime) {
-		
-		return jackLeaving.getKeyFrame(stateTime);
-		
+
 	}
 
-	private void setAttacking(boolean b) {
+	private TextureRegion leaving(float stateTime)
+	{
+
+		return jackLeaving.getKeyFrame(stateTime);
+
+	}
+
+	private void setAttacking(boolean b)
+	{
 
 		this.attacking = b;
 		resetJackAttack();
-		
+
 	}
 
 	public TextureRegion getRunningFrame(float animTime)
@@ -154,26 +163,34 @@ public class BuchBuch extends MoveableEntity
 		jackWalking = new Animation(0.2F, jackFrames);
 		jackWalking.setPlayMode(Animation.LOOP);
 	}
-	
+
 	private static Animation jackLeaving;
 	{
 		Sprite[] jackFrames = new Sprite[4];
-		jackFrames[0] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_01.png")),
+		jackFrames[0] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_01.png")),
 				0, 0, 64, 92);
-		jackFrames[1] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_02.png")),
+		jackFrames[1] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_02.png")),
 				0, 0, 64, 92);
-		jackFrames[2] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_03.png")),
+		jackFrames[2] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_03.png")),
 				0, 0, 64, 92);
-		jackFrames[3] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_04.png")),
+		jackFrames[3] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_04.png")),
 				0, 0, 64, 92);
 		jackLeaving = new Animation(0.2F, jackFrames);
 		jackLeaving.setPlayMode(Animation.LOOP);
 	}
-	
+
 	private static Animation jackAttacking;
 	private static Sprite[] jackAttackSprite;
 	{
@@ -270,8 +287,9 @@ public class BuchBuch extends MoveableEntity
 		jackJumping = new Animation(0.2F, jackJumpingSprite);
 		jackJumping.setPlayMode(Animation.LOOP);
 	}
-	
-	private void resetJackAttack(){
+
+	private void resetJackAttack()
+	{
 		jackAttacking = new Animation(0.2F, jackAttackSprite);
 		jackAttacking.setPlayMode(Animation.LOOP);
 	}
@@ -291,14 +309,15 @@ public class BuchBuch extends MoveableEntity
 	{
 		return jumping;
 	}
-	
-	public boolean isAttacking(){
+
+	public boolean isAttacking()
+	{
 		return attacking;
 	}
 
 	public void jumpCry()
 	{
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
-		sound.play(0.5f);		
+		sound.play(0.5f);
 	}
 }
