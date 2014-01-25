@@ -6,10 +6,12 @@ import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 public class Team implements Controllable {
 
 	protected LinkedList<BuchBuch> team;
+	protected MovementQueue movements;
 	
 	public Team(){
 		
 		this.team = new LinkedList<BuchBuch>();
+		this.movements = new MovementQueue();
 		
 		for (int i=0;i<4;i++){
 			
@@ -19,7 +21,9 @@ public class Team implements Controllable {
 
 	@Override
 	public boolean jump() {
-		// TODO Auto-generated method stub
+		for ( int i=0; i < 4; i++){
+			movements.add(new Movement(team.get(i)));
+		}
 		return false;
 	}
 
