@@ -4,10 +4,10 @@ public abstract class Player {
 
 	protected Controllable controllable;
 	
-	public abstract void jump();
-	public abstract void crouch();
-	public abstract void walk();
-	public abstract void leave();
+	public abstract void up();
+	public abstract void down();
+	public abstract void left();
+	public abstract void right();
 	
 	public void setControllable( Controllable controllable ){
 		

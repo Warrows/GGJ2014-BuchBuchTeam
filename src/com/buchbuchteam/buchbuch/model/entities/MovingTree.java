@@ -6,15 +6,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.buchbuchteam.buchbuch.model.Controllable;
 
-public class MovingTree extends MoveableEntity
+public class MovingTree extends MoveableEntity implements Controllable
 {
+	private static MovingTree instance;
+	
 	private float x, y;
 	
-	public MovingTree(float x, float y)
+	private MovingTree()
 	{
-		this.x = x;
-		this.y = y;
+		this.x = 700;
+		this.y = 240;
 		cry();
 	}
 
@@ -59,6 +62,41 @@ public class MovingTree extends MoveableEntity
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Tree.wav"));
 		sound.play(1.0f);
 		sound.loop();
+	}
+
+	public static MovingTree getInstance()
+	{
+		if (instance == null)
+			instance = new MovingTree();
+		return instance;
+	}
+
+	@Override
+	public void up()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void down()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void left()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void right()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

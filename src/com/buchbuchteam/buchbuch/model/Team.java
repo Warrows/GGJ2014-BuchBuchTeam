@@ -31,7 +31,6 @@ public class Team implements Controllable
 			team.add(new BuchBuch(0, y));
 	}
 
-	@Override
 	public void jump()
 	{
 		for (int i = 0; i < nbBuch; i++)
@@ -41,7 +40,6 @@ public class Team implements Controllable
 		}
 	}
 
-	@Override
 	public void crouch()
 	{
 		for (int i = 0; i < nbBuch; i++)
@@ -59,7 +57,6 @@ public class Team implements Controllable
 		return (int) team.get(num).getX();
 	}
 
-	@Override
 	public void walk()
 	{
 		for (int i = 0; i < team.size(); i++)
@@ -70,7 +67,6 @@ public class Team implements Controllable
 		}
 	}
 
-	@Override
 	public void run()
 	{
 		for (int i = 0; i < team.size(); i++)
@@ -79,8 +75,7 @@ public class Team implements Controllable
 					0));
 		}
 	}
-
-	@Override
+	
 	public void leave()
 	{
 		movements.add(new Movement(Movement.MovementType.LEAVE, team
@@ -117,5 +112,29 @@ public class Team implements Controllable
 			if (b.getX() > x && b.getX() < x + 54)
 				return true;
 		return false;
+	}
+
+	@Override
+	public void up()
+	{
+		jump();
+	}
+
+	@Override
+	public void down()
+	{
+		crouch();
+	}
+
+	@Override
+	public void left()
+	{
+		walk();
+	}
+
+	@Override
+	public void right()
+	{
+		run();
 	}
 }

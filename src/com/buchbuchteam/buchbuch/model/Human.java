@@ -1,30 +1,39 @@
 package com.buchbuchteam.buchbuch.model;
 
-public class Human extends Player {
 
-	public Human(){
-		
-		
-	}
-	
-	@Override
-	public void jump() {
-		controllable.jump();
+
+public class Human extends Player
+{
+	public Human()
+	{
+		controllable = Team.getInstance();
 	}
 
-	@Override
-	public void crouch() {
-		controllable.crouch();
+	public void toggleMode()
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	public void right()
+	{
+		controllable.right();
+	}
+
+	public void left()
+	{
+		controllable.left();
+	}
+
+	public void up()
+	{
+		controllable.up();
 	}
 
 	@Override
-	public void walk() {
-		controllable.walk();
-	}
-
-	@Override
-	public void leave() {
-		controllable.leave();
+	public void down()
+	{
+		controllable.down();
 	}
 
 }

@@ -1,27 +1,39 @@
 package com.buchbuchteam.buchbuch.model;
 
-public class IA extends Player {
+import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 
-	@Override
-	public void jump() {
+public class IA extends Player
+{
+	public IA()
+	{
+		controllable = MovingTree.getInstance();
+	}
+
+	public void toggleMode()
+	{
 		// TODO Auto-generated method stub
+
+	}
+
+	public void right()
+	{
+		controllable.right();
+	}
+
+	public void left()
+	{
+		controllable.left();
+	}
+
+	public void up()
+	{
+		controllable.up();
 	}
 
 	@Override
-	public void crouch() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void walk() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void leave() {
-		// TODO Auto-generated method stub
-		
+	public void down()
+	{
+		controllable.down();
 	}
 
 }
