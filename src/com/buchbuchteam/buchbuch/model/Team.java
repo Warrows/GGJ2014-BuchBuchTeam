@@ -1,29 +1,31 @@
 package com.buchbuchteam.buchbuch.model;
 
 import java.util.LinkedList;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 
 public class Team implements Controllable
 {
-
+	private float y;
 	protected LinkedList<BuchBuch> team;
 	protected MovementQueue movements;
 	protected int nbBuch;
 
-	public Team(int n)
+	public Team(float y)
 	{
-		this.nbBuch = n;
 		this.team = new LinkedList<BuchBuch>();
 		this.movements = new MovementQueue();
+		this.y = y;
 		reinit();
 	}
 
 	public void reinit()
 	{
-		//nbBuch = 5;
+		nbBuch = 5;
 		for (int i = 0; i < nbBuch; i++)
 		{
-			team.add(new BuchBuch(0, 200));
+			team.add(new BuchBuch(0, y));
 		}
 	}
 
@@ -64,5 +66,11 @@ public class Team implements Controllable
 		movements.add(new Movement(Movement.MovementType.LEAVE, team
 				.removeFirst()));
 		nbBuch--;
+	}
+
+	public void render(Batch spriteBatch, float animTime)
+	{
+		for (BuchBuch b: team)
+			spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
 	}
 }
