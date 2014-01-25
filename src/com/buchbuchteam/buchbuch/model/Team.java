@@ -43,6 +43,13 @@ public class Team implements Controllable
 					.get(i)));
 		}
 	}
+	
+	public int getX(int num)
+	{
+		if (team.get(num) == null)
+			return -1;
+		return (int) team.get(num).getX();
+	}
 
 	@Override
 	public void walk()

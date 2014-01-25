@@ -15,7 +15,7 @@ public class BuchBuch extends MoveableEntity
 	{
 		this.x = x;
 		this.y = y;
-		this.running = false;
+		this.running = true;
 	}
 
 	public void setRunning(){
