@@ -53,7 +53,8 @@ public abstract class ScreenMaster  implements Screen {
 				{
 				bgBatch.begin();
 				bgSprite.draw(bgBatch);
-			bgBatch.end();
+				bgBatch.end();
+				System.out.println("RENDER BACKGROUND");
 			
 			
 		}
