@@ -1,4 +1,4 @@
-package com.me.mygdxgame;
+package com.buchbuchteam.buchbuch;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
