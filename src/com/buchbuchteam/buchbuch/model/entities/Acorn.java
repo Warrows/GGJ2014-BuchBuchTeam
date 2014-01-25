@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.buchbuchteam.buchbuch.view.GameScreen;
 
 public class Acorn extends MoveableEntity
 {
@@ -18,7 +19,9 @@ public class Acorn extends MoveableEntity
 	@Override
 	public TextureRegion getFrame(float Time)
 	{
-		x -= 1;
+		x -= 3;
+		if (x < -64)
+			GameScreen.getInstance().remove(this);
 		return acornSprite;
 	}
 
@@ -34,8 +37,7 @@ public class Acorn extends MoveableEntity
 		return y;
 	}
 
-
 	private static Sprite acornSprite = new Sprite(new Texture(
-			Gdx.files.internal("img/characters/tree/acorn/Gland.png")), 0,
-			0, 960, 640);
+			Gdx.files.internal("img/characters/tree/acorn/Gland.png")), 0, 0,
+			64, 64);
 }

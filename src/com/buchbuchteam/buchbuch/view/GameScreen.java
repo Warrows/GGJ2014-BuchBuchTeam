@@ -24,8 +24,9 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	private Human human;
 	private IA ia;
 	private Set<Entity> entitiesToRender;
+	private Set<Entity> entitiesToRemove;
 
-	GameScreen()
+	private GameScreen()
 	{
 		super("img/game/background/bggame.png");
 		animTime = 0;
@@ -38,6 +39,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		human = new Human();
 		ia = new IA();
 		entitiesToRender = new HashSet<Entity>();
+		entitiesToRemove = new HashSet<Entity>();
 	}
 
 	@Override
@@ -53,10 +55,13 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		buchers.render(stage.getSpriteBatch(), animTime);
 		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),
 				tree.getY());
+		entitiesToRender.removeAll(entitiesToRemove);
 		for (Entity entity : entitiesToRender)
 		{
-			System.out.println("aaa");
-			stage.getSpriteBatch().draw(entity.getFrame(animTime), entity.getX(), entity.getY());}
+			System.out.println(entity.getX());
+			stage.getSpriteBatch().draw(entity.getFrame(animTime),
+					entity.getX(), entity.getY());
+		}
 		stage.getSpriteBatch().end();
 
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
@@ -190,6 +195,11 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	public void add(Entity entity)
 	{
 		entitiesToRender.add(entity);
+	}
+
+	public void remove(Entity entity)
+	{
+		entitiesToRemove.add(entity);
 	}
 
 }

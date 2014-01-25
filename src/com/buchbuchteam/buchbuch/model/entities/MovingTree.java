@@ -34,7 +34,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 		if (firing>=0)
 		{
 			firing --;
-			if (firing == 0)
+			if (firing == 10)
 				fireAcorn();
 			return acornFireAnim.getKeyFrames()[firing/20];
 		}
@@ -74,7 +74,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 
 	private void fireAcorn()
 	{
-		GameScreen.getInstance().add(new Acorn(x+64, y));
+		GameScreen.getInstance().add(new Acorn(x+64, y+16));
 	}
 
 	@Override
