@@ -1,19 +1,19 @@
 package com.buchbuchteam.buchbuch.view;
-import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 
-public class MenuScreen extends ScreenMaster implements InputProcessor  {
+public class MenuScreen extends ScreenMaster implements EventListener{
 	
 	//Variables de bouttons
 	
@@ -107,6 +107,12 @@ public class MenuScreen extends ScreenMaster implements InputProcessor  {
 	
 	
 	public void render(float delta) {
+		
+
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+		}
+		
 		super.bgRender();
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
@@ -129,10 +135,7 @@ stage.getSpriteBatch().draw(tree.getKeyFrame(animTime), 50 + (100*animTime %1160
 stage.getSpriteBatch().end();
 	
 	
-	
-	
-		
-	
+
 	
 	
 		}
@@ -181,59 +184,11 @@ stage.getSpriteBatch().end();
 
 
 	@Override
-	public boolean keyDown(int keycode) {
+	public boolean handle(Event event) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-
-	@Override
-	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean keyTyped(char character) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public boolean scrolled(int amount) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 
 

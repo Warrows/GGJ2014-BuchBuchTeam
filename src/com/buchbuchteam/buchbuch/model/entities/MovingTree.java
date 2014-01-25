@@ -57,7 +57,7 @@ public class MovingTree extends MoveableEntity
 	
 	public static void Cry(){
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Tree.wav"));
-		sound.play(0.5f);
+		sound.play(1.0f);
 		sound.loop();
 	}
 	

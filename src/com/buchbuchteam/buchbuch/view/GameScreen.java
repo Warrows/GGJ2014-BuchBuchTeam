@@ -3,6 +3,7 @@ package com.buchbuchteam.buchbuch.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.assets.loaders.SoundLoader.SoundParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.model.Human;
 import com.buchbuchteam.buchbuch.model.Team;
@@ -30,7 +31,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		buchers = Team.getInstance();
 		tree = new MovingTree(700, 240);
 		human = new Human();
-	
+		BuchBuch.Cry();
 	}
 
 	@Override

@@ -21,9 +21,10 @@ public class BuchBuch extends MoveableEntity
 		this.y = y;
 		this.running = true;
 		this.jumping = -1;
-		Cry();
-	}
 
+
+	}
+	
 	public void setRunning(boolean bool)
 	{
 		this.running = bool;
