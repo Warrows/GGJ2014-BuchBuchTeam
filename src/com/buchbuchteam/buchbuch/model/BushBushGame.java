@@ -1,4 +1,4 @@
-package com.buchbuchteam.buchbuch;
+package com.buchbuchteam.buchbuch.model;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
