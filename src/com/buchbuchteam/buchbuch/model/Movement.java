@@ -23,6 +23,10 @@ public class Movement{
 	public void doMove(){
 		
 		//TODO Buchbuch will move, it'll just change his state.
+		switch (type){
+		case WALK : buchbuch.setRunning();break;
+		default : break;
+		}
 		
 	}
 	

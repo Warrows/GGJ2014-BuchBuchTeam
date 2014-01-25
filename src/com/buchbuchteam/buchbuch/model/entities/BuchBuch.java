@@ -18,11 +18,20 @@ public class BuchBuch extends MoveableEntity
 		this.running = false;
 	}
 
+	public void setRunning(){
+		this.running = !this.running;
+	}
+	
 	@Override
 	public TextureRegion getFrame(float stateTime)
 	{
-		if (running)
+		if (running){
+			x += 2;
 			return jackRunning.getKeyFrame(stateTime);
+		} else {
+			if (x==0) x=0;
+			else x--;
+		}
 		return jackWalking.getKeyFrame(stateTime);
 	}
 
