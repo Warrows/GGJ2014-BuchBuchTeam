@@ -68,9 +68,10 @@ public class BuchBuch extends MoveableEntity
 		return frame;
 	}
 
-	private void setLeaving(boolean b) {
+	public void setLeaving(boolean b) {
 		
 		this.leaving= b; 
+		Team.getInstance().setToLeave(true);
 		
 	}
 

@@ -11,13 +11,17 @@ public class Team implements Controllable
 
 	private float y;
 	protected LinkedList<BuchBuch> team;
+	protected LinkedList<BuchBuch> leavers;
 	protected MovementQueue movements;
 	protected int nbBuch;
 	private int runCry;
 
+	private boolean toLeave;
+
 	private Team()
 	{
 		this.team = new LinkedList<BuchBuch>();
+		this.leavers = new LinkedList<BuchBuch>();
 		this.movements = new MovementQueue();
 		this.y = 250;
 		this.runCry = 200;
@@ -29,6 +33,7 @@ public class Team implements Controllable
 		nbBuch = 5;
 		while (team.size() < nbBuch)
 			team.add(new BuchBuch(0, y));
+		
 	}
 
 	public void jump()
@@ -78,9 +83,10 @@ public class Team implements Controllable
 	
 	public void leave()
 	{
-		movements.add(new Movement(Movement.MovementType.LEAVE, team
-				.removeFirst(), 1));
+		leavers.addLast(team.removeFirst());
+		movements.add(new Movement(Movement.MovementType.LEAVE, leavers.getLast(), 1));
 		nbBuch--;
+		toLeave = false;
 	}
 
 	
@@ -97,6 +103,18 @@ public class Team implements Controllable
 			}
 			spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
 		}
+		for (BuchBuch b : leavers)
+		{
+			runCry --;
+			if (b.isRunning() && runCry <= 0)
+			{
+				b.cry();
+				runCry = 1600;
+			}
+			spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
+		}
+		
+		if (toLeave) { leave();}
 	}
 
 	public static Team getInstance()
@@ -136,5 +154,11 @@ public class Team implements Controllable
 	public void right()
 	{
 		run();
+	}
+
+	public void setToLeave(boolean b) {
+
+		this.toLeave = b;
+		
 	}
 }
