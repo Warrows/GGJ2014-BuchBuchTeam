@@ -16,7 +16,7 @@ public class BackGround
 
 	public void render(Batch spriteBatch)
 	{
-		anim++;
+		anim+=2;
 		anim %= 1920;
 		spriteBatch.draw(upperBackgroundSprite, 0 - (anim%960), 0);
 		spriteBatch.draw(upperBackgroundSprite, 960 - (anim%960), 0);
