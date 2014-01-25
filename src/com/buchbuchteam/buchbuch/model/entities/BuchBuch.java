@@ -25,6 +25,11 @@ public class BuchBuch extends MoveableEntity
 			return jackRunning.getKeyFrame(stateTime);
 		return jackWalking.getKeyFrame(stateTime);
 	}
+	
+	public TextureRegion getRunningFrame(float animTime)
+	{
+		return jackRunning.getKeyFrame(animTime);
+	}
 
 	@Override
 	public float getX()
