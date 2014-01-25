@@ -54,7 +54,9 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),
 				tree.getY());
 		for (Entity entity : entitiesToRender)
-			stage.getSpriteBatch().draw(entity.getFrame(animTime), entity.getX(), entity.getY());
+		{
+			System.out.println("aaa");
+			stage.getSpriteBatch().draw(entity.getFrame(animTime), entity.getX(), entity.getY());}
 		stage.getSpriteBatch().end();
 
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
