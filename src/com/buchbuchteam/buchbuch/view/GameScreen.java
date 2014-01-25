@@ -1,18 +1,21 @@
 package com.buchbuchteam.buchbuch.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.buchbuchteam.buchbuch.model.Human;
 import com.buchbuchteam.buchbuch.model.Team;
-import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 
-public class GameScreen extends ScreenMaster
+public class GameScreen extends ScreenMaster implements InputProcessor
 {
 	private Stage stage;
 	private float animTime;
 	private Team buchers;
 	private MovingTree tree;
 	private BackGround bg;
+	private Human human;
 
 	public GameScreen()
 	{
@@ -24,6 +27,7 @@ public class GameScreen extends ScreenMaster
 		
 		buchers = new Team(250);
 		tree = new MovingTree(700, 240);
+		human = new Human();
 	}
 
 	@Override
@@ -37,6 +41,10 @@ public class GameScreen extends ScreenMaster
 		buchers.render(stage.getSpriteBatch(),animTime);
 		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(), tree.getY());
 		stage.getSpriteBatch().end();
+		
+		
+		if (Gdx.input.isKeyPressed(Input.Keys.A))
+			human.walk();
 	}
 
 	@Override
@@ -79,6 +87,56 @@ public class GameScreen extends ScreenMaster
 	{
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		if (Gdx.input.isKeyPressed(Input.Keys.A))
+			System.out.println("YOLO");
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
