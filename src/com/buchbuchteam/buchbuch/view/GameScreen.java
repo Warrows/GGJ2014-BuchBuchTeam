@@ -23,7 +23,7 @@ public class GameScreen extends ScreenMaster
 		bg = new BackGround();
 		
 		buchers = new Team(250);
-		tree = new MovingTree(200, 240);
+		tree = new MovingTree(700, 240);
 	}
 
 	@Override

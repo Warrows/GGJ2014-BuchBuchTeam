@@ -23,10 +23,6 @@ public class Team implements Controllable
 	public void reinit()
 	{
 		nbBuch = 5;
-		for (int i = 0; i < nbBuch; i++)
-		{
-			team.add(new BuchBuch(0, y));
-		}
 	}
 
 	@Override
@@ -70,6 +66,8 @@ public class Team implements Controllable
 
 	public void render(Batch spriteBatch, float animTime)
 	{
+		if (team.isEmpty() || team.size() < nbBuch && team.getLast().getX()>0)
+			team.add(new BuchBuch(-64, y));
 		for (BuchBuch b: team)
 			spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
 	}

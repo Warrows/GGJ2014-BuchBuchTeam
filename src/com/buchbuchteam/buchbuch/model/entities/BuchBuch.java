@@ -28,10 +28,9 @@ public class BuchBuch extends MoveableEntity
 		if (running){
 			x += 2;
 			return jackRunning.getKeyFrame(stateTime);
-		} else {
-			if (x==0) x=0;
-			else x--;
-		}
+		} 
+		x--;
+		if (x<=0) x=0;
 		return jackWalking.getKeyFrame(stateTime);
 	}
 	
