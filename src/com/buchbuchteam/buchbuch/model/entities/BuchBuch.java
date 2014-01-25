@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.utils.AnimationController.AnimationListener;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.view.GameScreen;
 
@@ -14,6 +15,7 @@ public class BuchBuch extends MoveableEntity
 	private float x, y;
 	private boolean running, jumping;
 	private int jumpingState;
+	private boolean attacking;
 
 	public BuchBuch(float x, float y)
 	{
@@ -44,7 +46,11 @@ public class BuchBuch extends MoveableEntity
 			frame = run(stateTime);
 		else
 			frame = walk(stateTime);
-
+		
+		if( attacking ) {
+			frame = attack(stateTime);
+		}
+		
 		if (jumping)
 		{
 			jumpingState ++;
@@ -69,9 +75,22 @@ public class BuchBuch extends MoveableEntity
 		if (x >= GameScreen.getInstance().getTree().getX())
 		{
 			setRunning(false);
-			return jackAttacking.getKeyFrame(stateTime);
+			setAttacking(true);
+			//return jackAttacking.getKeyFrame(stateTime);
 		}
 		return jackRunning.getKeyFrame(stateTime);
+	}
+	
+	private TextureRegion attack(float stateTime) {
+		
+		return jackAttacking.getKeyFrame(stateTime);
+		
+	}
+
+	private void setAttacking(boolean b) {
+
+		this.attacking = b;
+		
 	}
 
 	public TextureRegion getRunningFrame(float animTime)
