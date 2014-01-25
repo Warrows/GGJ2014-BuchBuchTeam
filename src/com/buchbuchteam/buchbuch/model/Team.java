@@ -35,6 +35,7 @@ public class Team implements Controllable
 		for (int i = 0; i < nbBuch; i++)
 		{
 			movements.add(new Movement(Movement.MovementType.JUMP, team.get(i)));
+			movements.remove().doMove();
 		}
 	}
 
@@ -45,6 +46,7 @@ public class Team implements Controllable
 		{
 			movements.add(new Movement(Movement.MovementType.CROUCH, team
 					.get(i)));
+			movements.remove().doMove();
 		}
 	}
 	
