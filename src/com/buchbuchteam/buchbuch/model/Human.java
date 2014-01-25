@@ -4,14 +4,12 @@ public class Human extends Player {
 
 	@Override
 	public boolean jump() {
-		// TODO Auto-generated method stub
-		return false;
+		return controllable.jump();
 	}
 
 	@Override
 	public boolean crouch() {
-		// TODO Auto-generated method stub
-		return false;
+		return controllable.crouch();
 	}
 
 }
