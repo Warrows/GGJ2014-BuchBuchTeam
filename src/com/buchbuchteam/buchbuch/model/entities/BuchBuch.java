@@ -68,6 +68,7 @@ public class BuchBuch extends MoveableEntity
 		if (x >= GameScreen.getInstance().getTree().getX())
 		{
 			setRunning(false);
+			return jackAttacking.getKeyFrame(stateTime);
 		}
 		return jackRunning.getKeyFrame(stateTime);
 	}
