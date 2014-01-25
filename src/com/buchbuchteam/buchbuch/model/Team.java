@@ -15,7 +15,17 @@ public class Team implements Controllable {
 			
 			team.add(new BuchBuch());
 		}
-		
 	}
-	
+
+	@Override
+	public boolean jump() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean crouch() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
