@@ -22,7 +22,7 @@ public class Team implements Controllable {
 	@Override
 	public boolean jump() {
 		for ( int i=0; i < 4; i++){
-			movements.add(new Movement(team.get(i)));
+			movements.add(new Movement(Movement.MovementType.JUMP, team.get(i)));
 		}
 		return false;
 	}
