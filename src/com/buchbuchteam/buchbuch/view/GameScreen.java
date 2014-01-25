@@ -6,17 +6,21 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.loaders.SoundLoader.SoundParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.model.Human;
+import com.buchbuchteam.buchbuch.model.Movement;
+import com.buchbuchteam.buchbuch.model.Movement.MovementType;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
+import com.buchbuchteam.buchbuch.model.entities.World;
 
 public class GameScreen extends ScreenMaster implements InputProcessor
 {
 	private static GameScreen instance;
 	private Stage stage;
 	private float animTime;
-	private Team buchers;
-	private MovingTree tree;
+		
+	private World world;
+	
 	private BackGround bg;
 	private Human human;
 
@@ -28,8 +32,8 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		
 		bg = new BackGround();
 		
-		buchers = Team.getInstance();
-		tree = new MovingTree(700, 240);
+		world = new World();
+				
 		human = new Human();
 		BuchBuch.Cry();
 		
@@ -45,17 +49,17 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		stage.getSpriteBatch().begin();
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		bg.render(stage.getSpriteBatch());
-		buchers.render(stage.getSpriteBatch(),animTime);
-		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(), tree.getY());
+		world.getBuchers().render(stage.getSpriteBatch(),animTime);
+		stage.getSpriteBatch().draw(world.getTree().getFrame(animTime), world.getTree().getX(), world.getTree().getY());
 		stage.getSpriteBatch().end();
 		
 		
 		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-			buchers.run();
+			world.moveBuchers(MovementType.RUN);
 		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-			buchers.walk();
+			world.moveBuchers(MovementType.WALK);
 		if (Gdx.input.isKeyPressed(Input.Keys.UP))
-			buchers.jump();
+			world.moveBuchers(MovementType.JUMP);
 	}
 
 	@Override
@@ -103,8 +107,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
-		if (Gdx.input.isKeyPressed(Input.Keys.A))
-			System.out.println("YOLO");
 		return false;
 	}
 
@@ -159,7 +161,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 
 	public MovingTree getTree()
 	{
-		return tree;
+		return world.getTree();
 	}
 
 }

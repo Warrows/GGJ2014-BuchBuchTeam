@@ -3,6 +3,7 @@ package com.buchbuchteam.buchbuch.model;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.buchbuchteam.buchbuch.model.Movement.MovementType;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 
 public class Team implements Controllable
@@ -34,7 +35,7 @@ public class Team implements Controllable
 	{
 		for (int i = 0; i < nbBuch; i++)
 		{
-			movements.add(new Movement(Movement.MovementType.JUMP, team.get(i)));
+			movements.add(new Movement(Movement.MovementType.JUMP, team.get(i), i));
 			movements.remove().doMove();
 		}
 	}
@@ -44,8 +45,7 @@ public class Team implements Controllable
 	{
 		for (int i = 0; i < nbBuch; i++)
 		{
-			movements.add(new Movement(Movement.MovementType.CROUCH, team
-					.get(i)));
+			movements.add(new Movement(Movement.MovementType.CROUCH, team.get(i), i));
 			movements.remove().doMove();
 		}
 	}
@@ -62,7 +62,7 @@ public class Team implements Controllable
 	{
 		for (int i = 0; i < team.size(); i++)
 		{
-			movements.add(new Movement(Movement.MovementType.WALK, team.get(i)));
+			movements.add(new Movement(Movement.MovementType.WALK, team.get(i), i));
 			movements.remove().doMove();
 		}
 	}
@@ -71,7 +71,7 @@ public class Team implements Controllable
 	public void run() {
 		for (int i = 0; i < team.size(); i++)
 		{
-			movements.add(new Movement(Movement.MovementType.RUN, team.get(i)));
+			movements.add(new Movement(Movement.MovementType.RUN, team.get(i), i));
 			movements.remove().doMove();
 		}
 	}
@@ -80,11 +80,19 @@ public class Team implements Controllable
 	public void leave()
 	{
 
-		movements.add(new Movement(Movement.MovementType.LEAVE, team
-				.removeFirst()));
+		movements.add(new Movement(Movement.MovementType.LEAVE, team.removeFirst(), 0));
 		nbBuch--;
 	}
 
+	public void addMove(MovementType type){
+		for (int i = 0; i < team.size(); i++)
+		{
+			movements.add(new Movement(type, team.get(i), i));
+			movements.remove().doMove();
+	
+		}
+	}
+	
 	public void render(Batch spriteBatch, float animTime)
 	{
 		for (BuchBuch b: team)

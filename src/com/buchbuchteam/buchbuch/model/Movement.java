@@ -5,6 +5,7 @@ public class Movement{
 
 	protected MovementType type;
 	protected BuchBuch buchbuch;
+	protected int delay;
 	
 	public enum MovementType {
 	
@@ -16,9 +17,10 @@ public class Movement{
 		
 	}
 	
-	public Movement(MovementType type, BuchBuch buchbuch){
+	public Movement(MovementType type, BuchBuch buchbuch, int delay){
 		this.type = type;
 		this.buchbuch = buchbuch;
+		this.delay = delay;
 	}
 	
 	public void doMove(){
