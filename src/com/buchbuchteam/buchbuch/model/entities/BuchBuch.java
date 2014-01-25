@@ -12,7 +12,8 @@ public class BuchBuch extends MoveableEntity
 {
 	private float x, y;
 	private boolean running;
-
+	private boolean jumping;
+	
 	public BuchBuch(float x, float y)
 	{
 		this.x = x;
@@ -24,7 +25,11 @@ public class BuchBuch extends MoveableEntity
 	{
 		this.running = bool;
 	}
-
+	
+	public void setJumping(boolean bool){
+		this.jumping = bool;
+	}
+	
 	@Override
 	public TextureRegion getFrame(float stateTime)
 	{
