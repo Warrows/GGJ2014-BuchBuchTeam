@@ -110,7 +110,7 @@ public class MenuScreen extends ScreenMaster implements EventListener{
 		
 
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(GameScreen.getInstance());
 		}
 		
 		super.bgRender();

@@ -1,14 +1,16 @@
 package com.buchbuchteam.buchbuch.view;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.assets.loaders.SoundLoader.SoundParameter;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.model.Human;
 import com.buchbuchteam.buchbuch.model.IA;
 import com.buchbuchteam.buchbuch.model.Team;
-import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
+import com.buchbuchteam.buchbuch.model.entities.Entity;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 
 public class GameScreen extends ScreenMaster implements InputProcessor
@@ -22,8 +24,10 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	private Human human;
 	private IA ia;
 	private boolean treeDestroy;
+	private Set<Entity> entitiesToRender;
+	private Set<Entity> entitiesToRemove;
 
-	GameScreen()
+	private GameScreen()
 	{
 		super("img/game/background/bggame.png");
 		animTime = 0;
@@ -35,6 +39,8 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		tree = MovingTree.getInstance();
 		human = new Human();
 		ia = new IA();
+		entitiesToRender = new HashSet<Entity>();
+		entitiesToRemove = new HashSet<Entity>();
 	}
 
 	@Override
@@ -48,9 +54,17 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		bg.render(stage.getSpriteBatch());
 		buchers.render(stage.getSpriteBatch(), animTime);
-	
-		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),tree.getY());
-		
+
+		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),
+				tree.getY());
+		entitiesToRender.removeAll(entitiesToRemove);
+		for (Entity entity : entitiesToRender)
+		{
+			System.out.println(entity.getX());
+			stage.getSpriteBatch().draw(entity.getFrame(animTime),
+					entity.getX(), entity.getY());
+		}
+
 		stage.getSpriteBatch().end();
 
 		if (buchers.getFirst().isAttacking() && ! treeDestroy){
@@ -186,6 +200,16 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	public MovingTree getTree()
 	{
 		return tree;
+	}
+
+	public void add(Entity entity)
+	{
+		entitiesToRender.add(entity);
+	}
+
+	public void remove(Entity entity)
+	{
+		entitiesToRemove.add(entity);
 	}
 
 }

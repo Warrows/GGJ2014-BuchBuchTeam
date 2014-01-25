@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.buchbuchteam.buchbuch.model.Controllable;
+import com.buchbuchteam.buchbuch.view.GameScreen;
 
 public class MovingTree extends MoveableEntity implements Controllable
 {
@@ -14,6 +15,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 	
 	private float x, y;
 	private boolean death;
+	private int firing;
 	
 	private MovingTree()
 	{
@@ -22,14 +24,26 @@ public class MovingTree extends MoveableEntity implements Controllable
 		this.death = false;
 		cry();
 	}
+	
+	public void setFiring()
+	{
+		firing = 60;
+	}
 
 	@Override
 	public TextureRegion getFrame(float stateTime)
 	{
 		if (death)
 			return treeDie.getKeyFrame(stateTime);
-		else
-			return treeAnim.getKeyFrame(stateTime);
+		
+		if (firing>=0)
+		{
+			firing --;
+			if (firing == 10)
+				fireAcorn();
+			return acornFireAnim.getKeyFrames()[firing/20];
+		}
+		return treeAnim.getKeyFrame(stateTime);
 	}
 
 	@Override
@@ -43,25 +57,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 	{
 		return y;
 	}
-
 	
-	private static Animation treeAnim;
-	{
-		Sprite[] treeFrames = new Sprite[3];
-		treeFrames[0] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/char_tree01.png")), 0,
-				0, 128, 128);
-		treeFrames[1] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/char_tree02.png")), 0,
-				0, 128, 128);
-		treeFrames[2] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/char_tree03.png")), 0,
-				0, 128, 128);
-		treeAnim = new Animation(0.2F, treeFrames);
-		treeAnim.setPlayMode(Animation.LOOP);
-		
-		
-	}
 	private static Animation treeDie;
 	{
 		Sprite[] treeFrames = new Sprite[6];
@@ -85,8 +81,6 @@ public class MovingTree extends MoveableEntity implements Controllable
 				0, 128, 128);
 		treeDie = new Animation(0.2F, treeFrames);
 		treeDie.setPlayMode(Animation.LOOP);
-		
-		
 	}
 	
 	public static void cry(){
@@ -105,8 +99,12 @@ public class MovingTree extends MoveableEntity implements Controllable
 	@Override
 	public void up()
 	{
-		// TODO Auto-generated method stub
-		
+		setFiring();
+	}
+
+	private void fireAcorn()
+	{
+		GameScreen.getInstance().add(new Acorn(x+64, y+16));
 	}
 
 	@Override
@@ -133,6 +131,36 @@ public class MovingTree extends MoveableEntity implements Controllable
 	public void setDeath(boolean b) {
 		this.death = b;
 	}
-	
-	
+
+
+	private static Animation acornFireAnim;
+	{
+		Sprite[] treeFrames = new Sprite[3];
+		treeFrames[0] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_01.png")), 0,
+				0, 128, 128);
+		treeFrames[1] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_02.png")), 0,
+				0, 128, 128);
+		treeFrames[2] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_03.png")), 0,
+				0, 128, 128);
+		acornFireAnim = new Animation(0.2F, treeFrames);
+		acornFireAnim.setPlayMode(Animation.LOOP);
+	}	
+	private static Animation treeAnim;
+	{
+		Sprite[] treeFrames = new Sprite[3];
+		treeFrames[0] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/char_tree01.png")), 0,
+				0, 128, 128);
+		treeFrames[1] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/char_tree02.png")), 0,
+				0, 128, 128);
+		treeFrames[2] = new Sprite(new Texture(
+				Gdx.files.internal("img/characters/tree/char_tree03.png")), 0,
+				0, 128, 128);
+		treeAnim = new Animation(0.2F, treeFrames);
+		treeAnim.setPlayMode(Animation.LOOP);
+	}
 }

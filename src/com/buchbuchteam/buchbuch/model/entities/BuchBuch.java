@@ -73,6 +73,8 @@ public class BuchBuch extends MoveableEntity
 	public void setLeaving(boolean b) {
 		
 		this.leaving= b; 
+		if (leaving)
+			running = false;
 		Team.getInstance().setToLeave(true);
 		
 	}
