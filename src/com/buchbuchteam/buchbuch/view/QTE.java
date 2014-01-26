@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.buchbuchteam.buchbuch.model.Human;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 
@@ -122,6 +123,12 @@ public class QTE extends ScreenMaster implements InputProcessor
 		((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
 				.setScreen(GameScreen.getInstance());
 		GameScreen.getInstance().resetInputProc();
+		
+		Human h = GameScreen.getInstance().getHuman();
+		if( h.isBuchBuch() )
+			h.addScore(50);
+		else
+			h.remScore(50);
 	}
 
 	private void treeWon()
@@ -130,6 +137,11 @@ public class QTE extends ScreenMaster implements InputProcessor
 				.setScreen(GameScreen.getInstance());
 		GameScreen.getInstance().resetInputProc();
 		Team.getInstance().setKo(true);
+		Human h = GameScreen.getInstance().getHuman();
+		if( h.isTree() )
+			h.addScore(50);
+		else
+			h.remScore(50);
 	}
 
 	@Override
