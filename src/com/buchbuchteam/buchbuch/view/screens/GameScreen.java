@@ -79,22 +79,6 @@ public class GameScreen extends ScreenMaster
 					changeMode();
 					return true;
 				}
-				if (keyCode == Input.Keys.ESCAPE || keyCode == Input.Keys.P
-						&& enPause == false)
-				{
-					pause();
-					pause.getSprite().setAlpha(1);
-					enPause = true;
-					return true;
-				}
-				if (keyCode == Input.Keys.ESCAPE || keyCode == Input.Keys.P
-						&& enPause == true)
-				{
-					unpause();
-					pause.getSprite().setAlpha(0);
-					enPause = false;
-					return true;
-				}
 				return false;
 			}
 
@@ -190,13 +174,7 @@ public class GameScreen extends ScreenMaster
 	@Override
 	public void pause()
 	{
-		Speed.pause();
-	}
-	
-	public void unpause()
-	{
-		Speed.unpause();
-		enPause = false;
+		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -287,7 +265,6 @@ public class GameScreen extends ScreenMaster
 	@Override
 	public void resume()
 	{
-		Speed.unpause();
 	}
 
 }

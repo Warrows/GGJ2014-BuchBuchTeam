@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.control.Human;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
-import com.buchbuchteam.buchbuch.view.BackGround;
 import com.buchbuchteam.buchbuch.view.Key;
 
 public class QTE extends ScreenMaster implements InputProcessor
@@ -148,8 +147,6 @@ public class QTE extends ScreenMaster implements InputProcessor
 		Human h = GameScreen.getInstance().getHuman();
 		if (h.isBuchBuch())
 			h.addScore(50);
-		else
-			h.remScore(50);
 	}
 
 	private void treeWon()
@@ -159,10 +156,8 @@ public class QTE extends ScreenMaster implements InputProcessor
 		GameScreen.getInstance().resetInputProc();
 		Team.getInstance().setKo(true);
 		Human h = GameScreen.getInstance().getHuman();
-		if (h.isTree())
+		if (h.isBuchBuch())
 			h.addScore(50);
-		else
-			h.remScore(50);
 	}
 
 	@Override

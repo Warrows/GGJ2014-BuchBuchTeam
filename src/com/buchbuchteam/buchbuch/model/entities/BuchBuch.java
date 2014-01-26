@@ -35,13 +35,17 @@ public class BuchBuch extends MoveableEntity
 
 	public void setRunning(boolean bool)
 	{
-		if (dead)return;
+		if (dead)
+			return;
 		this.running = bool;
 	}
 
 	public void setJumping(boolean bool)
 	{
-		if (dead)return;
+		if (dead)
+			return;
+		if (jumping || crouching)
+			return;
 		this.jumping = bool;
 		this.jumpingState = 0;
 		resetJackJumping();
@@ -81,8 +85,13 @@ public class BuchBuch extends MoveableEntity
 
 	private void die()
 	{
-		if (Team.getInstance().isFirst(this))
-			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameOver());
+		if (GameScreen.getInstance().getHuman().isBuchBuch())
+		{
+			if (Team.getInstance().isFirst(this))
+				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
+						.setScreen(new GameOver());
+		} else
+			GameScreen.getInstance().getHuman().addScore(50);
 		if (!dead)
 		{
 			setDead(true);
@@ -155,7 +164,6 @@ public class BuchBuch extends MoveableEntity
 		frame = jackAttacking.getKeyFrame(stateTime);
 		if (frame == jackAttackSprite[6])
 		{
-			GameScreen.getInstance().pause();
 			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
 					.setScreen(new QTE());
 		}
@@ -173,7 +181,8 @@ public class BuchBuch extends MoveableEntity
 
 	public void setKo(boolean ko)
 	{
-		if (dead)return;
+		if (dead)
+			return;
 		if (ko)
 		{
 			attacking = false;
@@ -184,7 +193,8 @@ public class BuchBuch extends MoveableEntity
 
 	public void setLeaving(boolean b)
 	{
-		if (dead)return;
+		if (dead)
+			return;
 		this.leaving = b;
 		Team.getInstance().setToLeave(true);
 	}
@@ -210,7 +220,8 @@ public class BuchBuch extends MoveableEntity
 
 	public void setAttacking(boolean b)
 	{
-		if (dead)return;
+		if (dead)
+			return;
 		this.attacking = b;
 		resetJackAttack();
 		if (b)
@@ -476,7 +487,8 @@ public class BuchBuch extends MoveableEntity
 
 	public void cry()
 	{
-		if (dead)return;
+		if (dead)
+			return;
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buch.wav"));
 		sound.play(0.5f);
 	}
@@ -498,7 +510,8 @@ public class BuchBuch extends MoveableEntity
 
 	public void jumpCry()
 	{
-		if (dead)return;
+		if (dead)
+			return;
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
 		sound.play(0.5f);
 	}
@@ -510,7 +523,10 @@ public class BuchBuch extends MoveableEntity
 
 	public void setCrouch(boolean bool)
 	{
-		if (dead)return;
+		if (jumping || crouching)
+			return;
+		if (dead)
+			return;
 		this.crouching = true;
 		this.crouchingState = 0;
 		resetJackCrouching();
