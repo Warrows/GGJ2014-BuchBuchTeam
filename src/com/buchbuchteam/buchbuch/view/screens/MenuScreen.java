@@ -74,11 +74,10 @@ public class MenuScreen extends ScreenMaster
 						return true;
 					case 3:
 						((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
-								.setScreen(new HighScoreScreen());
+								.setScreen(new CreditScreen());
 						return true;
 					case 4:
-						((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
-								.setScreen(new CreditScreen());
+							Gdx.app.exit();
 						return true;
 					case 5:
 						Gdx.app.exit();
