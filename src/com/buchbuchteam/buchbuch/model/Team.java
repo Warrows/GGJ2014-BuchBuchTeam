@@ -225,7 +225,6 @@ public class Team implements Controllable
 
 	public void setKo(boolean b)
 	{
-		// TODO Auto-generated method stub
-
+		team.getFirst().setKo(b);
 	}
 }

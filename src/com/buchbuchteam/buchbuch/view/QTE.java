@@ -92,7 +92,7 @@ public class QTE extends ScreenMaster implements InputProcessor
 			score += 1;
 			left = !left;
 		} else
-			score -= 0.3;
+			score -= 1;
 		System.out.println(score);
 	}
 
@@ -103,7 +103,7 @@ public class QTE extends ScreenMaster implements InputProcessor
 			score += 1;
 			left = !left;
 		} else
-			score -= 0.3;
+			score -= 1;
 		System.out.println(score);
 	}
 

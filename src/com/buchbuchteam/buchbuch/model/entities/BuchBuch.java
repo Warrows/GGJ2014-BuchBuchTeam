@@ -18,6 +18,7 @@ public class BuchBuch extends MoveableEntity
 	private boolean attacking;
 	private boolean leaving;
 	private boolean crouching;
+	private int ko;
 	private int crouchingState;
 
 	public BuchBuch(float x, float y)
@@ -26,7 +27,7 @@ public class BuchBuch extends MoveableEntity
 		this.y = y;
 		this.running = false;
 		this.jumping = false;
-
+ko = 0;
 	}
 
 	public void setRunning(boolean bool)
@@ -46,52 +47,81 @@ public class BuchBuch extends MoveableEntity
 	{
 		TextureRegion frame = null;
 		if (!leaving)
-			if (running && !Team.getInstance().ahead(x))
-				frame = run(stateTime);
-			else if (!leaving)
-				frame = walk(stateTime);
+			frame = go(stateTime, frame);
 
 		if (attacking)
-		{
-			frame = attack(stateTime);
-			if (frame == jackAttackSprite[6])
-			{
-				GameScreen.getInstance().pause();
-				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
-						.setScreen(new QTE());
-			}
-		}
+			frame = attackFrame(stateTime);
 
 		if (leaving)
-		{
-			frame = leaving(stateTime);
-			x -= 1.5;
-			if (x < -64)
-				x = -64;
-		}	
+			frame = leaveFrame(stateTime);
 		
 		if(crouching)
-		{
-			crouchingState++;
-			frame = jackCrouching.getKeyFrames()[crouchingState/10];
-			if (crouchingState >= 19)
-				crouching = false;
-		}
+			frame = crouchFrame();
 			
 		if (jumping)
+			frame = jumpFrame();
+		
+		return frame;
+	}
+
+	private TextureRegion jumpFrame()
+	{
+		TextureRegion frame;
+		jumpingState++;
+		frame = jackJumping.getKeyFrames()[jumpingState / 10];
+		if (jumpingState >= 49)
+			jumping = false;
+		return frame;
+	}
+
+	private TextureRegion crouchFrame()
+	{
+		TextureRegion frame;
+		crouchingState++;
+		frame = jackCrouching.getKeyFrames()[crouchingState/10];
+		if (crouchingState >= 19)
+			crouching = false;
+		return frame;
+	}
+
+	private TextureRegion leaveFrame(float stateTime)
+	{
+		TextureRegion frame;
+		frame = leaving(stateTime);
+		x -= 1.5;
+		if (x < -64)
+			x = -64;
+		return frame;
+	}
+
+	private TextureRegion attackFrame(float stateTime)
+	{
+		TextureRegion frame;
+		frame = attack(stateTime);
+		if (frame == jackAttackSprite[6])
 		{
-			jumpingState++;
-			frame = jackJumping.getKeyFrames()[jumpingState / 10];
-			if (jumpingState >= 49)
-				jumping = false;
+			GameScreen.getInstance().pause();
+			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
+					.setScreen(new QTE());
 		}
 		return frame;
 	}
 
-	private void setKo(boolean b)
+	private TextureRegion go(float stateTime, TextureRegion frame)
 	{
-		// TODO Auto-generated method stub
+		if (running && !Team.getInstance().ahead(x))
+			frame = run(stateTime);
+		else if (!leaving)
+			frame = walk(stateTime);
+		return frame;
+	}
 
+	public void setKo(boolean ko)
+	{
+		if (ko)
+			this.ko = 100;
+		else 
+			this.ko = 0;
 	}
 
 	public void setLeaving(boolean b)
