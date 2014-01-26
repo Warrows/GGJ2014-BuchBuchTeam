@@ -143,7 +143,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 
 	public void kill()
 	{
-		dying = 120;
+		dying = 180;
 		Team.getInstance().walk();
 	}
 
@@ -206,33 +206,48 @@ public class MovingTree extends MoveableEntity implements Controllable
 	}
 	private static Animation treeDie;
 	{
-		Sprite[] treeFrames = new Sprite[6];
+		Sprite[] treeFrames = new Sprite[9];
 		treeFrames[0] = new Sprite(
 				new Texture(
 						Gdx.files
-								.internal("img/characters/tree/death/char_tree_death06.png")),
+								.internal("img/characters/tree/death/char_tree_death09.png")),
 				0, 0, 128, 128);
 		treeFrames[1] = new Sprite(
 				new Texture(
 						Gdx.files
-								.internal("img/characters/tree/death/char_tree_death05.png")),
+								.internal("img/characters/tree/death/char_tree_death08.png")),
 				0, 0, 128, 128);
 		treeFrames[2] = new Sprite(
 				new Texture(
 						Gdx.files
-								.internal("img/characters/tree/death/char_tree_death04.png")),
+								.internal("img/characters/tree/death/char_tree_death07.png")),
 				0, 0, 128, 128);
 		treeFrames[3] = new Sprite(
 				new Texture(
 						Gdx.files
-								.internal("img/characters/tree/death/char_tree_death03.png")),
+								.internal("img/characters/tree/death/char_tree_death06.png")),
 				0, 0, 128, 128);
 		treeFrames[4] = new Sprite(
 				new Texture(
 						Gdx.files
-								.internal("img/characters/tree/death/char_tree_death02.png")),
+								.internal("img/characters/tree/death/char_tree_death05.png")),
 				0, 0, 128, 128);
 		treeFrames[5] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/death/char_tree_death04.png")),
+				0, 0, 128, 128);
+		treeFrames[6] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/death/char_tree_death03.png")),
+				0, 0, 128, 128);
+		treeFrames[7] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/death/char_tree_death02.png")),
+				0, 0, 128, 128);
+		treeFrames[8] = new Sprite(
 				new Texture(
 						Gdx.files
 								.internal("img/characters/tree/death/char_tree_death01.png")),
@@ -249,5 +264,10 @@ public class MovingTree extends MoveableEntity implements Controllable
 	public boolean isDying()
 	{
 		return dying > 0;
+	}
+
+	public static void resetInstance() {
+		instance = new MovingTree();
+		
 	}
 }

@@ -30,11 +30,6 @@ public class CursorMenu extends Sprite
 
 	}
 
-	public int getPosition()
-	{
-		return e;
-	}
-
 	public void descendre()
 	{
 		if (e >= 5)
@@ -42,5 +37,9 @@ public class CursorMenu extends Sprite
 		y = y - 47;
 		e++;
 		setY(y);
+	}
+	
+	public int getPosition(){
+		return e;
 	}
 }
