@@ -135,13 +135,17 @@ public class GameScreen extends ScreenMaster
 			
 		
 	}
+	
+	public void reset(){
+		this.instance = new GameScreen();
+	}
 
 	public void changeMode()
 	{
 		human.toggleMode();
 		ia.toggleMode();
 	}
-
+	
 	public Human getHuman()
 	{
 		return human;
