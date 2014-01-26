@@ -110,6 +110,10 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		human.toggleMode();
 		ia.toggleMode();
 	}
+	
+	public Human getHuman(){
+		return human;
+	}
 
 	@Override
 	public void resize(int width, int height)
