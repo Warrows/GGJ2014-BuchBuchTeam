@@ -15,7 +15,9 @@ import com.buchbuchteam.buchbuch.control.IA;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.Entity;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
+import com.buchbuchteam.buchbuch.model.entities.traps.Acorn;
 import com.buchbuchteam.buchbuch.model.entities.traps.Gap;
+import com.buchbuchteam.buchbuch.model.entities.traps.Root;
 import com.buchbuchteam.buchbuch.view.BackGround;
 
 public class GameScreen extends ScreenMaster
@@ -94,7 +96,6 @@ public class GameScreen extends ScreenMaster
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		bg.render(stage.getSpriteBatch());
 		entitiesToRender.removeAll(entitiesToRemove);
-		System.out.println(entitiesToRender.size());
 		for (Entity entity : entitiesToRender)
 		{
 			stage.getSpriteBatch().draw(entity.getFrame(animTime),
@@ -194,11 +195,33 @@ public class GameScreen extends ScreenMaster
 	{
 		for (Entity g: entitiesToRender)
 		{
-			//System.out.println(g);
 			if (!(g instanceof Gap))
 				continue;
-			System.out.println("    a    ");
 			if (x > ((Gap)g).getX() && x < 64 + ((Gap)g).getX())
+				return true;
+		}
+		return false;
+	}
+
+	public boolean hasRoot(float x)
+	{
+		for (Entity g: entitiesToRender)
+		{
+			if (!(g instanceof Root))
+				continue;
+			if (x > ((Root)g).getX() && x < 64 + ((Root)g).getX())
+				return true;
+		}
+		return false;
+	}
+
+	public boolean hasAcorn(float x)
+	{
+		for (Entity g: entitiesToRender)
+		{
+			if (!(g instanceof Acorn))
+				continue;
+			if (x > ((Acorn)g).getX() && x < 64 + ((Acorn)g).getX())
 				return true;
 		}
 		return false;
