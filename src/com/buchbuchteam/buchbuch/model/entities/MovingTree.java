@@ -23,7 +23,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 
 	private MovingTree()
 	{
-		this.x = 1000;
+		this.x = 1100;
 		this.y = 240;
 		this.dying = 0;
 		this.rooting = 0;
@@ -73,7 +73,6 @@ public class MovingTree extends MoveableEntity implements Controllable
 
 	private void fireRoot()
 	{
-		System.out.println("root");
 		GameScreen.getInstance().add(new Root(x + 32, y));
 	}
 
@@ -111,7 +110,6 @@ public class MovingTree extends MoveableEntity implements Controllable
 
 	private void fireAcorn()
 	{
-		System.out.println("acorn");
 		GameScreen.getInstance().add(new Acorn(x + 32, y + 48));
 	}
 

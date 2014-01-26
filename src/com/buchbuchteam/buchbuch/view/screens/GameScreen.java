@@ -36,7 +36,7 @@ public class GameScreen extends ScreenMaster
 	private Pause pause;
 	private boolean enPause = false;
 
-	public GameScreen()
+	private GameScreen()
 	{
 		super("img/game/background/bggame.png");
 		animTime = 0;
@@ -119,7 +119,7 @@ public class GameScreen extends ScreenMaster
 			{
 				e.printStackTrace();
 			}
-		System.out.println(human.getScore());
+		//System.out.println(human.getScore());
 
 		ia.play();
 		// if (new Random().nextInt() % 300 == 1)
