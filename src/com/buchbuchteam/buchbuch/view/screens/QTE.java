@@ -147,6 +147,9 @@ public class QTE extends ScreenMaster implements InputProcessor
 		Human h = GameScreen.getInstance().getHuman();
 		if (h.isBuchBuch())
 			h.addScore(50);
+		else
+			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
+			.setScreen(new GameOver());			
 	}
 
 	private void treeWon()
