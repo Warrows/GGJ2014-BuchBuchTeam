@@ -40,19 +40,29 @@ public class Team implements Controllable
 
 	public void jump()
 	{
-		for (int i = 0; i < nbBuch; i++)
+		for (int i = 0; i < team.size(); i++)
 		{
-			movements.add(new Movement(Movement.MovementType.JUMP, team.get(i),
-					i * 20));
+			if (i == 0)
+				movements.add(new Movement(Movement.MovementType.JUMP, team
+						.get(i), 0));
+			else
+				movements.add(new Movement(Movement.MovementType.JUMP, team
+						.get(i), (int) (i
+						* (team.get(i).getX() - team.get(i - 1).getX()) / 3)));
 		}
 	}
 
 	public void crouch()
 	{
-		for (int i = 0; i < nbBuch; i++)
+		for (int i = 0; i < team.size(); i++)
 		{
-			movements.add(new Movement(Movement.MovementType.CROUCH, team
-					.get(i), i * 20));
+			if (i == 0)
+				movements.add(new Movement(Movement.MovementType.CROUCH, team
+						.get(i), 0));
+			else
+				movements.add(new Movement(Movement.MovementType.CROUCH, team
+						.get(i), (int) (i
+						* (team.get(i).getX() - team.get(i - 1).getX()) / 3)));
 		}
 	}
 
@@ -101,7 +111,7 @@ public class Team implements Controllable
 		}
 		toLeave = false;
 	}
-	
+
 	public boolean isAttacking()
 	{
 		return team.getFirst().isAttacking();
