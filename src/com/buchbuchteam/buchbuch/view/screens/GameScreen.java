@@ -105,7 +105,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		stage.getSpriteBatch().end();
 	}
 
-	private void changeMode()
+	public void changeMode()
 	{
 		human.toggleMode();
 		ia.toggleMode();

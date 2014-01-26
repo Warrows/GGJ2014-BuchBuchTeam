@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.buchbuchteam.buchbuch.control.Controllable;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
+import com.buchbuchteam.buchbuch.view.screens.GameScreen;
 
 public class Team implements Controllable
 {
@@ -40,19 +41,31 @@ public class Team implements Controllable
 
 	public void jump()
 	{
-		for (int i = 0; i < nbBuch; i++)
+		for (int i = 0; i < team.size(); i++)
 		{
-			movements.add(new Movement(Movement.MovementType.JUMP, team.get(i),
-					i * 20));
+			if (i == 0)
+				movements.add(new Movement(Movement.MovementType.JUMP, team
+						.get(i), 0));
+			else
+			{
+				movements.add(new Movement(Movement.MovementType.JUMP, team
+						.get(i),
+						(int) (team.get(0).getX() - team.get(i).getX()) / 3));
+			}
 		}
 	}
 
 	public void crouch()
 	{
-		for (int i = 0; i < nbBuch; i++)
+		for (int i = 0; i < team.size(); i++)
 		{
-			movements.add(new Movement(Movement.MovementType.CROUCH, team
-					.get(i), i * 20));
+			if (i == 0)
+				movements.add(new Movement(Movement.MovementType.CROUCH, team
+						.get(i), 0));
+			else
+				movements.add(new Movement(Movement.MovementType.CROUCH, team
+						.get(i),
+						(int) (team.get(0).getX() - team.get(i).getX()) / 3));
 		}
 	}
 
@@ -99,9 +112,10 @@ public class Team implements Controllable
 			b.setLeaving(false);
 			b.setRunning(true);
 		}
+		GameScreen.getInstance().changeMode();
 		toLeave = false;
 	}
-	
+
 	public boolean isAttacking()
 	{
 		return team.getFirst().isAttacking();

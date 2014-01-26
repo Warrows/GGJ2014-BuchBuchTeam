@@ -68,20 +68,12 @@ public class IA extends Player
 	@Override
 	public void up()
 	{
-		if (!MovingTree.getInstance().isInplace())
-			return;
-		if (MovingTree.getInstance().isDying())
-			return;
 		controllable.up();
 	}
 
 	@Override
 	public void down()
 	{
-		if (!MovingTree.getInstance().isInplace())
-			return;
-		if (MovingTree.getInstance().isDying())
-			return;
 		controllable.down();
 	}
 

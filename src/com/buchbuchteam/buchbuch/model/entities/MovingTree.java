@@ -86,7 +86,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 	@Override
 	public void up()
 	{
-		setFiring();
+		// TODO Auto-generated method stub
 	}
 
 	private void fireAcorn()
@@ -104,8 +104,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 	@Override
 	public void left()
 	{
-		// TODO Auto-generated method stub
-		
+		setFiring();
 	}
 
 	@Override
