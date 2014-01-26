@@ -107,7 +107,6 @@ public class Team implements Controllable
 				.getLast(), 1));
 		toLeave = false;
 	}
-	
 
 	public void reset()
 	{
@@ -157,7 +156,9 @@ public class Team implements Controllable
 				if (toKill)
 				{
 					deads.add(b);
+					System.out.println(team.size());
 					iter.remove();
+					System.out.println(team.size());
 					toKill = false;
 				}
 			}
@@ -229,9 +230,7 @@ public class Team implements Controllable
 
 	public void setToLeave(boolean b)
 	{
-
 		this.toLeave = b;
-
 	}
 
 	public BuchBuch getFirst()
@@ -242,7 +241,9 @@ public class Team implements Controllable
 	public boolean allLeaved()
 	{
 		if (!team.isEmpty())
-			return false;
+			for (BuchBuch b : team)
+				if (! b.isDead())
+					return false;
 		for (BuchBuch b : leavers)
 			if (b.getX() > -62)
 				return false;

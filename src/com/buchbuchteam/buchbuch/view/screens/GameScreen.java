@@ -141,7 +141,13 @@ public class GameScreen extends ScreenMaster
 		score.draw(stage.getSpriteBatch(), "SCORE : "+GameScreen.getInstance().getHuman().getScore(), 50, 50);
 		
 		stage.getSpriteBatch().end();
-
+		
+		System.out.println(Team.getInstance().allLeaved());
+		if (Team.getInstance().allLeaved())
+		{
+			changeMode();
+			resetInstance();
+		}
 	}
 	
 	public static void resetInstance(){
