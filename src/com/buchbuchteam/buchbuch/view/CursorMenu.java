@@ -2,9 +2,13 @@ package com.buchbuchteam.buchbuch.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.buchbuchteam.buchbuch.view.screens.ControlScreen;
 import com.buchbuchteam.buchbuch.view.screens.GameScreen;
@@ -13,10 +17,12 @@ import com.buchbuchteam.buchbuch.view.screens.MenuScreen;
 
 public class CursorMenu {
 	
-	private SpriteBatch batch;
+	private Stage stage;
 	private Sprite sprite;
 	private String file;
-	public static final int width=40, height= 40, x =250,  Ay = 15,j = 1;
+	public static final int width=40, height= 40, x =250;
+	public static int Ay = 55;
+	public static final int j = 1;
 	private int y, e=1;
 	
 	
@@ -24,9 +30,47 @@ public class CursorMenu {
 		  
 		 y = MenuScreen.jouerY;
 		
-		batch = new SpriteBatch();
+		stage = new Stage();
 		sprite = new Sprite(new Texture(Gdx.files.internal(file)), width, height);
 		
+		stage.addListener(new InputListener()
+		{
+			public boolean keyDown(InputEvent event, int keyCode)
+			{
+				if (keyCode == Input.Keys.UP && e > 1)
+					
+				{
+
+					
+					System.out.println(e);
+					sprite.setPosition(x, y = y + Ay);
+					
+				
+					
+				
+					   e --;
+					
+					return true;
+				}
+				if (keyCode == Input.Keys.DOWN && e <5)
+				{
+
+					
+					System.out.println(e);
+					sprite.setPosition(x, y = y - Ay);
+					
+				
+					
+				
+					   e ++;
+					
+					return true;
+				}
+				return false;
+			}
+		});
+
+		Gdx.input.setInputProcessor(stage);
 		sprite.setPosition(x, y);	
 	}
 
@@ -35,9 +79,10 @@ public class CursorMenu {
 	  
 	  public void CursorRender(){
 		  
-		  batch.begin();
-		  	sprite.draw(batch);
-		  	batch.end();
+		  stage.getSpriteBatch().begin();
+		  	sprite.draw(stage.getSpriteBatch());
+		  	
+		  	stage.getSpriteBatch().end();
 	  }
 
 
@@ -46,26 +91,8 @@ public class CursorMenu {
 
 	public void Choose(){
 		
-		if(Gdx.input.isKeyPressed(Input.Keys.DOWN )){
-				e++;
-				System.out.println(e);
-				y -= 55;
-				CursorRender();
-				if(e > 5){
-				   e --;
-				}
-				
-				}
-		if(Gdx.input.isKeyPressed(Input.Keys.UP )){
-			e--;
-			System.out.println(e);
-			y += 55;
-			CursorRender();
-			if(e == 0){
-			   e ++;
-			}
-			
-			}
+		
+	
 		
 		if(Gdx.input.isKeyPressed(Input.Keys.ENTER  )){
 			System.out.println("ENTER");
