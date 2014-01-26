@@ -1,5 +1,6 @@
 package com.buchbuchteam.buchbuch.model;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -17,10 +18,10 @@ public class Team implements Controllable
 	protected LinkedList<BuchBuch> leavers;
 	protected LinkedList<BuchBuch> deads;
 	protected MovementQueue movements;
-	protected int nbBuch;
 	private int runCry;
 
 	private boolean toLeave;
+	private boolean toKill;
 
 	private Team()
 	{
@@ -29,14 +30,14 @@ public class Team implements Controllable
 		this.deads = new LinkedList<BuchBuch>();
 		this.movements = new MovementQueue();
 		this.y = 250;
+		toKill = false;
 		this.runCry = 200;
 		reinit();
 	}
 
 	public void reinit()
 	{
-		nbBuch = 5;
-		while (team.size() < nbBuch)
+		while (team.size() < 5)
 			team.add(new BuchBuch(0, y));
 	}
 
@@ -100,7 +101,6 @@ public class Team implements Controllable
 		leavers.addLast(team.removeFirst());
 		movements.add(new Movement(Movement.MovementType.LEAVE, leavers
 				.getLast(), 1));
-		nbBuch--;
 		toLeave = false;
 	}
 	
@@ -138,9 +138,16 @@ public class Team implements Controllable
 		movements.execute();
 		if (!MovingTree.getInstance().isInplace())
 		{
-			for (BuchBuch b : team)
-			{
+			Iterator<BuchBuch> iter=team.iterator();
+			while(iter.hasNext()){
+			    BuchBuch b=iter.next();
 				spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
+				if (toKill)
+				{
+					deads.add(b);
+					iter.remove();
+					toKill = false;
+				}
 			}
 		} else
 		{
@@ -148,6 +155,8 @@ public class Team implements Controllable
 				act(spriteBatch, animTime, b);
 		}
 		for (BuchBuch b : leavers)
+			act(spriteBatch, animTime, b);
+		for (BuchBuch b : deads)
 			act(spriteBatch, animTime, b);
 
 		if (toLeave)
@@ -223,6 +232,9 @@ public class Team implements Controllable
 		if (!team.isEmpty())
 			return false;
 		for (BuchBuch b : leavers)
+			if (b.getX() > -62)
+				return false;
+		for (BuchBuch b : deads)
 			if (b.getX() > -62)
 				return false;
 		return true;

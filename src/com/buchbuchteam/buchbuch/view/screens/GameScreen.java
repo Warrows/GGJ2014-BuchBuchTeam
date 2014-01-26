@@ -6,7 +6,6 @@ import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -88,8 +87,8 @@ public class GameScreen extends ScreenMaster
 	{
 		System.out.println(human.getScore());
 		ia.play();
-		if (new Random().nextInt() % 300 == 1)
-			entitiesToRender.add(new Gap(1100, 200));
+		//if (new Random().nextInt() % 300 == 1)
+			//entitiesToRender.add(new Gap(1100, 200));
 
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
@@ -223,7 +222,7 @@ public class GameScreen extends ScreenMaster
 		{
 			if (!(g instanceof Acorn))
 				continue;
-			if (x > ((Acorn) g).getX() && x < 64 + ((Acorn) g).getX())
+			if (x > ((Acorn) g).getX() && x < 16 + ((Acorn) g).getX())
 				return true;
 		}
 		return false;

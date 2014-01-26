@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.buchbuchteam.buchbuch.model.Speed;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.view.screens.GameScreen;
 import com.buchbuchteam.buchbuch.view.screens.QTE;
@@ -90,7 +91,7 @@ public class BuchBuch extends MoveableEntity
 	private TextureRegion koFrame(float stateTime)
 	{
 		ko--;
-		x -= 0.5;
+		x -= Speed.walk;
 		if (x < -64)
 			x = -64;
 		int i = ko - 700;
@@ -104,7 +105,7 @@ public class BuchBuch extends MoveableEntity
 	private TextureRegion deadFrame(float stateTime)
 	{
 		deadState--;
-		x -= 0.5;
+		x -= Speed.walk;
 		if (x < -64)
 			x = -64;
 		int i = deadState - 700;
@@ -187,7 +188,7 @@ public class BuchBuch extends MoveableEntity
 
 	private TextureRegion walk(float stateTime)
 	{
-		x -= 0.5;
+		x -= 0.6 * Speed.walk;
 		if (x <= 0)
 			x = 0;
 		return jackWalking.getKeyFrame(stateTime);
@@ -195,7 +196,7 @@ public class BuchBuch extends MoveableEntity
 
 	private TextureRegion run(float stateTime)
 	{
-		x += 1.5;
+		x += 1.4 * Speed.walk;
 		if (x >= GameScreen.getInstance().getTree().getX() && ko == 0)
 		{
 			setRunning(false);
