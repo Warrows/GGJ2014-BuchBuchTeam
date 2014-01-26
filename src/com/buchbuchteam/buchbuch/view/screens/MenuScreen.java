@@ -105,14 +105,19 @@ public class MenuScreen extends ScreenMaster
 		bgAnim.setPlayMode(Animation.LOOP);
 	}
 
+	private int img = 60;
+	
 	public void render(float delta)
 	{
-
 		stage.getSpriteBatch().begin();
 		
-		stage.getSpriteBatch().draw(bgAnim.getKeyFrame(delta), 0, 0);
-		
-		
+		if (img>30)
+			stage.getSpriteBatch().draw(bgAnim.getKeyFrames()[0], 0, 0);
+		else
+			stage.getSpriteBatch().draw(bgAnim.getKeyFrames()[1], 0, 0);
+		img --;
+		if (img == 0)
+			img = 60;
 	
 		curseur.draw(stage.getSpriteBatch());
 		stage.getSpriteBatch().end();
