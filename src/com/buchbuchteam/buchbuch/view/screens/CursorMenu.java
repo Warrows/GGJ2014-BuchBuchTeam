@@ -14,9 +14,9 @@ public class CursorMenu extends Sprite
 
 	public CursorMenu(String file)
 	{
-		super(new Texture(Gdx.files.internal("img/menu/cursor.png")), width,
+		super(new Texture(Gdx.files.internal(file)), width,
 				height);
-		taille = 5;
+		taille = 4;
 		y = MenuScreen.jouerY;
 		setPosition(x, y);
 
@@ -24,7 +24,7 @@ public class CursorMenu extends Sprite
 	
 	public CursorMenu(String file, int taille)
 	{
-		super(new Texture(Gdx.files.internal("img/menu/cursor.png")), width,
+		super(new Texture(Gdx.files.internal(file)), width,
 				height);
 		this.taille = taille;
 		y = MenuScreen.jouerY;

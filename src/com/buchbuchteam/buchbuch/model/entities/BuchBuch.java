@@ -525,6 +525,8 @@ public class BuchBuch extends MoveableEntity
 
 	public void setCrouch(boolean bool)
 	{
+		Sound musique = Gdx.audio.newSound(Gdx.files.internal("sounds/crouch.wav"));
+		musique.play();
 		if (jumping || crouching)
 			return;
 		if (dead)
