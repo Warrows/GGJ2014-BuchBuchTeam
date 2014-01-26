@@ -6,6 +6,8 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.model.Human;
 import com.buchbuchteam.buchbuch.model.IA;
@@ -40,6 +42,44 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		ia = new IA();
 		entitiesToRender = new HashSet<Entity>();
 		entitiesToRemove = new HashSet<Entity>();
+
+		stage.addListener(new InputListener()
+		{
+			public boolean keyDown(InputEvent event, int keyCode)
+			{
+				if (!MovingTree.getInstance().isInplace())
+					return false;
+				if (MovingTree.getInstance().isDying())
+					return false;
+				if (keyCode == Input.Keys.RIGHT)
+				{
+					human.right();
+					return true;
+				}
+				if (keyCode == Input.Keys.LEFT)
+				{
+					human.left();
+					return true;
+				}
+				if (keyCode == Input.Keys.UP)
+				{
+					human.up();
+					return true;
+				}
+				if (keyCode == Input.Keys.DOWN)
+				{
+					human.down();
+					return true;
+				}
+				if (keyCode == Input.Keys.A)
+				{
+					changeMode();
+					return true;
+				}
+				return false;
+			}
+		});
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
@@ -63,21 +103,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 					entity.getX(), entity.getY());
 		}
 		stage.getSpriteBatch().end();
-
-		if (Gdx.input.isKeyPressed(Input.Keys.A))
-			changeMode();
-		if (! MovingTree.getInstance().isInplace())
-			return;
-		if (MovingTree.getInstance().isDying())
-			return;
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-			human.right();
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-			human.left(); 
-		if (Gdx.input.isKeyPressed(Input.Keys.UP))
-			human.up(); 
-		if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-			human.down(); 
 	}
 
 	private void changeMode()
