@@ -60,5 +60,10 @@ public class Human extends Player
 	public void remScore(long points){
 		this.score -= points;
 	}
+
+	public double getScore()
+	{
+		return score;
+	}
 	
 }

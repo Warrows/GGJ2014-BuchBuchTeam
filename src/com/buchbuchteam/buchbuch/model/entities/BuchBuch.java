@@ -16,9 +16,9 @@ public class BuchBuch extends MoveableEntity
 	private boolean running, jumping;
 	private int jumpingState;
 	private boolean attacking;
-	private boolean leaving;
+	private boolean leaving, dead;
 	private boolean crouching;
-	private int ko;
+	private int ko, deadState;
 	private int crouchingState;
 
 	public BuchBuch(float x, float y)
@@ -27,16 +27,19 @@ public class BuchBuch extends MoveableEntity
 		this.y = y;
 		this.running = false;
 		this.jumping = false;
-ko = 0;
+		ko = 0;
+		deadState = 0;
 	}
 
 	public void setRunning(boolean bool)
 	{
+		if (dead)return;
 		this.running = bool;
 	}
 
 	public void setJumping(boolean bool)
 	{
+		if (dead)return;
 		this.jumping = bool;
 		this.jumpingState = 0;
 		resetJackJumping();
@@ -46,15 +49,19 @@ ko = 0;
 	public TextureRegion getFrame(float stateTime)
 	{
 		TextureRegion frame = null;
-		if (!leaving && ko <= 0)
+		if (!leaving && ko <= 0 && !dead)
 			frame = go(stateTime, frame);
-		
-		if (!jumping && GameScreen.getInstance().hasGap(x))
+		if ((!jumping) && GameScreen.getInstance().hasRoot(x))
 			die();
-		
-		if(crouching)
+		if ((!crouching) && GameScreen.getInstance().hasAcorn(x))
+			die();
+
+		if (dead)
+			frame = deadFrame(stateTime);
+
+		if (crouching)
 			frame = crouchFrame();
-			
+
 		if (jumping)
 			frame = jumpFrame();
 
@@ -63,31 +70,49 @@ ko = 0;
 
 		if (leaving)
 			frame = leaveFrame(stateTime);
-		
+
 		if (ko > 0)
 			frame = koFrame(stateTime);
-		
+
 		return frame;
 	}
 
 	private void die()
 	{
-		// TODO Auto-generated method stub
-		setKo(true);
+		if (!dead)
+		{
+			setDead(true);
+			deadState = 800;
+		}
+		// Team.getInstance().setToKill(true);
 	}
 
 	private TextureRegion koFrame(float stateTime)
 	{
-		ko --;
+		ko--;
 		x -= 0.5;
 		if (x < -64)
 			x = -64;
 		int i = ko - 700;
 		if (i > 0)
-			i = i/17;
+			i = i / 17;
 		else
 			i = 0;
 		return jackKo.getKeyFrames()[i];
+	}
+
+	private TextureRegion deadFrame(float stateTime)
+	{
+		deadState--;
+		x -= 0.5;
+		if (x < -64)
+			x = -64;
+		int i = deadState - 700;
+		if (i > 0)
+			i = i / 17;
+		else
+			i = 0;
+		return jackDead.getKeyFrames()[i];
 	}
 
 	private TextureRegion jumpFrame()
@@ -104,7 +129,7 @@ ko = 0;
 	{
 		TextureRegion frame;
 		crouchingState++;
-		frame = jackCrouching.getKeyFrames()[crouchingState/10];
+		frame = jackCrouching.getKeyFrames()[crouchingState / 10];
 		if (crouchingState >= 19)
 			crouching = false;
 		return frame;
@@ -144,17 +169,18 @@ ko = 0;
 
 	public void setKo(boolean ko)
 	{
+		if (dead)return;
 		if (ko)
 		{
 			attacking = false;
 			this.ko = 800;
-		}
-		else 
+		} else
 			this.ko = 0;
 	}
 
 	public void setLeaving(boolean b)
 	{
+		if (dead)return;
 		this.leaving = b;
 		Team.getInstance().setToLeave(true);
 	}
@@ -180,6 +206,7 @@ ko = 0;
 
 	public void setAttacking(boolean b)
 	{
+		if (dead)return;
 		this.attacking = b;
 		resetJackAttack();
 		if (b)
@@ -315,31 +342,73 @@ ko = 0;
 	{
 		Sprite[] jackFrames = new Sprite[6];
 		jackFrames[0] = new Sprite(
-				new Texture(Gdx.files
-						.internal("img/characters/jack/ko/char_jackassom_06.png")),
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/ko/char_jackassom_06.png")),
 				0, 0, 64, 92);
 		jackFrames[1] = new Sprite(
-				new Texture(Gdx.files
-						.internal("img/characters/jack/ko/char_jackassom_05.png")),
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/ko/char_jackassom_05.png")),
 				0, 0, 64, 92);
 		jackFrames[2] = new Sprite(
-				new Texture(Gdx.files
-						.internal("img/characters/jack/ko/char_jackassom_04.png")),
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/ko/char_jackassom_04.png")),
 				0, 0, 64, 92);
 		jackFrames[3] = new Sprite(
-				new Texture(Gdx.files
-						.internal("img/characters/jack/ko/char_jackassom_03.png")),
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/ko/char_jackassom_03.png")),
 				0, 0, 64, 92);
 		jackFrames[4] = new Sprite(
-				new Texture(Gdx.files
-						.internal("img/characters/jack/ko/char_jackassom_02.png")),
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/ko/char_jackassom_02.png")),
 				0, 0, 64, 92);
 		jackFrames[5] = new Sprite(
-				new Texture(Gdx.files
-						.internal("img/characters/jack/ko/char_jackassom_01.png")),
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/ko/char_jackassom_01.png")),
 				0, 0, 64, 92);
 		jackKo = new Animation(0.2F, jackFrames);
 		jackKo.setPlayMode(Animation.LOOP);
+	}
+	private static Animation jackDead;
+	{
+		Sprite[] jackFrames = new Sprite[6];
+		jackFrames[0] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/dead/char_jackDead_06.png")),
+				0, 0, 64, 92);
+		jackFrames[1] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/dead/char_jackDead_05.png")),
+				0, 0, 64, 92);
+		jackFrames[2] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/dead/char_jackDead_04.png")),
+				0, 0, 64, 92);
+		jackFrames[3] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/dead/char_jackDead_03.png")),
+				0, 0, 64, 92);
+		jackFrames[4] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/dead/char_jackDead_02.png")),
+				0, 0, 64, 92);
+		jackFrames[5] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/dead/char_jackDead_01.png")),
+				0, 0, 64, 92);
+		jackDead = new Animation(0.2F, jackFrames);
+		jackDead.setPlayMode(Animation.LOOP);
 	}
 	private static Animation jackJumping;
 	private static Sprite[] jackJumpingSprite;
@@ -366,18 +435,20 @@ ko = 0;
 						.internal("img/characters/jack/char_jackJump_05.png")),
 				0, 5, 64, 92);
 	}
-	
+
 	private static Animation jackCrouching;
 	private static Sprite[] jackCrouchingSprite;
 	{
 		jackCrouchingSprite = new Sprite[2];
 		jackCrouchingSprite[0] = new Sprite(
-				new Texture(Gdx.files
-						.internal("img/characters/jack/crouch/char_jackEsquive_01.png")),
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/crouch/char_jackEsquive_01.png")),
 				0, 0, 64, 64);
 		jackCrouchingSprite[1] = new Sprite(
-				new Texture(Gdx.files
-						.internal("img/characters/jack/crouch/char_jackEsquive_02.png")),
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/crouch/char_jackEsquive_02.png")),
 				0, 0, 64, 64);
 	}
 
@@ -386,8 +457,9 @@ ko = 0;
 		jackJumping = new Animation(0.2F, jackJumpingSprite);
 		jackJumping.setPlayMode(Animation.LOOP);
 	}
-	
-	private void resetJackCrouching(){
+
+	private void resetJackCrouching()
+	{
 		jackCrouching = new Animation(0.2F, jackCrouchingSprite);
 		jackCrouching.setPlayMode(Animation.LOOP_PINGPONG);
 	}
@@ -400,6 +472,7 @@ ko = 0;
 
 	public void cry()
 	{
+		if (dead)return;
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buch.wav"));
 		sound.play(0.5f);
 	}
@@ -421,6 +494,7 @@ ko = 0;
 
 	public void jumpCry()
 	{
+		if (dead)return;
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
 		sound.play(0.5f);
 	}
@@ -430,10 +504,16 @@ ko = 0;
 		return leaving;
 	}
 
-	public void setCrouch(boolean bool) {
-		
+	public void setCrouch(boolean bool)
+	{
+		if (dead)return;
 		this.crouching = true;
 		this.crouchingState = 0;
 		resetJackCrouching();
+	}
+
+	public void setDead(boolean b)
+	{
+		dead = b;
 	}
 }

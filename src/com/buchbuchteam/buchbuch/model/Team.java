@@ -15,6 +15,7 @@ public class Team implements Controllable
 	private float y;
 	protected LinkedList<BuchBuch> team;
 	protected LinkedList<BuchBuch> leavers;
+	protected LinkedList<BuchBuch> deads;
 	protected MovementQueue movements;
 	protected int nbBuch;
 	private int runCry;
@@ -25,6 +26,7 @@ public class Team implements Controllable
 	{
 		this.team = new LinkedList<BuchBuch>();
 		this.leavers = new LinkedList<BuchBuch>();
+		this.deads = new LinkedList<BuchBuch>();
 		this.movements = new MovementQueue();
 		this.y = 250;
 		this.runCry = 200;
@@ -36,7 +38,6 @@ public class Team implements Controllable
 		nbBuch = 5;
 		while (team.size() < nbBuch)
 			team.add(new BuchBuch(0, y));
-
 	}
 
 	public void jump()
@@ -102,14 +103,18 @@ public class Team implements Controllable
 		nbBuch--;
 		toLeave = false;
 	}
+	
 
 	public void reset()
 	{
 		team.addAll(leavers);
+		team.addAll(deads);
 		leavers = new LinkedList<BuchBuch>();
+		deads = new LinkedList<BuchBuch>();
 		for (BuchBuch b : team)
 		{
 			b.setLeaving(false);
+			b.setDead(false);
 			b.setRunning(true);
 		}
 		GameScreen.getInstance().changeMode();

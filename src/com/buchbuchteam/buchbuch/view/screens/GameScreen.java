@@ -86,6 +86,7 @@ public class GameScreen extends ScreenMaster
 	@Override
 	public void render(float delta)
 	{
+		System.out.println(human.getScore());
 		ia.play();
 		if (new Random().nextInt() % 300 == 1)
 			entitiesToRender.add(new Gap(1100, 200));
@@ -112,8 +113,9 @@ public class GameScreen extends ScreenMaster
 		human.toggleMode();
 		ia.toggleMode();
 	}
-	
-	public Human getHuman(){
+
+	public Human getHuman()
+	{
 		return human;
 	}
 
@@ -193,11 +195,11 @@ public class GameScreen extends ScreenMaster
 
 	public boolean hasGap(float x)
 	{
-		for (Entity g: entitiesToRender)
+		for (Entity g : entitiesToRender)
 		{
 			if (!(g instanceof Gap))
 				continue;
-			if (x > ((Gap)g).getX() && x < 64 + ((Gap)g).getX())
+			if (x > ((Gap) g).getX() && x < 64 + ((Gap) g).getX())
 				return true;
 		}
 		return false;
@@ -205,11 +207,11 @@ public class GameScreen extends ScreenMaster
 
 	public boolean hasRoot(float x)
 	{
-		for (Entity g: entitiesToRender)
+		for (Entity g : entitiesToRender)
 		{
 			if (!(g instanceof Root))
 				continue;
-			if (x > ((Root)g).getX() && x < 64 + ((Root)g).getX())
+			if (x > ((Root) g).getX() && x < 64 + ((Root) g).getX())
 				return true;
 		}
 		return false;
@@ -217,11 +219,11 @@ public class GameScreen extends ScreenMaster
 
 	public boolean hasAcorn(float x)
 	{
-		for (Entity g: entitiesToRender)
+		for (Entity g : entitiesToRender)
 		{
 			if (!(g instanceof Acorn))
 				continue;
-			if (x > ((Acorn)g).getX() && x < 64 + ((Acorn)g).getX())
+			if (x > ((Acorn) g).getX() && x < 64 + ((Acorn) g).getX())
 				return true;
 		}
 		return false;
