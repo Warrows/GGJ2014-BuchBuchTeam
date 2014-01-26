@@ -2,17 +2,21 @@ package com.buchbuchteam.buchbuch.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class CursorMenu {
 	
-	private SpriteBatch batch;
+	private Stage stage;
 	private Sprite sprite;
 	private String file;
-	public static final int width=40, height= 40, x =250,  Ay = 15,j = 1;
+	public static final int width=40, height= 40, x =250;
+	public static int Ay = 55;
+	public static final int j = 1;
 	private int y, e=1;
 	
 	
@@ -20,7 +24,7 @@ public class CursorMenu {
 		  
 		 y = MenuScreen.jouerY;
 		
-		batch = new SpriteBatch();
+		stage = new Stage();
 		sprite = new Sprite(new Texture(Gdx.files.internal(file)), width, height);
 		
 		sprite.setPosition(x, y);	
@@ -31,9 +35,10 @@ public class CursorMenu {
 	  
 	  public void CursorRender(){
 		  
-		  batch.begin();
-		  	sprite.draw(batch);
-		  	batch.end();
+		  stage.getSpriteBatch().begin();
+		  	sprite.draw(stage.getSpriteBatch());
+		  	
+		  	stage.getSpriteBatch().end();
 	  }
 
 
@@ -43,22 +48,34 @@ public class CursorMenu {
 	public void Choose(){
 		
 		if(Gdx.input.isKeyPressed(Input.Keys.DOWN )){
-				e++;
+			
+				e+=Gdx.graphics.getDeltaTime()+1;
 				System.out.println(e);
-				y -= 55;
-				CursorRender();
+				sprite.setPosition(x, y = y - Ay);
+				
+			
+				
 				if(e > 5){
+					Ay=0;
 				   e --;
+				}
+				else{
+					Ay = 55;
 				}
 				
 				}
 		if(Gdx.input.isKeyPressed(Input.Keys.UP )){
-			e--;
+			e-=Gdx.graphics.getDeltaTime()+1;
 			System.out.println(e);
+			sprite.setPosition(x, y = y + Ay);
 			y += 55;
 			CursorRender();
-			if(e == 0){
+			if(e < 1){
+				Ay=0;
 			   e ++;
+			}
+			else{
+				Ay = 55;
 			}
 			
 			}
