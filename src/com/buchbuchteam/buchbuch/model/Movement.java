@@ -35,6 +35,8 @@ public class Movement
 			buchbuch.setJumping(true);
 			buchbuch.jumpCry();
 			break;
+		case CROUCH :
+			buchbuch.setCrouch(true);break;
 		default:
 			break;
 		}

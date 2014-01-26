@@ -17,6 +17,8 @@ public class BuchBuch extends MoveableEntity
 	private int jumpingState;
 	private boolean attacking;
 	private boolean leaving;
+	private boolean crouching;
+	private int crouchingState;
 
 	public BuchBuch(float x, float y)
 	{
@@ -66,8 +68,16 @@ public class BuchBuch extends MoveableEntity
 			x -= 1.5;
 			if (x < -64)
 				x = -64;
+		}	
+		
+		if(crouching)
+		{
+			crouchingState++;
+			frame = jackCrouching.getKeyFrames()[crouchingState/10];
+			if (crouchingState >= 19)
+				crouching = false;
 		}
-
+			
 		if (jumping)
 		{
 			jumpingState++;
@@ -286,11 +296,30 @@ public class BuchBuch extends MoveableEntity
 						.internal("img/characters/jack/char_jackJump_05.png")),
 				0, 5, 64, 92);
 	}
+	
+	private static Animation jackCrouching;
+	private static Sprite[] jackCrouchingSprite;
+	{
+		jackCrouchingSprite = new Sprite[2];
+		jackCrouchingSprite[0] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/crouch/char_jackEsquive_01.png")),
+				0, 0, 64, 64);
+		jackCrouchingSprite[1] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/crouch/char_jackEsquive_02.png")),
+				0, 0, 64, 64);
+	}
 
 	private void resetJackJumping()
 	{
 		jackJumping = new Animation(0.2F, jackJumpingSprite);
 		jackJumping.setPlayMode(Animation.LOOP);
+	}
+	
+	private void resetJackCrouching(){
+		jackCrouching = new Animation(0.2F, jackCrouchingSprite);
+		jackCrouching.setPlayMode(Animation.LOOP_PINGPONG);
 	}
 
 	private void resetJackAttack()
@@ -329,5 +358,12 @@ public class BuchBuch extends MoveableEntity
 	public boolean isLeaving()
 	{
 		return leaving;
+	}
+
+	public void setCrouch(boolean bool) {
+		
+		this.crouching = true;
+		this.crouchingState = 0;
+		resetJackCrouching();
 	}
 }

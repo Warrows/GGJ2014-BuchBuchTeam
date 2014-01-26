@@ -26,7 +26,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	private Set<Entity> entitiesToRender;
 	private Set<Entity> entitiesToRemove;
 
-	private GameScreen()
+	public GameScreen()
 	{
 		super("img/game/background/bggame.png");
 		animTime = 0;
@@ -63,8 +63,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 					entity.getX(), entity.getY());
 		}
 		stage.getSpriteBatch().end();
-
-		
 
 		if (Gdx.input.isKeyPressed(Input.Keys.A))
 			changeMode();

@@ -1,7 +1,8 @@
-/Movement.class
 /com
+/data
 /img
 /img.control
 /sounds
-/Key.class
 /data
+/bin*
+/bin/*
