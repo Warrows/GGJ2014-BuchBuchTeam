@@ -118,7 +118,8 @@ public class Team implements Controllable
 		{
 			b.setLeaving(false);
 			b.setDead(false);
-			b.setRunning(true);
+			b.setRunning(false);
+			b.setZero();
 		}
 		GameScreen.getInstance().changeMode();
 		toLeave = false;
@@ -156,9 +157,7 @@ public class Team implements Controllable
 				if (toKill)
 				{
 					deads.add(b);
-					System.out.println(team.size());
 					iter.remove();
-					System.out.println(team.size());
 					toKill = false;
 				}
 			}

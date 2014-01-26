@@ -23,6 +23,29 @@ public class IA extends Player
 
 	private void playRandom()
 	{
+		if (controllable instanceof MovingTree)
+			playTree();
+		else
+			playTeam();
+	}
+
+	private void playTeam()
+	{
+		int i = new Random().nextInt() % 100;
+		if (i == 0)
+			right();
+		if (i == 1)
+			up();
+		if (i == 2)
+			down();
+		if (i == 3)
+			up();
+		if (i == 4)
+			down();
+	}
+
+	private void playTree()
+	{
 		int i = new Random().nextInt() % 100;
 		if (i == 0)
 			right();
@@ -32,17 +55,6 @@ public class IA extends Player
 			left();
 		if (i == 3)
 			down();
-	}
-
-	private void playTeam()
-	{
-		// TODO Auto-generated method stub
-	}
-
-	private void playTree()
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
