@@ -46,8 +46,14 @@ ko = 0;
 	public TextureRegion getFrame(float stateTime)
 	{
 		TextureRegion frame = null;
-		if (!leaving)
+		if (!leaving && ko <= 0)
 			frame = go(stateTime, frame);
+		
+		if(crouching)
+			frame = crouchFrame();
+			
+		if (jumping)
+			frame = jumpFrame();
 
 		if (attacking)
 			frame = attackFrame(stateTime);
@@ -55,13 +61,24 @@ ko = 0;
 		if (leaving)
 			frame = leaveFrame(stateTime);
 		
-		if(crouching)
-			frame = crouchFrame();
-			
-		if (jumping)
-			frame = jumpFrame();
+		if (ko > 0)
+			frame = koFrame(stateTime);
 		
 		return frame;
+	}
+
+	private TextureRegion koFrame(float stateTime)
+	{
+		ko --;
+		x -= 0.5;
+		if (x < -64)
+			x = -64;
+		int i = ko - 700;
+		if (i > 0)
+			i = i/17;
+		else
+			i = 0;
+		return jackKo.getKeyFrames()[i];
 	}
 
 	private TextureRegion jumpFrame()
@@ -87,7 +104,7 @@ ko = 0;
 	private TextureRegion leaveFrame(float stateTime)
 	{
 		TextureRegion frame;
-		frame = leaving(stateTime);
+		frame = jackLeaving.getKeyFrame(stateTime);
 		x -= 1.5;
 		if (x < -64)
 			x = -64;
@@ -97,7 +114,7 @@ ko = 0;
 	private TextureRegion attackFrame(float stateTime)
 	{
 		TextureRegion frame;
-		frame = attack(stateTime);
+		frame = jackAttacking.getKeyFrame(stateTime);
 		if (frame == jackAttackSprite[6])
 		{
 			GameScreen.getInstance().pause();
@@ -119,7 +136,10 @@ ko = 0;
 	public void setKo(boolean ko)
 	{
 		if (ko)
-			this.ko = 100;
+		{
+			attacking = false;
+			this.ko = 800;
+		}
 		else 
 			this.ko = 0;
 	}
@@ -141,26 +161,12 @@ ko = 0;
 	private TextureRegion run(float stateTime)
 	{
 		x += 1.5;
-		if (x >= GameScreen.getInstance().getTree().getX())
+		if (x >= GameScreen.getInstance().getTree().getX() && ko == 0)
 		{
 			setRunning(false);
 			setAttacking(true);
 		}
 		return jackRunning.getKeyFrame(stateTime);
-	}
-
-	private TextureRegion attack(float stateTime)
-	{
-
-		return jackAttacking.getKeyFrame(stateTime);
-
-	}
-
-	private TextureRegion leaving(float stateTime)
-	{
-
-		return jackLeaving.getKeyFrame(stateTime);
-
 	}
 
 	public void setAttacking(boolean b)
@@ -171,11 +177,6 @@ ko = 0;
 		{
 			Team.getInstance().walk();
 		}
-	}
-
-	public TextureRegion getRunningFrame(float animTime)
-	{
-		return jackRunning.getKeyFrame(animTime);
 	}
 
 	@Override
@@ -300,6 +301,36 @@ ko = 0;
 				0, 0, 64, 64);
 		jackRunning = new Animation(0.2F, jackFrames);
 		jackRunning.setPlayMode(Animation.LOOP);
+	}
+	private static Animation jackKo;
+	{
+		Sprite[] jackFrames = new Sprite[6];
+		jackFrames[0] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_06.png")),
+				0, 0, 64, 92);
+		jackFrames[1] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_05.png")),
+				0, 0, 64, 92);
+		jackFrames[2] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_04.png")),
+				0, 0, 64, 92);
+		jackFrames[3] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_03.png")),
+				0, 0, 64, 92);
+		jackFrames[4] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_02.png")),
+				0, 0, 64, 92);
+		jackFrames[5] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_01.png")),
+				0, 0, 64, 92);
+		jackKo = new Animation(0.2F, jackFrames);
+		jackKo.setPlayMode(Animation.LOOP);
 	}
 	private static Animation jackJumping;
 	private static Sprite[] jackJumpingSprite;
