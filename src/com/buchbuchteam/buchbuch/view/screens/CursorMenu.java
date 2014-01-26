@@ -1,6 +1,7 @@
 package com.buchbuchteam.buchbuch.view.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 public class CursorMenu extends Sprite
@@ -33,10 +34,13 @@ public class CursorMenu extends Sprite
 
 	public void monter()
 	{
+		
 		if (e <= 1)
 			return;
 		y = y + 47;
 		e--;
+		Sound musique = Gdx.audio.newSound(Gdx.files.internal("sounds/axe-slash.wav"));
+		musique.play();
 		setY(y);
 
 	}
@@ -47,6 +51,8 @@ public class CursorMenu extends Sprite
 			return;
 		y = y - 47;
 		e++;
+		Sound musique = Gdx.audio.newSound(Gdx.files.internal("sounds/axe-slash.wav"));
+		musique.play();
 		setY(y);
 	}
 	

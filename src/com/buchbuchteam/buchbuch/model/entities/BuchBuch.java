@@ -228,6 +228,8 @@ public class BuchBuch extends MoveableEntity
 		{
 			Team.getInstance().walk();
 		}
+		Sound musique = Gdx.audio.newSound(Gdx.files.internal("sounds/axe-slash.wav"));
+		musique.play();
 	}
 
 	@Override
