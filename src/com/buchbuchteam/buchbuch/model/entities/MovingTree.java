@@ -102,7 +102,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 	public static void cry()
 	{
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Tree.wav"));
-		sound.play(1.0f);
+		sound.play();
 		sound.loop();
 	}
 
