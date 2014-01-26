@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 public class CreditScreen extends ScreenMaster {
 	Stage stage;
 	protected CreditScreen() {
-		super("img/credits/bg.png");
+		super("img/credits/creditsBackGround.png");
 		stage = new Stage();
 	}
 
