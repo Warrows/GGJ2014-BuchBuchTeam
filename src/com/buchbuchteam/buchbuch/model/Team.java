@@ -46,9 +46,10 @@ public class Team implements Controllable
 				movements.add(new Movement(Movement.MovementType.JUMP, team
 						.get(i), 0));
 			else
+			{
 				movements.add(new Movement(Movement.MovementType.JUMP, team
-						.get(i), (int) (i
-						* (team.get(i).getX() - team.get(i - 1).getX()) / 3)));
+						.get(i), (int) (team.get(0).getX() - team.get(i).getX()) / 3));
+			}
 		}
 	}
 
@@ -61,8 +62,7 @@ public class Team implements Controllable
 						.get(i), 0));
 			else
 				movements.add(new Movement(Movement.MovementType.CROUCH, team
-						.get(i), (int) (i
-						* (team.get(i).getX() - team.get(i - 1).getX()) / 3)));
+						.get(i), (int) (team.get(0).getX() - team.get(i).getX()) / 3));
 		}
 	}
 
