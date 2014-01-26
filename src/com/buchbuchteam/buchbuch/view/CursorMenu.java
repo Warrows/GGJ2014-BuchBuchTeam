@@ -23,14 +23,7 @@ public class CursorMenu {
 		batch = new SpriteBatch();
 		sprite = new Sprite(new Texture(Gdx.files.internal(file)), width, height);
 		
-		sprite.setPosition(x, y);
-		
-		
-		
-		
-		
-		
-		
+		sprite.setPosition(x, y);	
 	}
 
 	  
@@ -52,7 +45,7 @@ public class CursorMenu {
 		if(Gdx.input.isKeyPressed(Input.Keys.DOWN )){
 				e++;
 				System.out.println(e);
-				y += 10;
+				y -= 55;
 				CursorRender();
 				if(e > 5){
 				   e --;
@@ -62,6 +55,8 @@ public class CursorMenu {
 		if(Gdx.input.isKeyPressed(Input.Keys.UP )){
 			e--;
 			System.out.println(e);
+			y += 55;
+			CursorRender();
 			if(e == 0){
 			   e ++;
 			}
