@@ -11,7 +11,7 @@ public class ControlScreen extends ScreenMaster{
 	Stage stage;
 	
 	public ControlScreen() {
-		super("img/control/bgcontrol.png");
+		super("img/control/controls.png");
 		stage = new Stage();
 	}
 
