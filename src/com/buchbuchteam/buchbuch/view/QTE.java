@@ -1,7 +1,10 @@
 package com.buchbuchteam.buchbuch.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
@@ -12,12 +15,12 @@ public class QTE extends ScreenMaster implements InputProcessor
 	protected Key[] keys;
 	private float animTime;
 	private Stage stage;
-	private static QTE instance;
 	private BackGround bg;
+	private double score;
+	private boolean left;
 
-	protected QTE()
+	public QTE()
 	{
-
 		super("img/game/QTE/buchVStree.png");
 		animTime = 0;
 		keys = new Key[2];
@@ -26,15 +29,47 @@ public class QTE extends ScreenMaster implements InputProcessor
 
 		bg = new BackGround();
 		stage = new Stage(960, 640, false);
+		score = 50;
+		left = true;
+
+		stage.addListener(new InputListener()
+		{
+			public boolean keyDown(InputEvent event, int keyCode)
+			{
+				if (keyCode == Input.Keys.RIGHT)
+				{
+					right();
+					return true;
+				}
+				if (keyCode == Input.Keys.LEFT)
+				{
+					left();
+					return true;
+				}
+				return false;
+			}
+		});
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
 	public void render(float delta)
 	{
-
 		super.bgRender();
 
-		play();
+		score -= 0.05;
+		if (score < 0)
+		{
+			treeWon();
+			GameScreen.getInstance().freeEntities();
+			return;
+		}
+		if (score > 100)
+		{
+			buchBuchWon();
+			GameScreen.getInstance().freeEntities();
+			return;
+		}
 
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
@@ -50,11 +85,32 @@ public class QTE extends ScreenMaster implements InputProcessor
 		stage.getSpriteBatch().end();
 	}
 
+	private void left()
+	{
+		if (left)
+		{
+			score += 1;
+			left = !left;
+		} else
+			score -= 0.3;
+		System.out.println(score);
+	}
+
+	private void right()
+	{
+		if (!left)
+		{
+			score += 1;
+			left = !left;
+		} else
+			score -= 0.3;
+		System.out.println(score);
+	}
+
 	public void play()
 	{
-		// TODO
 
-		buchBuchWon();
+		// buchBuchWon();
 	}
 
 	private void buchBuchWon()
@@ -65,20 +121,15 @@ public class QTE extends ScreenMaster implements InputProcessor
 		GameScreen.getInstance().resume();
 		((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
 				.setScreen(GameScreen.getInstance());
+		GameScreen.getInstance().resetInputProc();
 	}
 
 	private void treeWon()
 	{
 		((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
 				.setScreen(GameScreen.getInstance());
+		GameScreen.getInstance().resetInputProc();
 		Team.getInstance().setKo(true);
-	}
-
-	public static QTE getInstance()
-	{
-		if (instance == null)
-			instance = new QTE();
-		return instance;
 	}
 
 	@Override

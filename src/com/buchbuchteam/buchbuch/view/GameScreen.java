@@ -231,4 +231,14 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		entitiesToRemove.add(entity);
 	}
 
+	public void resetInputProc()
+	{
+		Gdx.input.setInputProcessor(stage);
+	}
+
+	public void freeEntities()
+	{
+		entitiesToRender = new HashSet<Entity>();
+	}
+
 }

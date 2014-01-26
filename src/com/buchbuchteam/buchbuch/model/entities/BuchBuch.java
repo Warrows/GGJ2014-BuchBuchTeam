@@ -24,7 +24,7 @@ public class BuchBuch extends MoveableEntity
 	{
 		this.x = x;
 		this.y = y;
-		this.running = true;
+		this.running = false;
 		this.jumping = false;
 
 	}
@@ -58,7 +58,7 @@ public class BuchBuch extends MoveableEntity
 			{
 				GameScreen.getInstance().pause();
 				((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
-						.setScreen(QTE.getInstance());
+						.setScreen(new QTE());
 			}
 		}
 

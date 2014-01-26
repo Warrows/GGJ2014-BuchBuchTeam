@@ -20,7 +20,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 	
 	private MovingTree()
 	{
-		this.x = 700;
+		this.x = 1000;
 		this.y = 240;
 		this.dying = 0;
 		cry();
