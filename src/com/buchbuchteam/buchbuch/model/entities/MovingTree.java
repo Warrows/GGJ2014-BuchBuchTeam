@@ -55,7 +55,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 	{
 		wait--;
 		if (x > 800)
-			x-=2;
+			x-=1;
 		if (dying > 0)
 		{
 			dying--;
@@ -67,7 +67,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 			return treeDie.getKeyFrames()[dying / 24];
 		}
 
-		if (firing > 0)
+		if (firing > 0 && x<=800)
 		{
 			rooting = 0;
 			firing--;
@@ -76,7 +76,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 			return acornFireAnim.getKeyFrames()[firing / 24];
 		}
 
-		if (rooting > 0)
+		if (rooting > 0 && x<=800)
 		{
 			firing = 0;
 			rooting--;
