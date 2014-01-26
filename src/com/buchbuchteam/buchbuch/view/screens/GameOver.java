@@ -54,6 +54,7 @@ public class GameOver extends ScreenMaster
 					switch (cursor.getPosition())
 					{
 						case 1:
+							GameScreen.resetInstance();
 							((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
 								.setScreen(GameScreen.getInstance());
 							return true;
