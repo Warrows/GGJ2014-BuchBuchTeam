@@ -137,11 +137,9 @@ public class GameScreen extends ScreenMaster
 
 		stage.getSpriteBatch().end();
 		
-		System.out.println(Team.getInstance().allLeaved());
 		if (Team.getInstance().allLeaved())
 		{
-			changeMode();
-			resetInstance();
+			Team.getInstance().reset();
 		}
 	}
 	

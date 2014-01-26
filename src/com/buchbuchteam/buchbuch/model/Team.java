@@ -156,9 +156,7 @@ public class Team implements Controllable
 				if (toKill)
 				{
 					deads.add(b);
-					System.out.println(team.size());
 					iter.remove();
-					System.out.println(team.size());
 					toKill = false;
 				}
 			}
