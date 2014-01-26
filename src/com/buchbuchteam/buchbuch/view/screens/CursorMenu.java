@@ -9,12 +9,23 @@ public class CursorMenu extends Sprite
 	public static final int width = 40, height = 40, x = 310;
 	public static final int j = 1;
 	private int y, e = 1;
+	protected int taille;
 
 	public CursorMenu(String file)
 	{
 		super(new Texture(Gdx.files.internal("img/menu/cursor.png")), width,
 				height);
+		taille = 5;
+		y = MenuScreen.jouerY;
+		setPosition(x, y);
 
+	}
+	
+	public CursorMenu(String file, int taille)
+	{
+		super(new Texture(Gdx.files.internal("img/menu/cursor.png")), width,
+				height);
+		this.taille = taille;
 		y = MenuScreen.jouerY;
 		setPosition(x, y);
 
@@ -32,7 +43,7 @@ public class CursorMenu extends Sprite
 
 	public void descendre()
 	{
-		if (e >= 5)
+		if (e >= taille)
 			return;
 		y = y - 47;
 		e++;

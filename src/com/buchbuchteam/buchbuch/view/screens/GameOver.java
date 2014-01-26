@@ -21,6 +21,8 @@ public class GameOver extends ScreenMaster
 	public static final int restartY = Game.HEIGHT /2, 
 							exitY = restartY - buttonHeight - espaceEntreButton;
 	
+	protected CursorMenu cursor;
+	
 	public GameOver()
 	{
 		super("img/menu/gameover.png");
@@ -28,16 +30,38 @@ public class GameOver extends ScreenMaster
 		font = new BitmapFont(Gdx.files.internal("data/game.fnt"));
 		stage = new Stage();
 	
+		cursor = new CursorMenu("img/menu/cursor.png", 2);
 		
 		stage.addListener(new InputListener()
 		{
 			public boolean keyDown(InputEvent event, int keyCode)
 			{
-				if (keyCode == Input.Keys.ENTER){
-					GameScreen.resetInstance();
-					((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
-					.setScreen(GameScreen.getInstance());
+				if (keyCode == Input.Keys.UP)
+
+				{
+					cursor.monter();
+
 					return true;
+				}
+				if (keyCode == Input.Keys.DOWN)
+				{
+
+					cursor.descendre();
+					return true;
+				}
+				if (keyCode == Input.Keys.ENTER){
+					
+					switch (cursor.getPosition())
+					{
+						case 1:
+							((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
+								.setScreen(GameScreen.getInstance());
+							return true;
+						case 2:
+							Gdx.app.exit(); return true;
+						default :
+							return false;
+					}
 				}
 				return false;
 			}
@@ -53,10 +77,11 @@ public class GameOver extends ScreenMaster
 		super.bgRender();
 		
 		stage.getSpriteBatch().begin();
+		
 		font.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		font.draw(stage.getSpriteBatch(), "SCORE : "+GameScreen.getInstance().getHuman().getScore(), 350, 600);
+		cursor.draw(stage.getSpriteBatch());
 		stage.getSpriteBatch().end();
-		
 
 	}
 
