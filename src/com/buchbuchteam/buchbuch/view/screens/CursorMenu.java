@@ -1,4 +1,4 @@
-package com.buchbuchteam.buchbuch.view;
+package com.buchbuchteam.buchbuch.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -10,10 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.buchbuchteam.buchbuch.view.screens.ControlScreen;
-import com.buchbuchteam.buchbuch.view.screens.GameScreen;
-import com.buchbuchteam.buchbuch.view.screens.HighScoreScreen;
-import com.buchbuchteam.buchbuch.view.screens.MenuScreen;
 
 public class CursorMenu {
 	
