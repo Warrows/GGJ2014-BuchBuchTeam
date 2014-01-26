@@ -7,6 +7,7 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -36,6 +37,7 @@ public class GameScreen extends ScreenMaster
 	private Pause pause;
 	private boolean enPause = false;
 	private Sound musique;
+	protected BitmapFont score;
 
 	private GameScreen()
 	{
@@ -46,7 +48,8 @@ public class GameScreen extends ScreenMaster
 		stage = new Stage(960, 640, false);
 
 		bg = new BackGround();
-
+		score = new BitmapFont(Gdx.files.internal("data/game.fnt"));
+		
 		buchers = Team.getInstance();
 		tree = MovingTree.getInstance();
 		human = new Human();
@@ -134,7 +137,9 @@ public class GameScreen extends ScreenMaster
 			pause.getSprite().draw(stage.getSpriteBatch());
 
 		}
-
+		
+		score.draw(stage.getSpriteBatch(), "SCORE : "+GameScreen.getInstance().getHuman().getScore(), 50, 50);
+		
 		stage.getSpriteBatch().end();
 
 	}
