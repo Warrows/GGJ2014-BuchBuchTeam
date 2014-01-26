@@ -96,7 +96,7 @@ public class CursorMenu {
 				break;
 			case 3: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new HighScoreScreen());
 				break;
-			case 4: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new ControlScreen());
+			case 4: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new CreditScreen());
 				break;
 			case 5: Gdx.app.exit();
 				break;
