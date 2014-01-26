@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.buchbuchteam.buchbuch.control.Controllable;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
+import com.buchbuchteam.buchbuch.view.screens.GameScreen;
 
 public class Team implements Controllable
 {
@@ -48,7 +49,8 @@ public class Team implements Controllable
 			else
 			{
 				movements.add(new Movement(Movement.MovementType.JUMP, team
-						.get(i), (int) (team.get(0).getX() - team.get(i).getX()) / 3));
+						.get(i),
+						(int) (team.get(0).getX() - team.get(i).getX()) / 3));
 			}
 		}
 	}
@@ -62,7 +64,8 @@ public class Team implements Controllable
 						.get(i), 0));
 			else
 				movements.add(new Movement(Movement.MovementType.CROUCH, team
-						.get(i), (int) (team.get(0).getX() - team.get(i).getX()) / 3));
+						.get(i),
+						(int) (team.get(0).getX() - team.get(i).getX()) / 3));
 		}
 	}
 
@@ -109,6 +112,7 @@ public class Team implements Controllable
 			b.setLeaving(false);
 			b.setRunning(true);
 		}
+		GameScreen.getInstance().changeMode();
 		toLeave = false;
 	}
 

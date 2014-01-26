@@ -60,31 +60,16 @@ public class QTE extends ScreenMaster implements InputProcessor
 	{
 		super.bgRender();
 
-		score -= 0.05;
-		if (score < 0)
-		{
-			treeWon();
-			GameScreen.getInstance().freeEntities();
-			return;
-		}
-		if (score > 100)
-		{
-			buchBuchWon();
-			GameScreen.getInstance().freeEntities();
-			return;
-		}
+		play();
 
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
 
 		stage.act();
 		stage.getSpriteBatch().begin();
-
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
-
 		stage.getSpriteBatch().draw(keys[1].getFrame(animTime), 240, 25);
 		stage.getSpriteBatch().draw(keys[0].getFrame(animTime), 600, 25);
-
 		stage.getSpriteBatch().end();
 	}
 
@@ -96,7 +81,6 @@ public class QTE extends ScreenMaster implements InputProcessor
 			left = !left;
 		} else
 			score -= 1;
-		System.out.println(score);
 	}
 
 	private void right()
@@ -107,13 +91,41 @@ public class QTE extends ScreenMaster implements InputProcessor
 			left = !left;
 		} else
 			score -= 1;
-		System.out.println(score);
 	}
 
 	public void play()
 	{
-
-		// buchBuchWon();
+		score -= 0.05;
+		if (GameScreen.getInstance().getHuman().isBuchBuch())
+		{
+			if (score < 0)
+			{
+				treeWon();
+				GameScreen.getInstance().freeEntities();
+				return;
+			}
+			if (score > 100)
+			{
+				buchBuchWon();
+				GameScreen.getInstance().freeEntities();
+				return;
+			}
+		}
+		else
+		{
+			if (score < 0)
+			{
+				buchBuchWon();
+				GameScreen.getInstance().freeEntities();
+				return;
+			}
+			if (score > 100)
+			{
+				treeWon();
+				GameScreen.getInstance().freeEntities();
+				return;
+			}			
+		}
 	}
 
 	private void buchBuchWon()
@@ -125,9 +137,9 @@ public class QTE extends ScreenMaster implements InputProcessor
 		((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
 				.setScreen(GameScreen.getInstance());
 		GameScreen.getInstance().resetInputProc();
-		
+
 		Human h = GameScreen.getInstance().getHuman();
-		if( h.isBuchBuch() )
+		if (h.isBuchBuch())
 			h.addScore(50);
 		else
 			h.remScore(50);
@@ -140,7 +152,7 @@ public class QTE extends ScreenMaster implements InputProcessor
 		GameScreen.getInstance().resetInputProc();
 		Team.getInstance().setKo(true);
 		Human h = GameScreen.getInstance().getHuman();
-		if( h.isTree() )
+		if (h.isTree())
 			h.addScore(50);
 		else
 			h.remScore(50);
