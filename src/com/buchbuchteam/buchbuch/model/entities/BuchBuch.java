@@ -538,6 +538,7 @@ public class BuchBuch extends MoveableEntity
 
 	public void setDead(boolean b)
 	{
+		GameScreen.getMusique().stop();
 		dead = b;
 	}
 
