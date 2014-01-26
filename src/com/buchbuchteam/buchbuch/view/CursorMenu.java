@@ -6,6 +6,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
@@ -27,6 +29,44 @@ public class CursorMenu {
 		stage = new Stage();
 		sprite = new Sprite(new Texture(Gdx.files.internal(file)), width, height);
 		
+		stage.addListener(new InputListener()
+		{
+			public boolean keyDown(InputEvent event, int keyCode)
+			{
+				if (keyCode == Input.Keys.UP && e > 1)
+					
+				{
+
+					
+					System.out.println(e);
+					sprite.setPosition(x, y = y + Ay);
+					
+				
+					
+				
+					   e --;
+					
+					return true;
+				}
+				if (keyCode == Input.Keys.DOWN && e <5)
+				{
+
+					
+					System.out.println(e);
+					sprite.setPosition(x, y = y - Ay);
+					
+				
+					
+				
+					   e ++;
+					
+					return true;
+				}
+				return false;
+			}
+		});
+
+		Gdx.input.setInputProcessor(stage);
 		sprite.setPosition(x, y);	
 	}
 
@@ -47,38 +87,8 @@ public class CursorMenu {
 
 	public void Choose(){
 		
-		if(Gdx.input.isKeyPressed(Input.Keys.DOWN )){
-			
-				e+=Gdx.graphics.getDeltaTime()+1;
-				System.out.println(e);
-				sprite.setPosition(x, y = y - Ay);
-				
-			
-				
-				if(e > 5){
-					Ay=0;
-				   e --;
-				}
-				else{
-					Ay = 55;
-				}
-				
-				}
-		if(Gdx.input.isKeyPressed(Input.Keys.UP )){
-			e-=Gdx.graphics.getDeltaTime()+1;
-			System.out.println(e);
-			sprite.setPosition(x, y = y + Ay);
-			y += 55;
-			CursorRender();
-			if(e < 1){
-				Ay=0;
-			   e ++;
-			}
-			else{
-				Ay = 55;
-			}
-			
-			}
+		
+	
 		
 		if(Gdx.input.isKeyPressed(Input.Keys.ENTER  )){
 			System.out.println("ENTER");
