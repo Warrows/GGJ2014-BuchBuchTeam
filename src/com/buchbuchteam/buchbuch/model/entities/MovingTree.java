@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.buchbuchteam.buchbuch.model.Controllable;
+import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.view.GameScreen;
 
 public class MovingTree extends MoveableEntity implements Controllable
@@ -14,7 +15,6 @@ public class MovingTree extends MoveableEntity implements Controllable
 	private static MovingTree instance;
 	
 	private float x, y;
-	private boolean death;
 	private int firing;
 	private int dying;
 	
@@ -22,7 +22,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 	{
 		this.x = 700;
 		this.y = 240;
-		this.death = false;
+		this.dying = 0;
 		cry();
 	}
 	
@@ -30,22 +30,23 @@ public class MovingTree extends MoveableEntity implements Controllable
 	{
 		firing = 60;
 	}
-	
-	public void setDying(){
-		dying = 120;
-	}
 
 	@Override
 	public TextureRegion getFrame(float stateTime)
 	{
-		if (dying>=0)
+		if (x > 700)
+			x--;
+		if (dying>0)
 		{
 			dying --;
+			if (dying == 0)
+			{
+				this.x = 1100;
+				this.y = 240;
+			}
 			return treeDie.getKeyFrames()[dying/20];
-		} else {
-			death = false;
 		}
-		
+				
 		if (firing>=0)
 		{
 			firing --;
@@ -112,13 +113,12 @@ public class MovingTree extends MoveableEntity implements Controllable
 		// TODO Auto-generated method stub
 		
 	}
-
-	public void setDeath(boolean b) {
-		this.death = b;
-		if (b)
-			setDying();
+	
+	public void kill()
+	{
+		dying = 120;
+		Team.getInstance().walk();
 	}
-
 
 	private static Animation acornFireAnim;
 	{
@@ -173,5 +173,14 @@ public class MovingTree extends MoveableEntity implements Controllable
 				0, 128, 128);
 		treeDie = new Animation(0.1F, treeFrames);
 		treeDie.setPlayMode(Animation.LOOP);
+	}
+	public boolean isInplace()
+	{
+		return x <= 700;
+	}
+
+	public boolean isDying()
+	{
+		return dying > 0;
 	}
 }

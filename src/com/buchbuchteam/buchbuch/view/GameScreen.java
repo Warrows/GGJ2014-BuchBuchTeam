@@ -23,7 +23,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	private BackGround bg;
 	private Human human;
 	private IA ia;
-	private boolean treeDestroy;
 	private Set<Entity> entitiesToRender;
 	private Set<Entity> entitiesToRemove;
 
@@ -64,19 +63,21 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 					entity.getX(), entity.getY());
 		}
 		stage.getSpriteBatch().end();
-		if (buchers.isEmpty() || buchers.getFirst().isAttacking() )
-		{
-			tree.setDeath(true);
-		}
 
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-			human.right(); // .buchers.run();
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-			human.left(); // buchers.walk();
-		if (Gdx.input.isKeyPressed(Input.Keys.UP))
-			human.up(); // buchers.jump();
+		
+
 		if (Gdx.input.isKeyPressed(Input.Keys.A))
 			changeMode();
+		if (! MovingTree.getInstance().isInplace())
+			return;
+		if (MovingTree.getInstance().isDying())
+			return;
+		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+			human.right();
+		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+			human.left(); 
+		if (Gdx.input.isKeyPressed(Input.Keys.UP))
+			human.up(); 
 	}
 
 	private void changeMode()

@@ -43,10 +43,11 @@ public class BuchBuch extends MoveableEntity
 	public TextureRegion getFrame(float stateTime)
 	{
 		TextureRegion frame = null;
-		if (running && !Team.getInstance().ahead(x))
-			frame = run(stateTime);
-		else if (!leaving)
-			frame = walk(stateTime);
+		if (!leaving)
+			if (running && !Team.getInstance().ahead(x))
+				frame = run(stateTime);
+			else if (!leaving)
+				frame = walk(stateTime);
 
 		if (attacking)
 		{
@@ -77,14 +78,16 @@ public class BuchBuch extends MoveableEntity
 		return frame;
 	}
 
+	private void setKo(boolean b)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
 	public void setLeaving(boolean b)
 	{
-
 		this.leaving = b;
-		if (leaving)
-			running = false;
 		Team.getInstance().setToLeave(true);
-
 	}
 
 	private TextureRegion walk(float stateTime)
@@ -120,12 +123,14 @@ public class BuchBuch extends MoveableEntity
 
 	}
 
-	private void setAttacking(boolean b)
+	public void setAttacking(boolean b)
 	{
-
 		this.attacking = b;
 		resetJackAttack();
-
+		if (b)
+		{
+			Team.getInstance().walk();
+		}
 	}
 
 	public TextureRegion getRunningFrame(float animTime)
@@ -319,5 +324,10 @@ public class BuchBuch extends MoveableEntity
 	{
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
 		sound.play(0.5f);
+	}
+
+	public boolean isLeaving()
+	{
+		return leaving;
 	}
 }
