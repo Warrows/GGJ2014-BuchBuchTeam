@@ -128,23 +128,23 @@ public class BuchBuch extends MoveableEntity
 		return jackDead.getKeyFrames()[i];
 	}
 
-	private TextureRegion jumpFrame()
-	{
-		TextureRegion frame;
-		jumpingState++;
-		frame = jackJumping.getKeyFrames()[jumpingState / 10];
-		if (jumpingState >= 49)
-			jumping = false;
-		return frame;
-	}
-
 	private TextureRegion crouchFrame()
 	{
 		TextureRegion frame;
 		crouchingState++;
-		frame = jackCrouching.getKeyFrames()[crouchingState / 40];
-		if (crouchingState >= 79)
+		frame = jackCrouching.getKeyFrames()[crouchingState / 31];
+		if (crouchingState >= 60)
 			crouching = false;
+		return frame;
+	}
+
+	private TextureRegion jumpFrame()
+	{
+		TextureRegion frame;
+		jumpingState++;
+		frame = jackJumping.getKeyFrames()[jumpingState / 13];
+		if (jumpingState >= 60)
+			jumping = false;
 		return frame;
 	}
 
