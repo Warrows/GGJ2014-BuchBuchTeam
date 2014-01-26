@@ -36,7 +36,7 @@ public class GameScreen extends ScreenMaster
 	private Set<Entity> entitiesToRemove;
 	private Pause pause;
 	private boolean enPause = false;
-	private Sound musique;
+	private static Sound musique;
 	protected BitmapFont score;
 
 	private GameScreen()
@@ -94,6 +94,14 @@ public class GameScreen extends ScreenMaster
 		freeEntities();
 	}
 	
+	public static Sound getMusique() {
+		return musique;
+	}
+
+	public void setMusique(Sound musique) {
+		this.musique = musique;
+	}
+
 	public boolean gamePaused()
 	{
 		return enPause;
