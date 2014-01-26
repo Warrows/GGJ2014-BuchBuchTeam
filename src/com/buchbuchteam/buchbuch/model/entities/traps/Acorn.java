@@ -1,16 +1,17 @@
-package com.buchbuchteam.buchbuch.model.entities;
+package com.buchbuchteam.buchbuch.model.entities.traps;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.buchbuchteam.buchbuch.view.GameScreen;
+import com.buchbuchteam.buchbuch.model.entities.MoveableEntity;
+import com.buchbuchteam.buchbuch.view.screens.GameScreen;
 
-public class Gap extends MoveableEntity
+public class Acorn extends MoveableEntity
 {
 	float x, y;
 
-	public Gap(float x, float y)
+	public Acorn(float x, float y)
 	{
 		this.x = x;
 		this.y = y;
@@ -22,7 +23,7 @@ public class Gap extends MoveableEntity
 		x -= 3;
 		if (x < -64)
 			GameScreen.getInstance().remove(this);
-		return gapSprite;
+		return acornSprite;
 	}
 
 	@Override
@@ -37,7 +38,7 @@ public class Gap extends MoveableEntity
 		return y;
 	}
 
-	private static Sprite gapSprite = new Sprite(new Texture(
-			Gdx.files.internal("img/game/background/text_trou.png")), 0, 0,
-			128, 128);
+	private static Sprite acornSprite = new Sprite(new Texture(
+			Gdx.files.internal("img/characters/tree/acorn/Gland.png")), 0, 0,
+			64, 64);
 }

@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.buchbuchteam.buchbuch.model.Team;
-import com.buchbuchteam.buchbuch.view.GameScreen;
-import com.buchbuchteam.buchbuch.view.QTE;
+import com.buchbuchteam.buchbuch.view.screens.GameScreen;
+import com.buchbuchteam.buchbuch.view.screens.QTE;
 
 public class BuchBuch extends MoveableEntity
 {

@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.buchbuchteam.buchbuch.view.screens.ControlScreen;
+import com.buchbuchteam.buchbuch.view.screens.GameScreen;
+import com.buchbuchteam.buchbuch.view.screens.HighScoreScreen;
+import com.buchbuchteam.buchbuch.view.screens.MenuScreen;
 
 public class CursorMenu {
 	

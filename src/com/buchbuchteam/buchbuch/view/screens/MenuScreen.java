@@ -1,5 +1,7 @@
-package com.buchbuchteam.buchbuch.view;
+package com.buchbuchteam.buchbuch.view.screens;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.buchbuchteam.buchbuch.view.CursorMenu;
+import com.buchbuchteam.buchbuch.view.Game;
 
 public class MenuScreen extends ScreenMaster {
 	
@@ -23,7 +25,7 @@ public class MenuScreen extends ScreenMaster {
 	
 
 
-	protected MenuScreen() {
+	public MenuScreen() {
 		super("img/menu/bgmenu.png");
 		
 		curseur = new CursorMenu("img/menu/cursor.png");

@@ -1,4 +1,4 @@
-package com.buchbuchteam.buchbuch.view;
+package com.buchbuchteam.buchbuch.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -6,9 +6,11 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.buchbuchteam.buchbuch.model.Human;
+import com.buchbuchteam.buchbuch.control.Human;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
+import com.buchbuchteam.buchbuch.view.BackGround;
+import com.buchbuchteam.buchbuch.view.Key;
 
 public class QTE extends ScreenMaster implements InputProcessor
 {

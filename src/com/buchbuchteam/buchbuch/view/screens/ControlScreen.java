@@ -1,8 +1,8 @@
-package com.buchbuchteam.buchbuch.view;
+package com.buchbuchteam.buchbuch.view.screens;
 
 public class ControlScreen extends ScreenMaster{
 
-	protected ControlScreen() {
+	public ControlScreen() {
 		super("img/control/bgcontrol.png");
 	}
 

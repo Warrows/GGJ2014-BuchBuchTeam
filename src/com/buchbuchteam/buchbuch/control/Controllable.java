@@ -1,4 +1,4 @@
-package com.buchbuchteam.buchbuch.model;
+package com.buchbuchteam.buchbuch.control;
 
 public interface Controllable {
 
