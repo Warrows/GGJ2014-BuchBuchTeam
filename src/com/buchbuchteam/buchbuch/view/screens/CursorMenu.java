@@ -1,16 +1,15 @@
-package com.buchbuchteam.buchbuch.view;
+package com.buchbuchteam.buchbuch.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.buchbuchteam.buchbuch.view.screens.ControlScreen;
-import com.buchbuchteam.buchbuch.view.screens.GameScreen;
-import com.buchbuchteam.buchbuch.view.screens.HighScoreScreen;
-import com.buchbuchteam.buchbuch.view.screens.MenuScreen;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class CursorMenu {
 	
@@ -95,17 +94,23 @@ public class CursorMenu {
 			System.out.println("ENTER");
 			switch (e){
 			case 1: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+					System.out.println("JOUER");
 				break;
 			case 2: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new ControlScreen());
+			System.out.println("CONTROL");
 				break;
 			case 3: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new HighScoreScreen());
+			System.out.println("HIGH SCORE");
 				break;
 			case 4: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new ControlScreen());
+			System.out.println("CREDITS");
 				break;
 			case 5: Gdx.app.exit();
+			System.out.println("QUITTER");
 				break;
 				
 			default: 
+				System.out.println("NONE");
 			}
 			
 			

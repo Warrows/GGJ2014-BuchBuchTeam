@@ -6,9 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.buchbuchteam.buchbuch.model.Controllable;
+import com.buchbuchteam.buchbuch.control.Controllable;
 import com.buchbuchteam.buchbuch.model.Team;
-import com.buchbuchteam.buchbuch.view.GameScreen;
+import com.buchbuchteam.buchbuch.model.entities.traps.Acorn;
+import com.buchbuchteam.buchbuch.view.screens.GameScreen;
 
 public class MovingTree extends MoveableEntity implements Controllable
 {

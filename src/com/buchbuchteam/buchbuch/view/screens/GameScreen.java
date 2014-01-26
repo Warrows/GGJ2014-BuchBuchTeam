@@ -1,6 +1,7 @@
-package com.buchbuchteam.buchbuch.view;
+package com.buchbuchteam.buchbuch.view.screens;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
@@ -9,11 +10,13 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.buchbuchteam.buchbuch.model.Human;
-import com.buchbuchteam.buchbuch.model.IA;
+import com.buchbuchteam.buchbuch.control.Human;
+import com.buchbuchteam.buchbuch.control.IA;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.Entity;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
+import com.buchbuchteam.buchbuch.model.entities.traps.Gap;
+import com.buchbuchteam.buchbuch.view.BackGround;
 
 public class GameScreen extends ScreenMaster implements InputProcessor
 {
@@ -82,22 +85,23 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	public void render(float delta)
 	{
 		ia.play();
+		if (new Random().nextInt() % 300 == 1)
+			entitiesToRender.add(new Gap(1100, 200));
 
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
 		stage.getSpriteBatch().begin();
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		bg.render(stage.getSpriteBatch());
-		buchers.render(stage.getSpriteBatch(), animTime);
-
-		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),
-				tree.getY());
 		entitiesToRender.removeAll(entitiesToRemove);
 		for (Entity entity : entitiesToRender)
 		{
 			stage.getSpriteBatch().draw(entity.getFrame(animTime),
 					entity.getX(), entity.getY());
 		}
+		buchers.render(stage.getSpriteBatch(), animTime);
+		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),
+				tree.getY());
 		stage.getSpriteBatch().end();
 	}
 

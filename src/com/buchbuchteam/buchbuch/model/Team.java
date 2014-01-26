@@ -3,6 +3,7 @@ package com.buchbuchteam.buchbuch.model;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.buchbuchteam.buchbuch.control.Controllable;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 

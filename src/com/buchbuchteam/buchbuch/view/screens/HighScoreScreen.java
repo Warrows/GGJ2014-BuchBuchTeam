@@ -1,4 +1,4 @@
-package com.buchbuchteam.buchbuch.view;
+package com.buchbuchteam.buchbuch.view.screens;
 
 import com.badlogic.gdx.Screen;
 
