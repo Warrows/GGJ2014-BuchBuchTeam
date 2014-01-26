@@ -47,10 +47,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		{
 			public boolean keyDown(InputEvent event, int keyCode)
 			{
-				if (!MovingTree.getInstance().isInplace())
-					return false;
-				if (MovingTree.getInstance().isDying())
-					return false;
 				if (keyCode == Input.Keys.RIGHT)
 				{
 					human.right();
