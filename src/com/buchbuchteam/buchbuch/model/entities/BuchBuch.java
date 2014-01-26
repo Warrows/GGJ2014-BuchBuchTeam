@@ -85,9 +85,12 @@ public class BuchBuch extends MoveableEntity
 
 	private void die()
 	{
-		if (Team.getInstance().isFirst(this))
+		if (GameScreen.getInstance().getHuman().isBuchBuch())
+		if (Team.getInstance().isFirst(this) )
 			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
 					.setScreen(new GameOver());
+		else
+			GameScreen.getInstance().getHuman().addScore(50);
 		if (!dead)
 		{
 			setDead(true);

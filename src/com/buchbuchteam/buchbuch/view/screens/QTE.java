@@ -159,10 +159,8 @@ public class QTE extends ScreenMaster implements InputProcessor
 		GameScreen.getInstance().resetInputProc();
 		Team.getInstance().setKo(true);
 		Human h = GameScreen.getInstance().getHuman();
-		if (h.isTree())
+		if (h.isBuchBuch())
 			h.addScore(50);
-		else
-			h.remScore(50);
 	}
 
 	@Override
