@@ -71,6 +71,10 @@ public class Team implements Controllable
 		}
 	}
 
+	public static void resetInstance(){
+		instance = new Team();
+	}
+	
 	public int getX(int num)
 	{
 		if (team.get(num) == null)

@@ -34,11 +34,6 @@ public class CursorMenu extends Sprite
 
 	}
 
-	public int getPosition()
-	{
-		return e;
-	}
-
 	public void descendre()
 	{
 		if (e >= 5)
@@ -48,5 +43,9 @@ public class CursorMenu extends Sprite
 		Sound musique = Gdx.audio.newSound(Gdx.files.internal("sounds/axe-slash.wav"));
 		musique.play();
 		setY(y);
+	}
+	
+	public int getPosition(){
+		return e;
 	}
 }

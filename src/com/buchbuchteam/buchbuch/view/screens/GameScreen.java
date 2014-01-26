@@ -139,8 +139,10 @@ public class GameScreen extends ScreenMaster
 
 	}
 	
-	public void reset(){
-		this.instance = new GameScreen();
+	public static void resetInstance(){
+		Team.resetInstance();
+		MovingTree.resetInstance();
+		instance = new GameScreen();
 	}
 
 	public void changeMode()
