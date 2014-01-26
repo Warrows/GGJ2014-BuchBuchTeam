@@ -20,6 +20,10 @@ public class MovingTree extends MoveableEntity implements Controllable
 	private int firing;
 	private int rooting;
 	private int dying;
+	private int wait;
+
+	// TODO wait 90
+	// TODO sortie QTE tree
 
 	private MovingTree()
 	{
@@ -32,16 +36,24 @@ public class MovingTree extends MoveableEntity implements Controllable
 
 	public void setFiring()
 	{
+		if (wait > 0)
+			return;
 		firing = 70;
+		wait = 110;
 	}
+
 	private void setRooting()
 	{
+		if (wait > 0)
+			return;
 		rooting = 70;
+		wait = 110;
 	}
 
 	@Override
 	public TextureRegion getFrame(float stateTime)
 	{
+		wait--;
 		if (x > 800)
 			x--;
 		if (dying > 0)
@@ -113,7 +125,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 			return;
 		GameScreen.getInstance().add(new Acorn(x + 32, y + 48));
 	}
-	
+
 	private void fireRoot()
 	{
 		if (Team.getInstance().ahead(700))
@@ -139,7 +151,6 @@ public class MovingTree extends MoveableEntity implements Controllable
 	{
 		setRooting();
 	}
-
 
 	public void kill()
 	{
@@ -266,8 +277,9 @@ public class MovingTree extends MoveableEntity implements Controllable
 		return dying > 0;
 	}
 
-	public static void resetInstance() {
+	public static void resetInstance()
+	{
 		instance = new MovingTree();
-		
+
 	}
 }
