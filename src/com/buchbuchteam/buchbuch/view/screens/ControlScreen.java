@@ -1,9 +1,13 @@
 package com.buchbuchteam.buchbuch.view.screens;
 
-public class ControlScreen extends ScreenMaster{
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
+public class ControlScreen extends ScreenMaster{
+	
+	Stage stage;
 	public ControlScreen() {
 		super("img/control/bgcontrol.png");
+		stage = new Stage();
 	}
 
 	public void render(float delta) {
