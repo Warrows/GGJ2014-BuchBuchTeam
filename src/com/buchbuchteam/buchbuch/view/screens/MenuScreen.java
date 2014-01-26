@@ -1,4 +1,7 @@
 package com.buchbuchteam.buchbuch.view.screens;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.buchbuchteam.buchbuch.view.Game;
 
@@ -25,15 +28,11 @@ public class MenuScreen extends ScreenMaster {
 
 
 	public MenuScreen() {
-		super("img/menu/bgmenu.png");
+		super("img/menu/bgmenu.png", "img/menu");
 		
 		curseur = new CursorMenu("img/menu/cursor.png");
 		
-		boutonJouer = new BoutonMenu("img/menu/jouerbutton.png", jouerY, true, 1);
-		boutonControl = new BoutonMenu("img/menu/controlbutton.png", controlY, false, 2);
-		boutonHightScore = new BoutonMenu("img/menu/hightscorebutton.png", hightscoreY, false, 3);
-		boutonCredits = new BoutonMenu("img/menu/creditsbutton.png", creditsY, false, 4);
-		boutonQuitter = new BoutonMenu("img/menu/quitterbutton.png", quitterY, false, 5);
+		
 		
 		
 		
@@ -44,20 +43,29 @@ public class MenuScreen extends ScreenMaster {
 	
 	}
 	
+	private static Animation bgAnim;
+	{
+				Sprite[] bgFrames = new Sprite[2];
+		bgFrames[0] = new Sprite(new Texture(
+				Gdx.files.internal("img/menu/bgmenu.png")), 0,
+				0, 128, 128);
+		bgFrames[1] = new Sprite(new Texture(
+				Gdx.files.internal("img/menu/bgmenu2.png")), 0,
+				0, 128, 128);
+		bgAnim = new Animation(0.2F, bgFrames);
+		bgAnim.setPlayMode(Animation.LOOP);
+	}
+	
 	
 	public void render(float delta) {
-		
+
 
 		super.bgRender();
 		
 		curseur.CursorRender();
 		curseur.Choose();
 		
-		boutonJouer.BoutonRender();
-		boutonControl.BoutonRender();
-		boutonHightScore.BoutonRender();
-		boutonCredits.BoutonRender();
-		boutonQuitter.BoutonRender();
+		
 		
 		
 		

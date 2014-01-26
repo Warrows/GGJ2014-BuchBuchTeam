@@ -21,6 +21,7 @@ public abstract class ScreenMaster  implements Screen {
 		protected Stage stage; //BATCH DU SPRITE DE FOND
 		protected Sprite bgSprite; //SPRITE DE FOND
 		private String file; //CHEMIN DE L'IMAGE DE FOND
+		private String file1, file2;
 		private int bgWidth = Game.WIDTH, bgHeight = Game.HEIGHT, bgX = 0, bgY = 0; //VARIABLE IMAGE DE FOND
 
 		protected ScreenMaster(String file){
@@ -31,6 +32,20 @@ public abstract class ScreenMaster  implements Screen {
 			
 			stage = new Stage();
 			bgSprite = new Sprite(new Texture(Gdx.files.internal(file)), bgX, bgY, bgWidth, bgHeight);
+			
+			
+			
+			
+		}
+		protected ScreenMaster(String file1,String file2){
+			
+			camera = new OrthographicCamera();
+			this.file1 = file1;
+			this.file2 = file2;
+		
+			
+			stage = new Stage();
+			bgSprite = new Sprite(new Texture(Gdx.files.internal(file1)), bgX, bgY, bgWidth, bgHeight);
 			
 			
 			
