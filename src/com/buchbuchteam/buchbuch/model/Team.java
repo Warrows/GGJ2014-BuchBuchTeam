@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.buchbuchteam.buchbuch.model.entities.BuchBuch;
+import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 
 public class Team implements Controllable
 {
@@ -99,37 +100,51 @@ public class Team implements Controllable
 		}
 		toLeave = false;
 	}
+	
+	public boolean isAttacking()
+	{
+		return team.getFirst().isAttacking();
+	}
+
+	public boolean isLeaving()
+	{
+		return team.getFirst().isLeaving();
+	}
 
 	public void render(Batch spriteBatch, float animTime)
 	{
 		if (allLeaved())
 			reset();
 		movements.execute();
-		for (BuchBuch b : team)
+		if (!MovingTree.getInstance().isInplace())
 		{
-			runCry--;
-			if (b.isRunning() && runCry <= 0)
+			for (BuchBuch b : team)
 			{
-				b.cry();
-				runCry = 1600;
+				spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
 			}
-			spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
+		} else
+		{
+			for (BuchBuch b : team)
+				act(spriteBatch, animTime, b);
 		}
 		for (BuchBuch b : leavers)
-		{
-			runCry--;
-			if (b.isRunning() && runCry <= 0)
-			{
-				b.cry();
-				runCry = 1600;
-			}
-			spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
-		}
+			act(spriteBatch, animTime, b);
 
 		if (toLeave)
 		{
 			leave();
 		}
+	}
+
+	private void act(Batch spriteBatch, float animTime, BuchBuch b)
+	{
+		runCry--;
+		if (b.isRunning() && runCry <= 0)
+		{
+			b.cry();
+			runCry = 1600;
+		}
+		spriteBatch.draw(b.getFrame(animTime), b.getX(), b.getY());
 	}
 
 	public static Team getInstance()
@@ -196,5 +211,20 @@ public class Team implements Controllable
 	public boolean isEmpty()
 	{
 		return team.isEmpty();
+	}
+
+	public void setAttacking(boolean b)
+	{
+		team.getFirst().setAttacking(b);
+	}
+
+	public void setLeaving(boolean b)
+	{
+		team.getFirst().setLeaving(b);
+	}
+
+	public void setKo(boolean b)
+	{
+		team.getFirst().setKo(b);
 	}
 }

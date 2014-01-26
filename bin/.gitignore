@@ -3,3 +3,6 @@
 /img
 /img.control
 /sounds
+/data
+/bin*
+/bin/*

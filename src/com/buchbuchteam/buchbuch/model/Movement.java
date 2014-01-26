@@ -11,9 +11,7 @@ public class Movement
 
 	public enum MovementType
 	{
-
 		JUMP, CROUCH, WALK, RUN, LEAVE
-
 	}
 
 	public Movement(MovementType type, BuchBuch buchbuch, int delay)
@@ -25,8 +23,6 @@ public class Movement
 
 	public void doMove()
 	{
-
-		// TODO Buchbuch will move, it'll just change his state.
 		switch (type)
 		{
 		case WALK:
@@ -44,7 +40,6 @@ public class Movement
 		default:
 			break;
 		}
-
 	}
 
 	public int getDelay()

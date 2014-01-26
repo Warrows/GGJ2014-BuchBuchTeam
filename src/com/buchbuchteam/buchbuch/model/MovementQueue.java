@@ -3,6 +3,8 @@ package com.buchbuchteam.buchbuch.model;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.buchbuchteam.buchbuch.model.entities.MovingTree;
+
 public class MovementQueue
 {
 

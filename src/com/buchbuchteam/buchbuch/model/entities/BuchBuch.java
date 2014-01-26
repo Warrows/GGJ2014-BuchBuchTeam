@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.view.GameScreen;
+import com.buchbuchteam.buchbuch.view.QTE;
 
 public class BuchBuch extends MoveableEntity
 {
@@ -17,15 +18,16 @@ public class BuchBuch extends MoveableEntity
 	private boolean attacking;
 	private boolean leaving;
 	private boolean crouching;
+	private int ko;
 	private int crouchingState;
 
 	public BuchBuch(float x, float y)
 	{
 		this.x = x;
 		this.y = y;
-		this.running = true;
+		this.running = false;
 		this.jumping = false;
-
+ko = 0;
 	}
 
 	public void setRunning(boolean bool)
@@ -44,52 +46,108 @@ public class BuchBuch extends MoveableEntity
 	public TextureRegion getFrame(float stateTime)
 	{
 		TextureRegion frame = null;
-		if (running && !Team.getInstance().ahead(x))
-			frame = run(stateTime);
-		else if (!leaving)
-			frame = walk(stateTime);
-		
-		if( attacking ) {
-			frame = attack(stateTime);
-			if(frame == jackAttackSprite[7]){
-				setAttacking(false);
-				setLeaving(true);
-			}
-		}
-		
-		if (leaving){
-			frame = leaving(stateTime);
-			x -= 1.5;
-			if (x<-64)
-				x = -64;
-		}	
+		if (!leaving && ko <= 0)
+			frame = go(stateTime, frame);
 		
 		if(crouching)
-		{
-			crouchingState++;
-			frame = jackCrouching.getKeyFrames()[crouchingState/10];
-			if (crouchingState >= 19)
-				crouching = false;
-		}
+			frame = crouchFrame();
 			
-		
 		if (jumping)
+			frame = jumpFrame();
+
+		if (attacking)
+			frame = attackFrame(stateTime);
+
+		if (leaving)
+			frame = leaveFrame(stateTime);
+		
+		if (ko > 0)
+			frame = koFrame(stateTime);
+		
+		return frame;
+	}
+
+	private TextureRegion koFrame(float stateTime)
+	{
+		ko --;
+		x -= 0.5;
+		if (x < -64)
+			x = -64;
+		int i = ko - 700;
+		if (i > 0)
+			i = i/17;
+		else
+			i = 0;
+		return jackKo.getKeyFrames()[i];
+	}
+
+	private TextureRegion jumpFrame()
+	{
+		TextureRegion frame;
+		jumpingState++;
+		frame = jackJumping.getKeyFrames()[jumpingState / 10];
+		if (jumpingState >= 49)
+			jumping = false;
+		return frame;
+	}
+
+	private TextureRegion crouchFrame()
+	{
+		TextureRegion frame;
+		crouchingState++;
+		frame = jackCrouching.getKeyFrames()[crouchingState/10];
+		if (crouchingState >= 19)
+			crouching = false;
+		return frame;
+	}
+
+	private TextureRegion leaveFrame(float stateTime)
+	{
+		TextureRegion frame;
+		frame = jackLeaving.getKeyFrame(stateTime);
+		x -= 1.5;
+		if (x < -64)
+			x = -64;
+		return frame;
+	}
+
+	private TextureRegion attackFrame(float stateTime)
+	{
+		TextureRegion frame;
+		frame = jackAttacking.getKeyFrame(stateTime);
+		if (frame == jackAttackSprite[6])
 		{
-			jumpingState ++;
-			frame = jackJumping.getKeyFrames()[jumpingState/10];
-			if (jumpingState >= 49)
-				jumping = false;
+			GameScreen.getInstance().pause();
+			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
+					.setScreen(new QTE());
 		}
 		return frame;
 	}
 
-	public void setLeaving(boolean b) {
-		
-		this.leaving= b; 
-		if (leaving)
-			running = false;
+	private TextureRegion go(float stateTime, TextureRegion frame)
+	{
+		if (running && !Team.getInstance().ahead(x))
+			frame = run(stateTime);
+		else if (!leaving)
+			frame = walk(stateTime);
+		return frame;
+	}
+
+	public void setKo(boolean ko)
+	{
+		if (ko)
+		{
+			attacking = false;
+			this.ko = 800;
+		}
+		else 
+			this.ko = 0;
+	}
+
+	public void setLeaving(boolean b)
+	{
+		this.leaving = b;
 		Team.getInstance().setToLeave(true);
-		
 	}
 
 	private TextureRegion walk(float stateTime)
@@ -103,36 +161,22 @@ public class BuchBuch extends MoveableEntity
 	private TextureRegion run(float stateTime)
 	{
 		x += 1.5;
-		if (x >= GameScreen.getInstance().getTree().getX())
+		if (x >= GameScreen.getInstance().getTree().getX() && ko == 0)
 		{
 			setRunning(false);
 			setAttacking(true);
 		}
 		return jackRunning.getKeyFrame(stateTime);
 	}
-	
-	private TextureRegion attack(float stateTime) {
-		
-		return jackAttacking.getKeyFrame(stateTime);
-		
-	}
-	
-	private TextureRegion leaving(float stateTime) {
-		
-		return jackLeaving.getKeyFrame(stateTime);
-		
-	}
 
-	private void setAttacking(boolean b) {
-
+	public void setAttacking(boolean b)
+	{
 		this.attacking = b;
 		resetJackAttack();
-		
-	}
-
-	public TextureRegion getRunningFrame(float animTime)
-	{
-		return jackRunning.getKeyFrame(animTime);
+		if (b)
+		{
+			Team.getInstance().walk();
+		}
 	}
 
 	@Override
@@ -165,26 +209,34 @@ public class BuchBuch extends MoveableEntity
 		jackWalking = new Animation(0.2F, jackFrames);
 		jackWalking.setPlayMode(Animation.LOOP);
 	}
-	
+
 	private static Animation jackLeaving;
 	{
 		Sprite[] jackFrames = new Sprite[4];
-		jackFrames[0] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_01.png")),
+		jackFrames[0] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_01.png")),
 				0, 0, 64, 92);
-		jackFrames[1] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_02.png")),
+		jackFrames[1] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_02.png")),
 				0, 0, 64, 92);
-		jackFrames[2] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_03.png")),
+		jackFrames[2] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_03.png")),
 				0, 0, 64, 92);
-		jackFrames[3] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_04.png")),
+		jackFrames[3] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/jack/marcheBuche/char_jackMarchBuch_04.png")),
 				0, 0, 64, 92);
 		jackLeaving = new Animation(0.2F, jackFrames);
 		jackLeaving.setPlayMode(Animation.LOOP);
 	}
-	
+
 	private static Animation jackAttacking;
 	private static Sprite[] jackAttackSprite;
 	{
@@ -250,6 +302,36 @@ public class BuchBuch extends MoveableEntity
 		jackRunning = new Animation(0.2F, jackFrames);
 		jackRunning.setPlayMode(Animation.LOOP);
 	}
+	private static Animation jackKo;
+	{
+		Sprite[] jackFrames = new Sprite[6];
+		jackFrames[0] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_06.png")),
+				0, 0, 64, 92);
+		jackFrames[1] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_05.png")),
+				0, 0, 64, 92);
+		jackFrames[2] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_04.png")),
+				0, 0, 64, 92);
+		jackFrames[3] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_03.png")),
+				0, 0, 64, 92);
+		jackFrames[4] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_02.png")),
+				0, 0, 64, 92);
+		jackFrames[5] = new Sprite(
+				new Texture(Gdx.files
+						.internal("img/characters/jack/ko/char_jackassom_01.png")),
+				0, 0, 64, 92);
+		jackKo = new Animation(0.2F, jackFrames);
+		jackKo.setPlayMode(Animation.LOOP);
+	}
 	private static Animation jackJumping;
 	private static Sprite[] jackJumpingSprite;
 	{
@@ -300,8 +382,9 @@ public class BuchBuch extends MoveableEntity
 		jackCrouching = new Animation(0.2F, jackCrouchingSprite);
 		jackCrouching.setPlayMode(Animation.LOOP_PINGPONG);
 	}
-	
-	private void resetJackAttack(){
+
+	private void resetJackAttack()
+	{
 		jackAttacking = new Animation(0.2F, jackAttackSprite);
 		jackAttacking.setPlayMode(Animation.LOOP);
 	}
@@ -321,15 +404,21 @@ public class BuchBuch extends MoveableEntity
 	{
 		return jumping;
 	}
-	
-	public boolean isAttacking(){
+
+	public boolean isAttacking()
+	{
 		return attacking;
 	}
 
 	public void jumpCry()
 	{
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/jump.wav"));
-		sound.play(0.5f);		
+		sound.play(0.5f);
+	}
+
+	public boolean isLeaving()
+	{
+		return leaving;
 	}
 
 	public void setCrouch(boolean bool) {

@@ -6,6 +6,8 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.model.Human;
 import com.buchbuchteam.buchbuch.model.IA;
@@ -23,7 +25,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	private BackGround bg;
 	private Human human;
 	private IA ia;
-	private boolean treeDestroy;
 	private Set<Entity> entitiesToRender;
 	private Set<Entity> entitiesToRemove;
 
@@ -41,6 +42,40 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		ia = new IA();
 		entitiesToRender = new HashSet<Entity>();
 		entitiesToRemove = new HashSet<Entity>();
+
+		stage.addListener(new InputListener()
+		{
+			public boolean keyDown(InputEvent event, int keyCode)
+			{
+				if (keyCode == Input.Keys.RIGHT)
+				{
+					human.right();
+					return true;
+				}
+				if (keyCode == Input.Keys.LEFT)
+				{
+					human.left();
+					return true;
+				}
+				if (keyCode == Input.Keys.UP)
+				{
+					human.up();
+					return true;
+				}
+				if (keyCode == Input.Keys.DOWN)
+				{
+					human.down();
+					return true;
+				}
+				if (keyCode == Input.Keys.A)
+				{
+					changeMode();
+					return true;
+				}
+				return false;
+			}
+		});
+		Gdx.input.setInputProcessor(stage);
 	}
 
 	@Override
@@ -64,27 +99,16 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 					entity.getX(), entity.getY());
 		}
 		stage.getSpriteBatch().end();
-		if (buchers.isEmpty() || buchers.getFirst().isAttacking() )
-		{
-			tree.setDeath(true);
-		}
-
-		if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-			human.right(); // .buchers.run();
-		if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
-			human.left(); // buchers.walk();
-		if (Gdx.input.isKeyPressed(Input.Keys.UP))
-			human.up(); // buchers.jump();
-		if (Gdx.input.isKeyPressed(Input.Keys.DOWN))
-			human.down(); // buchers.crouch();
-		if (Gdx.input.isKeyPressed(Input.Keys.A))
-			changeMode();
 	}
 
 	private void changeMode()
 	{
 		human.toggleMode();
 		ia.toggleMode();
+	}
+	
+	public Human getHuman(){
+		return human;
 	}
 
 	@Override
@@ -205,6 +229,16 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	public void remove(Entity entity)
 	{
 		entitiesToRemove.add(entity);
+	}
+
+	public void resetInputProc()
+	{
+		Gdx.input.setInputProcessor(stage);
+	}
+
+	public void freeEntities()
+	{
+		entitiesToRender = new HashSet<Entity>();
 	}
 
 }
