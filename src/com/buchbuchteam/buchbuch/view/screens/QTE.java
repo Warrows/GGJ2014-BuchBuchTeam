@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.control.Human;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
-import com.buchbuchteam.buchbuch.view.BackGround;
 import com.buchbuchteam.buchbuch.view.Key;
 
 public class QTE extends ScreenMaster implements InputProcessor

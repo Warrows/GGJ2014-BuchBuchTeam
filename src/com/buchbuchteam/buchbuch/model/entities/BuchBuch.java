@@ -163,7 +163,6 @@ public class BuchBuch extends MoveableEntity
 		frame = jackAttacking.getKeyFrame(stateTime);
 		if (frame == jackAttackSprite[6])
 		{
-			GameScreen.getInstance().pause();
 			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
 					.setScreen(new QTE());
 		}
