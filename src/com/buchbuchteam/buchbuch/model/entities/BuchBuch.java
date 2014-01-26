@@ -130,8 +130,8 @@ public class BuchBuch extends MoveableEntity
 	{
 		TextureRegion frame;
 		crouchingState++;
-		frame = jackCrouching.getKeyFrames()[crouchingState / 10];
-		if (crouchingState >= 19)
+		frame = jackCrouching.getKeyFrames()[crouchingState / 40];
+		if (crouchingState >= 79)
 			crouching = false;
 		return frame;
 	}

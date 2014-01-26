@@ -210,7 +210,7 @@ public class GameScreen extends ScreenMaster
 		{
 			if (!(g instanceof Root))
 				continue;
-			if (x > ((Root) g).getX() && x < 64 + ((Root) g).getX())
+			if (x > ((Root) g).getX()+48 && x < 80 + ((Root) g).getX())
 				return true;
 		}
 		return false;
@@ -222,7 +222,7 @@ public class GameScreen extends ScreenMaster
 		{
 			if (!(g instanceof Acorn))
 				continue;
-			if (x > ((Acorn) g).getX() && x < 16 + ((Acorn) g).getX())
+			if (x > ((Acorn) g).getX() && x < 32 + ((Acorn) g).getX())
 				return true;
 		}
 		return false;

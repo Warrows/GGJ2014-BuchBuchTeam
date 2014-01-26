@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.buchbuchteam.buchbuch.model.Speed;
 import com.buchbuchteam.buchbuch.model.entities.MoveableEntity;
 import com.buchbuchteam.buchbuch.view.screens.GameScreen;
 
@@ -23,7 +24,7 @@ public class Root extends MoveableEntity
 	@Override
 	public TextureRegion getFrame(float Time)
 	{
-		x -= 3;
+		x -= Speed.projectile * Speed.walk;
 		if (x < -64)
 			GameScreen.getInstance().remove(this);
 		if (spawn > 0)
