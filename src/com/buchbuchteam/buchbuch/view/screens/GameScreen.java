@@ -2,7 +2,6 @@ package com.buchbuchteam.buchbuch.view.screens;
 
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
@@ -12,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.control.Human;
 import com.buchbuchteam.buchbuch.control.IA;
+import com.buchbuchteam.buchbuch.model.Speed;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.Entity;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
@@ -35,6 +35,7 @@ public class GameScreen extends ScreenMaster
 	private Set<Entity> entitiesToRemove;
 	private Pause pause;
 	private boolean enPause = false;
+
 	public GameScreen()
 	{
 		super("img/game/background/bggame.png");
@@ -78,29 +79,46 @@ public class GameScreen extends ScreenMaster
 					changeMode();
 					return true;
 				}
-				if(keyCode == Input.Keys.ESCAPE && enPause == false){
+				if (keyCode == Input.Keys.ESCAPE || keyCode == Input.Keys.P
+						&& enPause == false)
+				{
+					pause();
 					pause.getSprite().setAlpha(1);
 					enPause = true;
-					pause();
 					return true;
 				}
-				if (keyCode == Input.Keys.ESCAPE && enPause == true){
+				if (keyCode == Input.Keys.ESCAPE || keyCode == Input.Keys.P
+						&& enPause == true)
+				{
+					unpause();
 					pause.getSprite().setAlpha(0);
-					
 					enPause = false;
 					return true;
-					}
+				}
 				return false;
 			}
-				
+
 		});
 		Gdx.input.setInputProcessor(stage);
 		freeEntities();
+	}
+	
+	public boolean gamePaused()
+	{
+		return enPause;
 	}
 
 	@Override
 	public void render(float delta)
 	{
+		while (enPause)
+			try
+			{
+				Thread.sleep(100);
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 		System.out.println(human.getScore());
 
 		ia.play();
@@ -110,7 +128,7 @@ public class GameScreen extends ScreenMaster
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
 		stage.getSpriteBatch().begin();
-		
+
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		bg.render(stage.getSpriteBatch());
 		entitiesToRender.removeAll(entitiesToRemove);
@@ -122,18 +140,15 @@ public class GameScreen extends ScreenMaster
 		buchers.render(stage.getSpriteBatch(), animTime);
 		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),
 				tree.getY());
-		
-			if(enPause == true){
-				pause.getSprite().draw(stage.getSpriteBatch());
-				 
-				
-			}
-			
-			
-		
+
+		if (enPause == true)
+		{
+			pause.getSprite().draw(stage.getSpriteBatch());
+
+		}
+
 		stage.getSpriteBatch().end();
-			
-		
+
 	}
 
 	public void changeMode()
@@ -171,15 +186,13 @@ public class GameScreen extends ScreenMaster
 	@Override
 	public void pause()
 	{
-		 
-
+		Speed.pause();
 	}
-
-	@Override
-	public void resume()
+	
+	public void unpause()
 	{
-		// TODO Auto-generated method stub
-
+		Speed.unpause();
+		enPause = false;
 	}
 
 	@Override
@@ -265,6 +278,12 @@ public class GameScreen extends ScreenMaster
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void resume()
+	{
+		Speed.unpause();
 	}
 
 }

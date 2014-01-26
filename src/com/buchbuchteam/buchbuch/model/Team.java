@@ -133,6 +133,14 @@ public class Team implements Controllable
 
 	public void render(Batch spriteBatch, float animTime)
 	{
+		while(GameScreen.getInstance().gamePaused())
+			try
+			{
+				Thread.sleep(100);
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 		if (allLeaved())
 			reset();
 		movements.execute();

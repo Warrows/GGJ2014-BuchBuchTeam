@@ -19,13 +19,13 @@ public class BackGround
 	{
 		anim+=2;
 		anim %= 1920;
-		spriteBatch.draw(upperBackgroundSprite, Speed.walk * (0 - (anim%960)), 0);
-		spriteBatch.draw(upperBackgroundSprite, Speed.walk * (960 - (anim%960)), 0);
+		spriteBatch.draw(upperBackgroundSprite,  (0 - Speed.walk *(anim%960)), 0);
+		spriteBatch.draw(upperBackgroundSprite,  (960 - Speed.walk *(anim%960)), 0);
 		for (int i = 0; i <= 8; i++)
 		{
-			spriteBatch.draw(groundSprite, Speed.walk * (128 * i - (anim%128)), 200);
-			spriteBatch.draw(undergroundSprite, Speed.walk * (128 * i - (anim%128)), 200 - 128);
-			spriteBatch.draw(undergroundSprite, Speed.walk * (128 * i - (anim%128)), 200 - 256);
+			spriteBatch.draw(groundSprite, (128 * i - Speed.walk *(anim%128)), 200);
+			spriteBatch.draw(undergroundSprite,  (128 * i - Speed.walk *(anim%128)), 200 - 128);
+			spriteBatch.draw(undergroundSprite,  (128 * i - Speed.walk *(anim%128)), 200 - 256);
 		}
 	}
 
