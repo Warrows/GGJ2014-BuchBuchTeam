@@ -2,6 +2,7 @@ package com.buchbuchteam.buchbuch.view.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -56,6 +57,8 @@ public class MenuScreen extends ScreenMaster
 				}
 				if (keyCode == Input.Keys.ENTER)
 				{
+					Sound musique = Gdx.audio.newSound(Gdx.files.internal("sounds/timber.wav"));
+					musique.play();
 					switch (curseur.getPosition())
 					{
 					case 1:
