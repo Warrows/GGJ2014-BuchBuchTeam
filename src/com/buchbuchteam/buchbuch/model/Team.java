@@ -118,7 +118,8 @@ public class Team implements Controllable
 		{
 			b.setLeaving(false);
 			b.setDead(false);
-			b.setRunning(true);
+			b.setRunning(false);
+			b.setZero();
 		}
 		GameScreen.getInstance().changeMode();
 		toLeave = false;

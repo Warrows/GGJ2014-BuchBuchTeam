@@ -545,4 +545,9 @@ public class BuchBuch extends MoveableEntity
 	{
 		return dead;
 	}
+
+	public void setZero()
+	{
+		x=0;
+	}
 }
