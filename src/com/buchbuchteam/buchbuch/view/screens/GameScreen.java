@@ -17,6 +17,7 @@ import com.buchbuchteam.buchbuch.model.entities.Entity;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 import com.buchbuchteam.buchbuch.model.entities.traps.Gap;
 import com.buchbuchteam.buchbuch.view.BackGround;
+import com.buchbuchteam.buchbuch.view.Pause;
 
 public class GameScreen extends ScreenMaster implements InputProcessor
 {
@@ -30,7 +31,8 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	private IA ia;
 	private Set<Entity> entitiesToRender;
 	private Set<Entity> entitiesToRemove;
-
+	private Pause pause;
+	private boolean enPause = false;
 	public GameScreen()
 	{
 		super("img/game/background/bggame.png");
@@ -45,7 +47,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		ia = new IA();
 		entitiesToRender = new HashSet<Entity>();
 		entitiesToRemove = new HashSet<Entity>();
-
+		pause = new Pause("img/game/background/pause.png");
 		stage.addListener(new InputListener()
 		{
 			public boolean keyDown(InputEvent event, int keyCode)
@@ -75,8 +77,21 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 					changeMode();
 					return true;
 				}
+				if(keyCode == Input.Keys.ESCAPE && enPause == false){
+					pause.getSprite().setAlpha(1);
+					enPause = true;
+					pause();
+					return true;
+				}
+				if (keyCode == Input.Keys.ESCAPE && enPause == true){
+					pause.getSprite().setAlpha(0);
+					
+					enPause = false;
+					return true;
+					}
 				return false;
 			}
+				
 		});
 		Gdx.input.setInputProcessor(stage);
 	}
@@ -84,6 +99,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	@Override
 	public void render(float delta)
 	{
+		System.out.println(enPause);
 		ia.play();
 		if (new Random().nextInt() % 300 == 1)
 			entitiesToRender.add(new Gap(1100, 200));
@@ -91,6 +107,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
 		stage.getSpriteBatch().begin();
+		
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		bg.render(stage.getSpriteBatch());
 		entitiesToRender.removeAll(entitiesToRemove);
@@ -102,7 +119,18 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		buchers.render(stage.getSpriteBatch(), animTime);
 		stage.getSpriteBatch().draw(tree.getFrame(animTime), tree.getX(),
 				tree.getY());
+		
+			if(enPause == true){
+				pause.getSprite().draw(stage.getSpriteBatch());
+				 
+				
+			}
+			
+			
+		
 		stage.getSpriteBatch().end();
+			
+		
 	}
 
 	public void changeMode()
@@ -139,7 +167,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	@Override
 	public void pause()
 	{
-		// TODO Auto-generated method stub
+		 
 
 	}
 
