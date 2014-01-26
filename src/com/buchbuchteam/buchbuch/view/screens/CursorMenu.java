@@ -1,13 +1,8 @@
 package com.buchbuchteam.buchbuch.view.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-
 public class CursorMenu extends Sprite
 {
 
@@ -20,33 +15,32 @@ public class CursorMenu extends Sprite
 		super(new Texture(Gdx.files.internal("img/menu/cursor.png")), width,
 				height);
 
-		y = MenuScreen.jouerY;	
+		y = MenuScreen.jouerY;
 		setPosition(x, y);
-		
-	}
 
-	
+	}
 
 	public void monter()
 	{
-		if (e>=1)
-		y = y+47; 
+		if (e <= 1)
+			return;
+		y = y + 47;
 		e--;
 		setY(y);
-		
+
 	}
 
 	public int getPosition()
 	{
 		return e;
 	}
-	
+
 	public void descendre()
 	{
-		if (e<=5)
-			y = y-47; 
-			e++;
-			setY(y);
-			}
-
+		if (e >= 5)
+			return;
+		y = y - 47;
+		e++;
+		setY(y);
+	}
 }

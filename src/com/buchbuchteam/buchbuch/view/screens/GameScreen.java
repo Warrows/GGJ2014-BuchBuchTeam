@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.buchbuchteam.buchbuch.control.Human;
 import com.buchbuchteam.buchbuch.control.IA;
-import com.buchbuchteam.buchbuch.model.Speed;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.Entity;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
