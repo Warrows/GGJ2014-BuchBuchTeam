@@ -101,7 +101,7 @@ public class MenuScreen extends ScreenMaster
 		bgFrames[1] = new Sprite(new Texture(
 				Gdx.files.internal("img/menu/bgmenu2.png")), 0, 0, 960, 640);
 
-		bgAnim = new Animation(0.6F, bgFrames);
+		bgAnim = new Animation(0.2F, bgFrames);
 		bgAnim.setPlayMode(Animation.LOOP);
 	}
 
@@ -109,10 +109,11 @@ public class MenuScreen extends ScreenMaster
 	{
 
 		stage.getSpriteBatch().begin();
+		
 		stage.getSpriteBatch().draw(bgAnim.getKeyFrame(delta), 0, 0);
 		
 		
-		sprite.draw(stage.getSpriteBatch());
+	
 		curseur.draw(stage.getSpriteBatch());
 		stage.getSpriteBatch().end();
 
