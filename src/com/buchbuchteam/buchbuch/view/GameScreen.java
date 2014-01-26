@@ -27,7 +27,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	private Set<Entity> entitiesToRender;
 	private Set<Entity> entitiesToRemove;
 
-	private GameScreen()
+	public GameScreen()
 	{
 		super("img/game/background/bggame.png");
 		animTime = 0;
