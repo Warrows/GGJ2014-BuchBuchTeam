@@ -1,64 +1,62 @@
 package com.buchbuchteam.buchbuch.view.screens;
 
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-public class CreditScreen extends ScreenMaster
-{
-
-	protected CreditScreen()
-	{
-		super("img/menu/bgmenu.png");
+public class CreditScreen extends ScreenMaster {
+	Stage stage;
+	protected CreditScreen() {
+		super("img/credits/bg.png");
 		stage = new Stage();
 	}
 
-	@Override
-	public void render(float delta)
-	{
-		// TODO Auto-generated method stub
+	public void render(float delta) {
+		bgRender();
+		
+		stage.addListener(new InputListener()
+		{
+			public boolean keyDown(InputEvent event, int keyCode)
+			{
+				if (keyCode == Input.Keys.ESCAPE )
+					
+				{
+
+					 ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new MenuScreen());
+					
+					
+					return true;
+				}
+			
+				return false;
+			}
+		});
+		
+	Gdx.input.setInputProcessor(stage);
+	}
+
+	public void resize(int width, int height) {
 
 	}
 
-	@Override
-	public void resize(int width, int height)
-	{
-		// TODO Auto-generated method stub
+	public void show() {
 
 	}
 
-	@Override
-	public void show()
-	{
-		// TODO Auto-generated method stub
+	public void hide() {
 
 	}
 
-	@Override
-	public void hide()
-	{
-		// TODO Auto-generated method stub
+	public void pause() {
+	}
+
+	public void resume() {
 
 	}
 
-	@Override
-	public void pause()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void resume()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void dispose()
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-}
+	public void dispose() {
+	}}
