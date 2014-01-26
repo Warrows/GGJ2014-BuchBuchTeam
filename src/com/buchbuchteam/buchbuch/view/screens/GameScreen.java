@@ -81,11 +81,11 @@ public class GameScreen extends ScreenMaster
 					human.down();
 					return true;
 				}
-				if (keyCode == Input.Keys.A)
+				/*if (keyCode == Input.Keys.A)
 				{
 					changeMode();
 					return true;
-				}
+				}*/
 				return false;
 			}
 

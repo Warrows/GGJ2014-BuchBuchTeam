@@ -22,6 +22,7 @@ public class QTE extends ScreenMaster implements InputProcessor
 	private double score;
 	private boolean left;
 	private Sprite needle;
+	private Sound musique2;
 
 	public QTE()
 	{
@@ -55,13 +56,17 @@ public class QTE extends ScreenMaster implements InputProcessor
 			}
 		});
 		Gdx.input.setInputProcessor(stage);
+		 musique2 = Gdx.audio.newSound(Gdx.files.internal("sounds/qte.wav"));
+		 musique2.play();
+		
 	}
 
 	@Override
 	public void render(float delta)
 	{
 		super.bgRender();
-
+		
+		
 		play();
 
 		animTime += Gdx.graphics.getDeltaTime();
@@ -125,6 +130,7 @@ public class QTE extends ScreenMaster implements InputProcessor
 			{
 				buchBuchWon();
 				GameScreen.getInstance().freeEntities();
+				
 				return;
 			}
 			if (score > 100)
@@ -138,6 +144,8 @@ public class QTE extends ScreenMaster implements InputProcessor
 
 	private void buchBuchWon()
 	{
+		musique2.stop();
+	
 		Sound musique = Gdx.audio.newSound(Gdx.files.internal("sounds/timber.wav"));
 		musique.play();
 		Team.getInstance().setAttacking(false);
@@ -158,6 +166,8 @@ public class QTE extends ScreenMaster implements InputProcessor
 
 	private void treeWon()
 	{
+	
+		musique2.stop();
 		((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
 				.setScreen(GameScreen.getInstance());
 		GameScreen.getInstance().resetInputProc();
