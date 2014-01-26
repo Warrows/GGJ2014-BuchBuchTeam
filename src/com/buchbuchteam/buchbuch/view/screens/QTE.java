@@ -3,6 +3,8 @@ package com.buchbuchteam.buchbuch.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,13 +16,12 @@ import com.buchbuchteam.buchbuch.view.Key;
 
 public class QTE extends ScreenMaster implements InputProcessor
 {
-
 	protected Key[] keys;
 	private float animTime;
 	private Stage stage;
-	private BackGround bg;
 	private double score;
 	private boolean left;
+	private Sprite needle;
 
 	public QTE()
 	{
@@ -30,7 +31,8 @@ public class QTE extends ScreenMaster implements InputProcessor
 		keys[0] = new Key(0);
 		keys[1] = new Key(1);
 
-		bg = new BackGround();
+		needle = new Sprite(new Texture("img/game/QTE/aiguille.png"));
+
 		stage = new Stage(960, 640, false);
 		score = 50;
 		left = true;
@@ -70,6 +72,12 @@ public class QTE extends ScreenMaster implements InputProcessor
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		stage.getSpriteBatch().draw(keys[1].getFrame(animTime), 240, 25);
 		stage.getSpriteBatch().draw(keys[0].getFrame(animTime), 600, 25);
+		if (GameScreen.getInstance().getHuman().isBuchBuch())
+			stage.getSpriteBatch().draw(needle, 480-54, 128, 54, 0, 108, 486, 1, 1,
+					(float) (((50 - score) / 50 * 90)));
+		else
+			stage.getSpriteBatch().draw(needle, 480-54, 128, 54, 0, 108, 486, 1, 1,
+					(float) (((score - 50) / 50 * 90)));
 		stage.getSpriteBatch().end();
 	}
 
@@ -110,8 +118,7 @@ public class QTE extends ScreenMaster implements InputProcessor
 				GameScreen.getInstance().freeEntities();
 				return;
 			}
-		}
-		else
+		} else
 		{
 			if (score < 0)
 			{
@@ -124,7 +131,7 @@ public class QTE extends ScreenMaster implements InputProcessor
 				treeWon();
 				GameScreen.getInstance().freeEntities();
 				return;
-			}			
+			}
 		}
 	}
 
