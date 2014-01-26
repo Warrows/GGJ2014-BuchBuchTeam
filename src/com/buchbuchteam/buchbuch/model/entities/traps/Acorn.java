@@ -22,7 +22,7 @@ public class Acorn extends MoveableEntity
 	public TextureRegion getFrame(float Time)
 	{
 		x -= Speed.projectile * Speed.walk;
-		if (x < -64)
+		if (x < 0)
 			GameScreen.getInstance().remove(this);
 		return acornSprite;
 	}

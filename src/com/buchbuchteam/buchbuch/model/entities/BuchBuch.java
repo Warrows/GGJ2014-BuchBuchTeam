@@ -540,4 +540,9 @@ public class BuchBuch extends MoveableEntity
 	{
 		dead = b;
 	}
+
+	public boolean isDead()
+	{
+		return dead;
+	}
 }
