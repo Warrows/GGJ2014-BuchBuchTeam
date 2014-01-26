@@ -6,6 +6,7 @@ import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -35,10 +36,13 @@ public class GameScreen extends ScreenMaster
 	private Set<Entity> entitiesToRemove;
 	private Pause pause;
 	private boolean enPause = false;
+	private Sound musique;
 
 	private GameScreen()
 	{
 		super("img/game/background/bggame.png");
+		musique = Gdx.audio.newSound(Gdx.files.internal("sounds/Keyboard-Cat-Song.wav"));
+		musique.loop();
 		animTime = 0;
 		stage = new Stage(960, 640, false);
 
@@ -50,6 +54,7 @@ public class GameScreen extends ScreenMaster
 		ia = new IA();
 		entitiesToRemove = new HashSet<Entity>();
 		pause = new Pause("img/game/background/pause.png");
+		
 		stage.addListener(new InputListener()
 		{
 			public boolean keyDown(InputEvent event, int keyCode)
