@@ -60,7 +60,6 @@ public abstract class ScreenMaster  implements Screen {
 		public abstract void hide();
 
 		public abstract void pause();
-		public abstract void resume();
 
 		public abstract void dispose();
 		
