@@ -1,6 +1,7 @@
 package com.buchbuchteam.buchbuch.view.screens;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
@@ -87,8 +88,8 @@ public class GameScreen extends ScreenMaster
 	{
 		System.out.println(human.getScore());
 		ia.play();
-		//if (new Random().nextInt() % 300 == 1)
-			//entitiesToRender.add(new Gap(1100, 200));
+		// if (new Random().nextInt() % 300 == 1)
+		// entitiesToRender.add(new Gap(1100, 200));
 
 		animTime += Gdx.graphics.getDeltaTime();
 		stage.act(delta);
@@ -206,24 +207,34 @@ public class GameScreen extends ScreenMaster
 
 	public boolean hasRoot(float x)
 	{
-		for (Entity g : entitiesToRender)
+		Iterator<Entity> it = entitiesToRender.iterator();
+		while (it.hasNext())
 		{
+			Entity g = it.next();
 			if (!(g instanceof Root))
 				continue;
-			if (x > ((Root) g).getX()+48 && x < 80 + ((Root) g).getX())
+			if (x > ((Root) g).getX() + 48 && x < 80 + ((Root) g).getX())
+			{
+				it.remove();
 				return true;
+			}
 		}
 		return false;
 	}
 
 	public boolean hasAcorn(float x)
 	{
-		for (Entity g : entitiesToRender)
+		Iterator<Entity> it = entitiesToRender.iterator();
+		while (it.hasNext())
 		{
+			Entity g = it.next();
 			if (!(g instanceof Acorn))
 				continue;
 			if (x > ((Acorn) g).getX() && x < 32 + ((Acorn) g).getX())
+			{
+				it.remove();
 				return true;
+			}
 		}
 		return false;
 	}

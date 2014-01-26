@@ -259,4 +259,9 @@ public class Team implements Controllable
 	{
 		team.getFirst().setKo(b);
 	}
+
+	public boolean isFirst(BuchBuch buchBuch)
+	{
+		return buchBuch.equals(team.getFirst());
+	}
 }

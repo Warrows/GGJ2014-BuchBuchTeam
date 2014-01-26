@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.buchbuchteam.buchbuch.model.Speed;
 import com.buchbuchteam.buchbuch.model.Team;
+import com.buchbuchteam.buchbuch.view.screens.GameOver;
 import com.buchbuchteam.buchbuch.view.screens.GameScreen;
 import com.buchbuchteam.buchbuch.view.screens.QTE;
 
@@ -80,6 +81,8 @@ public class BuchBuch extends MoveableEntity
 
 	private void die()
 	{
+		if (Team.getInstance().isFirst(this))
+			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameOver());
 		if (!dead)
 		{
 			setDead(true);
