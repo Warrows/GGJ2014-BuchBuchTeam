@@ -30,7 +30,7 @@ public class GameOver extends ScreenMaster
 		font = new BitmapFont(Gdx.files.internal("data/game.fnt"));
 		stage = new Stage();
 	
-		cursor = new CursorMenu("img/menu/cursor.png", 2);
+		cursor = new CursorMenu("img/characters/jack/char_jackCours_03.png", 2);
 		
 		stage.addListener(new InputListener()
 		{
