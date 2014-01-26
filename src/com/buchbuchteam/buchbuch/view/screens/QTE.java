@@ -3,6 +3,7 @@ package com.buchbuchteam.buchbuch.view.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -113,6 +114,7 @@ public class QTE extends ScreenMaster implements InputProcessor
 			}
 			if (score > 100)
 			{
+				
 				buchBuchWon();
 				GameScreen.getInstance().freeEntities();
 				return;
@@ -136,6 +138,8 @@ public class QTE extends ScreenMaster implements InputProcessor
 
 	private void buchBuchWon()
 	{
+		Sound musique = Gdx.audio.newSound(Gdx.files.internal("sounds/timber.wav"));
+		musique.play();
 		Team.getInstance().setAttacking(false);
 		Team.getInstance().setLeaving(true);
 		MovingTree.getInstance().kill();
@@ -147,6 +151,9 @@ public class QTE extends ScreenMaster implements InputProcessor
 		Human h = GameScreen.getInstance().getHuman();
 		if (h.isBuchBuch())
 			h.addScore(50);
+		else
+			((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
+			.setScreen(new GameOver());			
 	}
 
 	private void treeWon()

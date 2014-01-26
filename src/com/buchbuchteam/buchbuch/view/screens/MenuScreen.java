@@ -25,6 +25,7 @@ public class MenuScreen extends ScreenMaster
 			- buttonHeight - espaceEntreButton, quitterY = creditsY
 			- buttonHeight - espaceEntreButton;
 	public Stage stage;
+	private Sprite sprite;
 
 	private CursorMenu curseur;
 
@@ -35,6 +36,8 @@ public class MenuScreen extends ScreenMaster
 		curseur = new CursorMenu("img/menu/cursor.png");
 		stage = new Stage();
 		curseur.setPosition(curseur.getX(), curseur.getY());
+		sprite = new Sprite(new Texture(Gdx.files.internal("img/menu/bgmenu2.png")));
+		sprite.setPosition(0, 0);
 		
 		
 		
@@ -108,8 +111,10 @@ public class MenuScreen extends ScreenMaster
 
 		stage.getSpriteBatch().begin();
 		stage.getSpriteBatch().draw(bgAnim.getKeyFrame(delta), 0, 0);
+		
+		
+		sprite.draw(stage.getSpriteBatch());
 		curseur.draw(stage.getSpriteBatch());
-
 		stage.getSpriteBatch().end();
 
 	}
