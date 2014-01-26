@@ -49,6 +49,9 @@ ko = 0;
 		if (!leaving && ko <= 0)
 			frame = go(stateTime, frame);
 		
+		if (!jumping && GameScreen.getInstance().hasGap(x))
+			die();
+		
 		if(crouching)
 			frame = crouchFrame();
 			
@@ -65,6 +68,12 @@ ko = 0;
 			frame = koFrame(stateTime);
 		
 		return frame;
+	}
+
+	private void die()
+	{
+		// TODO Auto-generated method stub
+		setKo(true);
 	}
 
 	private TextureRegion koFrame(float stateTime)

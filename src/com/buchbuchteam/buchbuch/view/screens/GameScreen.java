@@ -18,7 +18,7 @@ import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 import com.buchbuchteam.buchbuch.model.entities.traps.Gap;
 import com.buchbuchteam.buchbuch.view.BackGround;
 
-public class GameScreen extends ScreenMaster implements InputProcessor
+public class GameScreen extends ScreenMaster
 {
 	private static GameScreen instance;
 	private Stage stage;
@@ -43,7 +43,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		tree = MovingTree.getInstance();
 		human = new Human();
 		ia = new IA();
-		entitiesToRender = new HashSet<Entity>();
 		entitiesToRemove = new HashSet<Entity>();
 
 		stage.addListener(new InputListener()
@@ -79,6 +78,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 			}
 		});
 		Gdx.input.setInputProcessor(stage);
+		freeEntities();
 	}
 
 	@Override
@@ -94,6 +94,7 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		stage.getSpriteBatch().draw(bgSprite, 0, 0);
 		bg.render(stage.getSpriteBatch());
 		entitiesToRender.removeAll(entitiesToRemove);
+		System.out.println(entitiesToRender.size());
 		for (Entity entity : entitiesToRender)
 		{
 			stage.getSpriteBatch().draw(entity.getFrame(animTime),
@@ -157,62 +158,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 
 	}
 
-	@Override
-	public boolean keyDown(int keycode)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	public static GameScreen getInstance()
 	{
 		if (instance == null)
@@ -243,6 +188,20 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	public void freeEntities()
 	{
 		entitiesToRender = new HashSet<Entity>();
+	}
+
+	public boolean hasGap(float x)
+	{
+		for (Entity g: entitiesToRender)
+		{
+			//System.out.println(g);
+			if (!(g instanceof Gap))
+				continue;
+			System.out.println("    a    ");
+			if (x > ((Gap)g).getX() && x < 64 + ((Gap)g).getX())
+				return true;
+		}
+		return false;
 	}
 
 }

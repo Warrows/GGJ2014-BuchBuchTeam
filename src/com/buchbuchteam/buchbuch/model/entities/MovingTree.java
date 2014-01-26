@@ -91,6 +91,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 
 	private void fireAcorn()
 	{
+		System.out.println("a");
 		GameScreen.getInstance().add(new Acorn(x+64, y+16));
 	}
 

@@ -13,6 +13,7 @@ public class Acorn extends MoveableEntity
 
 	public Acorn(float x, float y)
 	{
+		System.out.println("b");
 		this.x = x;
 		this.y = y;
 	}
