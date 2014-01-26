@@ -94,23 +94,17 @@ public class CursorMenu {
 			System.out.println("ENTER");
 			switch (e){
 			case 1: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen());
-					System.out.println("JOUER");
 				break;
 			case 2: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new ControlScreen());
-			System.out.println("CONTROL");
 				break;
 			case 3: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new HighScoreScreen());
-			System.out.println("HIGH SCORE");
 				break;
 			case 4: ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new ControlScreen());
-			System.out.println("CREDITS");
 				break;
 			case 5: Gdx.app.exit();
-			System.out.println("QUITTER");
 				break;
 				
 			default: 
-				System.out.println("NONE");
 			}
 			
 			
