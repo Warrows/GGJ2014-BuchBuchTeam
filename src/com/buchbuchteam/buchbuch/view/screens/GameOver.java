@@ -14,7 +14,6 @@ public class GameOver extends ScreenMaster
 	
 	protected BitmapFont font;
 	private Stage stage;
-	protected BoutonMenu restart, exit;
 	
 	public static final int buttonWidth = 250, buttonHeight=40;
 	public static final int espaceEntreButton = 15;

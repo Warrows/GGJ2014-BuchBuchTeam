@@ -38,4 +38,8 @@ public class CursorMenu extends Sprite
 		e++;
 		setY(y);
 	}
+	
+	public int getPosition(){
+		return e;
+	}
 }
