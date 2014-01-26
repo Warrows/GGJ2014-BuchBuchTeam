@@ -55,7 +55,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 	{
 		wait--;
 		if (x > 800)
-			x--;
+			x-=2;
 		if (dying > 0)
 		{
 			dying--;
