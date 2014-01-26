@@ -1,14 +1,26 @@
 package com.buchbuchteam.buchbuch.view.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.buchbuchteam.buchbuch.view.Game;
 
 public class GameOver extends ScreenMaster
 {
 	
 	protected BitmapFont font;
 	private Stage stage;
+	protected BoutonMenu restart, exit;
+	
+	public static final int buttonWidth = 250, buttonHeight=40;
+	public static final int espaceEntreButton = 15;
+	public static final int buttonX = Game.WIDTH/2 - buttonWidth / 2;
+	public static final int restartY = Game.HEIGHT /2, 
+							exitY = restartY - buttonHeight - espaceEntreButton;
 	
 	public GameOver()
 	{
@@ -16,8 +28,26 @@ public class GameOver extends ScreenMaster
 		stage = new Stage();
 		font = new BitmapFont(Gdx.files.internal("data/game.fnt"));
 		stage = new Stage();
+	
+		
+		stage.addListener(new InputListener()
+		{
+			public boolean keyDown(InputEvent event, int keyCode)
+			{
+				if (keyCode == Input.Keys.ENTER){
+					GameScreen.resetInstance();
+					((com.badlogic.gdx.Game) Gdx.app.getApplicationListener())
+					.setScreen(GameScreen.getInstance());
+					return true;
+				}
+				return false;
+			}
+		});
+		Gdx.input.setInputProcessor(stage);
 	}
 
+	
+	
 	@Override
 	public void render(float delta)
 	{

@@ -16,7 +16,6 @@ public class CursorMenu
 
 	private Stage stage;
 	private Sprite sprite;
-	private String file;
 	public static final int width = 40, height = 40, x = 310;
 	public static int Ay = 55;
 	public static final int j = 1;
@@ -97,7 +96,6 @@ public class CursorMenu
 			case 5:
 				Gdx.app.exit();
 				break;
-
 			default:
 				System.out.println("NONE");
 			}
