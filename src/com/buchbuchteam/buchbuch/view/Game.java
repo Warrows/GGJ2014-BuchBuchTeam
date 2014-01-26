@@ -1,5 +1,6 @@
 package com.buchbuchteam.buchbuch.view;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -13,6 +14,7 @@ public class Game {
 		cfg.useGL20 = true;
 		cfg.width = WIDTH;
 		cfg.height = HEIGHT;
+		cfg.addIcon("img/characters/tree/acorn/Gland.png", Files.FileType.Internal);
 		
 		new LwjglApplication(new BushBushGame(), cfg);
 	}
