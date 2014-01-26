@@ -15,11 +15,13 @@ import com.buchbuchteam.buchbuch.control.IA;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.Entity;
 import com.buchbuchteam.buchbuch.model.entities.MovingTree;
+import com.buchbuchteam.buchbuch.model.entities.traps.Acorn;
 import com.buchbuchteam.buchbuch.model.entities.traps.Gap;
+import com.buchbuchteam.buchbuch.model.entities.traps.Root;
 import com.buchbuchteam.buchbuch.view.BackGround;
 import com.buchbuchteam.buchbuch.view.Pause;
 
-public class GameScreen extends ScreenMaster implements InputProcessor
+public class GameScreen extends ScreenMaster
 {
 	private static GameScreen instance;
 	private Stage stage;
@@ -45,7 +47,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		tree = MovingTree.getInstance();
 		human = new Human();
 		ia = new IA();
-		entitiesToRender = new HashSet<Entity>();
 		entitiesToRemove = new HashSet<Entity>();
 		pause = new Pause("img/game/background/pause.png");
 		stage.addListener(new InputListener()
@@ -94,12 +95,14 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 				
 		});
 		Gdx.input.setInputProcessor(stage);
+		freeEntities();
 	}
 
 	@Override
 	public void render(float delta)
 	{
-		System.out.println(enPause);
+		System.out.println(human.getScore());
+
 		ia.play();
 		if (new Random().nextInt() % 300 == 1)
 			entitiesToRender.add(new Gap(1100, 200));
@@ -138,8 +141,9 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 		human.toggleMode();
 		ia.toggleMode();
 	}
-	
-	public Human getHuman(){
+
+	public Human getHuman()
+	{
 		return human;
 	}
 
@@ -185,62 +189,6 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 
 	}
 
-	@Override
-	public boolean keyDown(int keycode)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyUp(int keycode)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean keyTyped(char character)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDown(int screenX, int screenY, int pointer, int button)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean mouseMoved(int screenX, int screenY)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean scrolled(int amount)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	public static GameScreen getInstance()
 	{
 		if (instance == null)
@@ -271,6 +219,42 @@ public class GameScreen extends ScreenMaster implements InputProcessor
 	public void freeEntities()
 	{
 		entitiesToRender = new HashSet<Entity>();
+	}
+
+	public boolean hasGap(float x)
+	{
+		for (Entity g : entitiesToRender)
+		{
+			if (!(g instanceof Gap))
+				continue;
+			if (x > ((Gap) g).getX() && x < 64 + ((Gap) g).getX())
+				return true;
+		}
+		return false;
+	}
+
+	public boolean hasRoot(float x)
+	{
+		for (Entity g : entitiesToRender)
+		{
+			if (!(g instanceof Root))
+				continue;
+			if (x > ((Root) g).getX() && x < 64 + ((Root) g).getX())
+				return true;
+		}
+		return false;
+	}
+
+	public boolean hasAcorn(float x)
+	{
+		for (Entity g : entitiesToRender)
+		{
+			if (!(g instanceof Acorn))
+				continue;
+			if (x > ((Acorn) g).getX() && x < 64 + ((Acorn) g).getX())
+				return true;
+		}
+		return false;
 	}
 
 }

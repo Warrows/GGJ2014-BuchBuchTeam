@@ -9,24 +9,27 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.buchbuchteam.buchbuch.control.Controllable;
 import com.buchbuchteam.buchbuch.model.Team;
 import com.buchbuchteam.buchbuch.model.entities.traps.Acorn;
+import com.buchbuchteam.buchbuch.model.entities.traps.Root;
 import com.buchbuchteam.buchbuch.view.screens.GameScreen;
 
 public class MovingTree extends MoveableEntity implements Controllable
 {
 	private static MovingTree instance;
-	
+
 	private float x, y;
 	private int firing;
+	private int rooting;
 	private int dying;
-	
+
 	private MovingTree()
 	{
 		this.x = 1000;
 		this.y = 240;
 		this.dying = 0;
+		this.rooting = 0;
 		cry();
 	}
-	
+
 	public void setFiring()
 	{
 		firing = 60;
@@ -37,25 +40,40 @@ public class MovingTree extends MoveableEntity implements Controllable
 	{
 		if (x > 700)
 			x--;
-		if (dying>0)
+		if (dying > 0)
 		{
-			dying --;
+			dying--;
 			if (dying == 0)
 			{
 				this.x = 1100;
 				this.y = 240;
 			}
-			return treeDie.getKeyFrames()[dying/20];
+			return treeDie.getKeyFrames()[dying / 20];
 		}
-				
-		if (firing>=0)
+
+		if (firing > 0)
 		{
-			firing --;
+			rooting = 0;
+			firing--;
 			if (firing == 10)
 				fireAcorn();
-			return acornFireAnim.getKeyFrames()[firing/20];
+			return acornFireAnim.getKeyFrames()[firing / 20];
+		}
+
+		if (rooting > 0)
+		{
+			firing = 0;
+			rooting--;
+			if (rooting == 10)
+				fireRoot();
+			return rootFireAnim.getKeyFrames()[rooting / 20];
 		}
 		return treeAnim.getKeyFrame(stateTime);
+	}
+
+	private void fireRoot()
+	{
+		GameScreen.getInstance().add(new Root(x + 32, y));
 	}
 
 	@Override
@@ -69,8 +87,9 @@ public class MovingTree extends MoveableEntity implements Controllable
 	{
 		return y;
 	}
-	
-	public static void cry(){
+
+	public static void cry()
+	{
 		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Tree.wav"));
 		sound.play(1.0f);
 		sound.loop();
@@ -91,15 +110,19 @@ public class MovingTree extends MoveableEntity implements Controllable
 
 	private void fireAcorn()
 	{
+
 		GameScreen.getInstance().add(new Acorn(x+64, y+16));
 		System.out.println("FIRE");
+
+		GameScreen.getInstance().add(new Acorn(x + 64, y + 16));
+
 	}
 
 	@Override
 	public void down()
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -111,10 +134,14 @@ public class MovingTree extends MoveableEntity implements Controllable
 	@Override
 	public void right()
 	{
-		// TODO Auto-generated method stub
-		
+		setRooting();
 	}
-	
+
+	private void setRooting()
+	{
+		rooting = 60;
+	}
+
 	public void kill()
 	{
 		dying = 120;
@@ -124,18 +151,45 @@ public class MovingTree extends MoveableEntity implements Controllable
 	private static Animation acornFireAnim;
 	{
 		Sprite[] treeFrames = new Sprite[3];
-		treeFrames[0] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_03.png")), 0,
-				0, 128, 128);
-		treeFrames[1] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_02.png")), 0,
-				0, 128, 128);
-		treeFrames[2] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/acorn/char_tree_gland_01.png")), 0,
-				0, 128, 128);
+		treeFrames[0] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/acorn/char_tree_gland_03.png")),
+				0, 0, 128, 128);
+		treeFrames[1] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/acorn/char_tree_gland_02.png")),
+				0, 0, 128, 128);
+		treeFrames[2] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/acorn/char_tree_gland_01.png")),
+				0, 0, 128, 128);
 		acornFireAnim = new Animation(0.2F, treeFrames);
 		acornFireAnim.setPlayMode(Animation.LOOP);
-	}	
+	}
+	private static Animation rootFireAnim;
+	{
+		Sprite[] treeFrames = new Sprite[3];
+		treeFrames[0] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/root/char_tree_racine03.png")),
+				0, 0, 128, 128);
+		treeFrames[1] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/root/char_tree_racine02.png")),
+				0, 0, 128, 128);
+		treeFrames[2] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/root/char_tree_racine01.png")),
+				0, 0, 128, 128);
+		rootFireAnim = new Animation(0.2F, treeFrames);
+		rootFireAnim.setPlayMode(Animation.LOOP);
+	}
 	private static Animation treeAnim;
 	{
 		Sprite[] treeFrames = new Sprite[3];
@@ -154,27 +208,40 @@ public class MovingTree extends MoveableEntity implements Controllable
 	private static Animation treeDie;
 	{
 		Sprite[] treeFrames = new Sprite[6];
-		treeFrames[0] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/death/char_tree_death06.png")), 0,
-				0, 128, 128);
-		treeFrames[1] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/death/char_tree_death05.png")), 0,
-				0, 128, 128);
-		treeFrames[2] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/death/char_tree_death04.png")), 0,
-				0, 128, 128);
-		treeFrames[3] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/death/char_tree_death03.png")), 0,
-				0, 128, 128);
-		treeFrames[4] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/death/char_tree_death02.png")), 0,
-				0, 128, 128);
-		treeFrames[5] = new Sprite(new Texture(
-				Gdx.files.internal("img/characters/tree/death/char_tree_death01.png")), 0,
-				0, 128, 128);
+		treeFrames[0] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/death/char_tree_death06.png")),
+				0, 0, 128, 128);
+		treeFrames[1] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/death/char_tree_death05.png")),
+				0, 0, 128, 128);
+		treeFrames[2] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/death/char_tree_death04.png")),
+				0, 0, 128, 128);
+		treeFrames[3] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/death/char_tree_death03.png")),
+				0, 0, 128, 128);
+		treeFrames[4] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/death/char_tree_death02.png")),
+				0, 0, 128, 128);
+		treeFrames[5] = new Sprite(
+				new Texture(
+						Gdx.files
+								.internal("img/characters/tree/death/char_tree_death01.png")),
+				0, 0, 128, 128);
 		treeDie = new Animation(0.1F, treeFrames);
 		treeDie.setPlayMode(Animation.LOOP);
 	}
+
 	public boolean isInplace()
 	{
 		return x <= 700;
