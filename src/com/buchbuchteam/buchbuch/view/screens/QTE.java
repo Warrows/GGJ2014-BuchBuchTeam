@@ -105,34 +105,16 @@ public class QTE extends ScreenMaster implements InputProcessor
 	{
 		score -= 0.05;
 		if (GameScreen.getInstance().getHuman().isBuchBuch())
-		{
 			if (score < 0)
-			{
 				treeWon();
-				GameScreen.getInstance().freeEntities();
-				return;
-			}
 			if (score > 100)
-			{
 				buchBuchWon();
-				GameScreen.getInstance().freeEntities();
-				return;
-			}
-		} else
-		{
+		else
 			if (score < 0)
-			{
 				buchBuchWon();
-				GameScreen.getInstance().freeEntities();
-				return;
-			}
 			if (score > 100)
-			{
 				treeWon();
-				GameScreen.getInstance().freeEntities();
-				return;
-			}
-		}
+		GameScreen.getInstance().freeEntities();
 	}
 
 	private void buchBuchWon()
