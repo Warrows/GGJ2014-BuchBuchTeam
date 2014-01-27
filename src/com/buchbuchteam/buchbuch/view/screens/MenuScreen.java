@@ -88,7 +88,6 @@ public class MenuScreen extends ScreenMaster
 				return false;
 			}
 		});
-		System.out.println("7");
 		Gdx.input.setInputProcessor(stage);
 	}
 
