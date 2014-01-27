@@ -268,6 +268,28 @@ public class GameScreen extends ScreenMaster
 		return false;
 	}
 
+	public Acorn getAcorn(float x){
+		
+		for (Entity e : entitiesToRender){
+			if (e instanceof Acorn && x > ((Acorn) e).getX() && x < 32 + ((Acorn) e).getX())
+			{
+				return (Acorn) e;
+			}
+		}
+		return null;
+	}
+	
+	public Root getRoot(float x){
+		
+		for (Entity e : entitiesToRender){
+			if (e instanceof Root && x > ((Root) e).getX() && x < 128 + ((Root) e).getX())
+			{
+				return (Root) e;
+			}
+		}
+		return null;
+	}
+	
 	public boolean hasAcorn(float x)
 	{
 		Iterator<Entity> it = entitiesToRender.iterator();
@@ -276,9 +298,9 @@ public class GameScreen extends ScreenMaster
 			Entity g = it.next();
 			if (!(g instanceof Acorn))
 				continue;
-			if (x > ((Acorn) g).getX() && x < 32 + ((Acorn) g).getX())
+			if (x >= ((Acorn) g).getX() && x <= 32 + ((Acorn) g).getX())
 			{
-				it.remove();
+				System.out.println("X ===> " + x + "\nGET X ===> "+((Acorn) g).getX());
 				return true;
 			}
 		}

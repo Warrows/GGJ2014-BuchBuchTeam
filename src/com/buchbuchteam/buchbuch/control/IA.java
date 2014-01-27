@@ -49,12 +49,8 @@ public class IA extends Player
 		int i = new Random().nextInt() % 100;
 		if (i == 0)
 			right();
-		if (i == 1)
-			up();
-		if (i == 2)
+		if (i == 1 || i == 2 || i == 3)
 			left();
-		if (i == 3)
-			down();
 	}
 
 	@Override

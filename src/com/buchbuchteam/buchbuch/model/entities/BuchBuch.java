@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.buchbuchteam.buchbuch.model.Speed;
 import com.buchbuchteam.buchbuch.model.Team;
+import com.buchbuchteam.buchbuch.model.entities.traps.Acorn;
 import com.buchbuchteam.buchbuch.view.screens.GameOver;
 import com.buchbuchteam.buchbuch.view.screens.GameScreen;
 import com.buchbuchteam.buchbuch.view.screens.QTE;
@@ -59,8 +60,15 @@ public class BuchBuch extends MoveableEntity
 			frame = go(stateTime, frame);
 		if ((!jumping) && GameScreen.getInstance().hasRoot(x))
 			die();
-		if ((!crouching) && GameScreen.getInstance().hasAcorn(x))
-			die();
+		if ((!crouching) && GameScreen.getInstance().hasAcorn(x)){
+			Acorn a = GameScreen.getInstance().getAcorn(x);
+			a.setDeath(true, this);
+			if (!dead)
+			{
+				setDead(true);
+				deadState = 800;
+			}
+		}
 
 		if (dead)
 			frame = deadFrame(stateTime);
@@ -83,7 +91,7 @@ public class BuchBuch extends MoveableEntity
 		return frame;
 	}
 
-	private void die()
+	public void die()
 	{
 		if (GameScreen.getInstance().getHuman().isBuchBuch())
 		{
@@ -92,11 +100,6 @@ public class BuchBuch extends MoveableEntity
 						.setScreen(new GameOver());
 		} else
 			GameScreen.getInstance().getHuman().addScore(50);
-		if (!dead)
-		{
-			setDead(true);
-			deadState = 800;
-		}
 		// Team.getInstance().setToKill(true);
 	}
 
