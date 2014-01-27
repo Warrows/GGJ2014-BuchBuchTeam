@@ -25,7 +25,7 @@ public class Root extends MoveableEntity
 	public TextureRegion getFrame(float Time)
 	{
 		x -= Speed.projectile * Speed.walk;
-		if (x < 0)
+		if (x < -128)
 			GameScreen.getInstance().remove(this);
 		if (spawn > 0)
 		{
