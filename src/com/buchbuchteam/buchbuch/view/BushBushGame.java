@@ -11,7 +11,7 @@ public class BushBushGame extends com.badlogic.gdx.Game{
 
 	
 	public void create() {
-		setScreen(new MenuScreen());
+		setScreen(MenuScreen.getInstance());
 		
 	}
 

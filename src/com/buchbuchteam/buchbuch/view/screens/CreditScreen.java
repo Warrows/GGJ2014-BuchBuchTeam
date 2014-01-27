@@ -13,10 +13,6 @@ public class CreditScreen extends ScreenMaster {
 	protected CreditScreen() {
 		super("img/credits/creditsBackGround.png");
 		stage = new Stage();
-	}
-
-	public void render(float delta) {
-		bgRender();
 		
 		stage.addListener(new InputListener()
 		{
@@ -26,7 +22,7 @@ public class CreditScreen extends ScreenMaster {
 					
 				{
 
-					 ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new MenuScreen());
+					 ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(MenuScreen.getInstance());
 					
 					
 					return true;
@@ -35,8 +31,12 @@ public class CreditScreen extends ScreenMaster {
 				return false;
 			}
 		});
+		Gdx.input.setInputProcessor(stage);
 		
-	Gdx.input.setInputProcessor(stage);
+	}
+
+	public void render(float delta) {
+		bgRender();
 	}
 
 	public void resize(int width, int height) {

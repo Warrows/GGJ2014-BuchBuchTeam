@@ -25,7 +25,7 @@ public class HighScoreScreen extends ScreenMaster {
 					
 				{
 
-					 ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new MenuScreen());
+					 ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(MenuScreen.getInstance());
 					
 					
 					return true;

@@ -13,11 +13,7 @@ public class ControlScreen extends ScreenMaster{
 	public ControlScreen() {
 		super("img/control/controls.png");
 		stage = new Stage();
-	}
-
-	public void render(float delta) {
-		super.bgRender();
-
+		
 		stage.addListener(new InputListener()
 		{
 			public boolean keyDown(InputEvent event, int keyCode)
@@ -26,7 +22,7 @@ public class ControlScreen extends ScreenMaster{
 					
 				{
 
-					 ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(new MenuScreen());
+					 ((com.badlogic.gdx.Game) Gdx.app.getApplicationListener()).setScreen(MenuScreen.getInstance());
 					
 					
 					return true;
@@ -36,6 +32,10 @@ public class ControlScreen extends ScreenMaster{
 			}
 		});
 		Gdx.input.setInputProcessor(stage);
+	}
+
+	public void render(float delta) {
+		super.bgRender();
 	}
 
 	public void resize(int width, int height) {
