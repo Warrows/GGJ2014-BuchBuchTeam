@@ -33,18 +33,12 @@ public class MenuScreen extends ScreenMaster
 	private MenuScreen()
 	{
 		super("img/menu/bgmenu.png", "img/menu");
-		System.out.println("1");
 		curseur = new CursorMenu("img/menu/cursor.png");
-		System.out.println("2");
 		stage = new Stage();
-		System.out.println("3");
 		curseur.setPosition(curseur.getX(), curseur.getY());
-		System.out.println("4");
 		sprite = new Sprite(new Texture(Gdx.files.internal("img/menu/bgmenu2.png")));
-		System.out.println("5");
 		sprite.setPosition(0, 0);
-		
-		System.out.println("6");		
+
 		stage.addListener(new InputListener()
 		{
 			public boolean keyDown(InputEvent event, int keyCode)
