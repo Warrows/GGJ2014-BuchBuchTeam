@@ -300,7 +300,7 @@ public class GameScreen extends ScreenMaster
 				continue;
 			if (x >= ((Acorn) g).getX() && x <= 32 + ((Acorn) g).getX())
 			{
-				System.out.println("X ===> " + x + "\nGET X ===> "+((Acorn) g).getX());
+				//System.out.println("X ===> " + x + "\nGET X ===> "+((Acorn) g).getX());
 				return true;
 			}
 		}
