@@ -42,14 +42,14 @@ public class IA extends Player
 		
 			int r = new Random().nextInt() % 5;
 			r = Math.abs(r);
-			System.out.println(r);
+			//System.out.println(r);
 			int x = Team.getInstance().getX(0);
 			int i = 4;
 			
-			if ( GameScreen.getInstance().hasRoot(x+60) ){
+			if ( GameScreen.getInstance().hasRoot(x+32) ){
 				//if ( r==0 || r==1 || r ==2)
 					i = 1;
-			} else if ( GameScreen.getInstance().hasAcorn(x+60) ){
+			} else if ( GameScreen.getInstance().hasAcorn(x+32) ){
 				//if (r==0 || r==1 || r ==2)
 					i = 2;
 			} else if(r==3 || r==4) {

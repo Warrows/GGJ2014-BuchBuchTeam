@@ -39,6 +39,8 @@ public class Acorn extends MoveableEntity
 		if (x < 0)
 			GameScreen.getInstance().remove(this);
 		
+		acornSprite.setOrigin(16, 16);
+		acornSprite.setRotation(Time*45);
 		return acornSprite;
 	}
 
