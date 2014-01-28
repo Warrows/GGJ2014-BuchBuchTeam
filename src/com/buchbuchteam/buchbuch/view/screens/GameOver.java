@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.buchbuchteam.buchbuch.model.entities.MovingTree;
 import com.buchbuchteam.buchbuch.view.Game;
 
 public class GameOver extends ScreenMaster
@@ -31,7 +32,8 @@ public class GameOver extends ScreenMaster
 		stage = new Stage();
 	
 		cursor = new CursorMenu("img/menu/cursor.png", 2);
-		
+		GameScreen.getMusique().stop();
+		MovingTree.getInstance().stopcry();
 		stage.addListener(new InputListener()
 		{
 			public boolean keyDown(InputEvent event, int keyCode)

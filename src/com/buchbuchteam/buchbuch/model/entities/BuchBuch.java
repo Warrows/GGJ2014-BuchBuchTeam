@@ -543,7 +543,6 @@ public class BuchBuch extends MoveableEntity
 	{
 		Sound musique = Gdx.audio.newSound(Gdx.files.internal("sounds/buch_death.wav"));
 		musique.play();
-		GameScreen.getMusique().stop();
 		dead = b;
 	}
 

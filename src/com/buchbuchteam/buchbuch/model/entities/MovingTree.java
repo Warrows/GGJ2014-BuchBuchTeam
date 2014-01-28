@@ -21,6 +21,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 	private int rooting;
 	private int dying;
 	private int wait;
+	private static Sound sound;
 
 	// TODO wait 90
 	// TODO sortie QTE tree
@@ -101,7 +102,7 @@ public class MovingTree extends MoveableEntity implements Controllable
 
 	public static void cry()
 	{
-		Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Tree.wav"));
+		sound = Gdx.audio.newSound(Gdx.files.internal("sounds/Tree.wav"));
 		sound.play();
 		sound.loop();
 	}
@@ -281,5 +282,10 @@ public class MovingTree extends MoveableEntity implements Controllable
 	{
 		instance = new MovingTree();
 
+	}
+
+	public void stopcry() {
+		
+		sound.stop();
 	}
 }
