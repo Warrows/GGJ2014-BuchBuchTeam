@@ -30,7 +30,8 @@ public class Acorn extends MoveableEntity
 	public TextureRegion getFrame(float Time)
 	{
 		if (isDead){
-			x += Speed.projectile;
+			x += 2;
+			y -= 1;
 			return acornDeath(Time);
 		} else {
 			x -= Speed.projectile * Speed.walk;
