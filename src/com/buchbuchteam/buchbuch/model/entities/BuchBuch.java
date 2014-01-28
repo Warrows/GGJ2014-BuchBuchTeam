@@ -100,6 +100,12 @@ public class BuchBuch extends MoveableEntity
 						.setScreen(new GameOver());
 		} else
 			GameScreen.getInstance().getHuman().addScore(50);
+		
+		 if (!dead)
+		 {
+			 setDead(true);
+			 deadState = 800;
+		 }
 		// Team.getInstance().setToKill(true);
 	}
 

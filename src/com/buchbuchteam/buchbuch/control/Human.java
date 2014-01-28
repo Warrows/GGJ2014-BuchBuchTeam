@@ -61,7 +61,7 @@ public class Human extends Player
 		this.score -= points;
 	}
 
-	public double getScore()
+	public long getScore()
 	{
 		return score;
 	}

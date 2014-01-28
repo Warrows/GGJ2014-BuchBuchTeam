@@ -92,6 +92,7 @@ public class GameScreen extends ScreenMaster
 		});
 		Gdx.input.setInputProcessor(stage);
 		freeEntities();
+		changeMode();
 	}
 	
 	public static Sound getMusique() {
